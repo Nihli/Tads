@@ -8,12 +8,12 @@ b. public static double calculaAreaCircunferencia(double raio)
 <br>
 c. public static double calculaAreaTriangulo(double base, double
 altura)
-<br>
+
 Se qualquer método receber parâmetros negativos, deve-se levantar a exceção
 RuntimeException.
-<br>
+
 **Antes da criação da classe, crie uma classe de teste unitário, com pelo
 menos dois testes para cada método.**
-<br>
+
 No método main dessa classe crie uma estrutura para obter os parâmetro do
 teclado (com opção para o usuário escolher qual área quer calcular).
