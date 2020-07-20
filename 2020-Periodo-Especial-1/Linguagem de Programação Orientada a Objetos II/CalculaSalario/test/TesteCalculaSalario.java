@@ -95,7 +95,7 @@ public class TesteCalculaSalario {
          assertEquals(1872.0, resultado, 0.0);
      }
      
-      @Test
+     @Test
      public void testaSalarioLiquido3() {
          try{
             double salarioHora = 12.0;
