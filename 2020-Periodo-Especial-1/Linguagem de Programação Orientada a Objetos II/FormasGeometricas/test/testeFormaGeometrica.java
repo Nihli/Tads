@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 
+import formasgeometricas.Circunferencia;
+import formasgeometricas.Triangulo;
+import formasgeometricas.Retangulo;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -1,3 +1,5 @@
+package formasgeometricas;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +10,7 @@
  *
  * @author Lia
  */
-public class Circunferencia {
+public class Circunferencia implements FormaGeometrica{
     private double raio;
 
     public Circunferencia(double raio) {
@@ -23,7 +25,8 @@ public class Circunferencia {
         return raio;
     }
 
-    double area() {
+    @Override
+    public double area() {
         return (3.14*this.raio*this.raio);
     }
     

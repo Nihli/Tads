@@ -1,3 +1,5 @@
+package formasgeometricas;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,7 +10,7 @@
  *
  * @author Lia
  */
-public class Retangulo {
+public class Retangulo implements FormaGeometrica{
 
     private double lado1;
     private double lado2;
@@ -30,7 +32,8 @@ public class Retangulo {
         return this.lado2;
     }
 
-    double area() {
+    @Override
+    public double area() {
         return (this.lado1*this.lado2);
     }
 
