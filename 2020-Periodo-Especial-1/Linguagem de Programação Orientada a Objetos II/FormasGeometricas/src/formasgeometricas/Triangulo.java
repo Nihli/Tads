@@ -24,11 +24,11 @@ public class Triangulo implements FormaGeometrica{
         }
     }
 
-    double getBase() {
+    public double getBase() {
         return this.base;
     }
 
-    double getAltura() {
+    public double getAltura() {
         return this.altura;
     }
 

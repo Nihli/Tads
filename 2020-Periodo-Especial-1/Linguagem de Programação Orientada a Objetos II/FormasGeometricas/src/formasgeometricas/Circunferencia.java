@@ -21,7 +21,7 @@ public class Circunferencia implements FormaGeometrica{
         }
     }
 
-    double getRaio() {
+    public double getRaio() {
         return raio;
     }
 

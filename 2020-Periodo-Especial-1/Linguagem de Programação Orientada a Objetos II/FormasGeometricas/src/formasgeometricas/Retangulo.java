@@ -24,11 +24,11 @@ public class Retangulo implements FormaGeometrica{
         }
     }
 
-    double getLado1() {
+    public double getLado1() {
         return this.lado1;
     }
 
-    double getLado2() {
+    public double getLado2() {
         return this.lado2;
     }
 
@@ -37,7 +37,7 @@ public class Retangulo implements FormaGeometrica{
         return (this.lado1*this.lado2);
     }
 
-    double perimetro() {
+    public double perimetro() {
         return ((2*this.lado1)+(2*this.lado2));
     }
     

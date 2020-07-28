@@ -5,6 +5,7 @@
  */
 package formasgeometricas;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -17,16 +18,17 @@ public class UsaFormas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try{
         System.out.println("Bem-vindo! Quantas formas geométricas gostaria de criar?");
         Scanner scanner = new Scanner(System.in);
         
         int qtdFormas = scanner.nextInt();
-        FormaGeometrica[] f = new FormaGeometrica[qtdFormas];
+        FormaGeometrica[] listaDeFormas = new FormaGeometrica[qtdFormas];
         boolean exit = false;
-        
-        for (int i=0;i<qtdFormas;i++){
-            System.out.println("Entre com o tipo da forma geométrica " + i + ":\n");
-            System.out.println("1 - Retangulo;\n2 - Circunferência;\n3 - Triangulo.\n");
+        int i;
+        for (i=0;i<qtdFormas;i++){
+            System.out.println("Entre com o tipo da forma geométrica " + (i+1) + ":\n");
+            System.out.println("1 - Retangulo;\n2 - Circunferência;\n3 - Triangulo.");
             System.out.println("Caso queira sair, entre com -1.");
             scanner = new Scanner(System.in);
             
@@ -42,14 +44,14 @@ public class UsaFormas {
                     scanner = new Scanner(System.in);
                     double lado2 = scanner.nextDouble();
 
-                    f[i] = new Retangulo(lado1, lado2);
+                    listaDeFormas[i] = new Retangulo(lado1, lado2);
                     break;
                 case "2":
                     System.out.println("\nEntre com o valor do raio:");
                     scanner = new Scanner(System.in);
                     double raio = scanner.nextDouble();
 
-                    f[i] = new Circunferencia(raio);
+                    listaDeFormas[i] = new Circunferencia(raio);
                     break;
                 case "3":
                     System.out.println("\nEntre com o valor da base:");
@@ -60,23 +62,26 @@ public class UsaFormas {
                     scanner = new Scanner(System.in);
                     double altura = scanner.nextDouble();
 
-                    f[i] = new Triangulo(base,altura);
+                    listaDeFormas[i] = new Triangulo(base,altura);
                     break;
                 case "-1":
                     exit=true;
                     break;
                 default:
                     System.out.println("Por favor, entre com um valor válido.");
+                    i--;
             }
             if (exit==true){
                 break;
             }
         }
         
-        for(int j=0;j<f.length;j++){
-            System.out.println("Área da figura " + j + ": " + f[j].area());
+        for(int j=0;j<i;j++){
+            System.out.println("Área da figura " + (j+1) + ": " + listaDeFormas[j].area());
         }
-        
+        }catch(InputMismatchException e){
+            System.out.println("Por favor, entre com um valor válido numérico.");
+        }
     }
     
 }
