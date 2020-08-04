@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -155,5 +157,109 @@ public class TesteSistemaPedidos {
          }catch(Exception e){
             assertEquals("Quantidade não pode ser zero ou negativa.", e.getMessage());
          }   
+     }
+     
+     @Test
+     public void testaConstrutorPedido() {
+         Pedido pedido = new Pedido(100.0, "Nome do pedido");
+         
+         assertEquals(100.0, pedido.getTotal(), 0.0);
+         assertEquals("Nome do pedido", pedido.getNomeCliente());
+     }
+     
+     @Test
+     public void testaGetListaItemDePedido() {
+         Pedido pedido = new Pedido(100.0, "Nome do pedido");
+         
+         ItemPedido item = new ItemPedido("Nome do item", 10.0, 1);
+         
+         pedido.acrescentaItem(item);
+         
+         List<ItemPedido> itensPedido = pedido.getItens();
+         
+         List<ItemPedido> itens = new ArrayList();
+         itens.add(item);
+         
+         assertEquals(itens, itensPedido);
+     }
+     
+     @Test
+     public void testaAcrescentarItemDePedido() {
+         try{
+             
+            Pedido pedido = new Pedido(100.0, "Nome do pedido");
+
+            ItemPedido item = new ItemPedido("Nome do item", 10.0, 1);
+
+            pedido.acrescentaItem(null);
+         
+            fail("Não levantou exceção");
+         }catch(Exception e){
+            assertEquals("Item do pedido não pode ser nulo.", e.getMessage());
+         }   
+     }
+     
+     @Test
+     public void testaAcrescentarItemDePedidoExcedendoTotal() {
+         try{
+             
+            Pedido pedido = new Pedido(100.0, "Nome do pedido");
+
+            ItemPedido item = new ItemPedido("Nome do item", 110.0, 1);
+
+            pedido.acrescentaItem(item);
+         
+            fail("Não levantou exceção");
+         }catch(Exception e){
+            assertEquals("Item de Pedido não incluído. Valor do pedido excedido.", e.getMessage());
+         }   
+     }
+     
+     @Test
+     public void testaAcrescentarItemDePedidoExcedendoTotal2() {
+         try{
+            Pedido pedido = new Pedido(100.0, "Nome do pedido");
+            
+            ItemPedido item = new ItemPedido("Nome do item", 50, 1);
+
+            pedido.acrescentaItem(item);
+            
+            ItemPedido item2 = new ItemPedido("Nome do item 2", 52, 1);
+         
+            pedido.acrescentaItem(item2);
+            
+            fail("Não levantou exceção");
+         }catch(Exception e){
+            assertEquals("Item de Pedido não incluído. Valor do pedido excedido.", e.getMessage());
+         }   
+     }
+     
+     @Test
+     public void testaAcrescentarItemDePedidoTotalSendoZero() { 
+         try{
+            Pedido pedido = new Pedido(0.0, "Nome do pedido");
+            
+            ItemPedido item = new ItemPedido("Nome do item", 50, 1);
+
+            pedido.acrescentaItem(item);
+           
+            fail("Não levantou exceção");
+         }catch(Exception e){
+            assertEquals("Cliente não tem nenhum crédito.", e.getMessage());
+         }   
+     }
+     
+     @Test
+     public void testaAcrescentarItemDePedidoJaExistente() {
+
+        Pedido pedido = new Pedido(100.0, "Nome do pedido");
+            
+        ItemPedido item = new ItemPedido("Nome do item", 50, 1);
+
+        pedido.acrescentaItem(item);
+        pedido.acrescentaItem(item);
+            
+        List<ItemPedido> itens = pedido.getItens();
+        assertEquals(2, itens.get(0).getQuantidade());
      }
 }
