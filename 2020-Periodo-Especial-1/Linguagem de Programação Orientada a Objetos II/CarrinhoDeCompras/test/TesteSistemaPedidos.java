@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import carrinhodecompras.Pedido;
+import carrinhodecompras.ItemPedido;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -163,7 +165,6 @@ public class TesteSistemaPedidos {
      public void testaConstrutorPedido() {
          Pedido pedido = new Pedido(100.0, "Nome do pedido");
          
-         assertEquals(100.0, pedido.getTotal(), 0.0);
          assertEquals("Nome do pedido", pedido.getNomeCliente());
      }
      
@@ -250,7 +251,7 @@ public class TesteSistemaPedidos {
      }
      
      @Test
-     public void testaAcrescentarItemDePedidoJaExistente() {
+     public void testaAcrescentarItemJaExistenteDePedido() {
 
         Pedido pedido = new Pedido(100.0, "Nome do pedido");
             
@@ -261,5 +262,51 @@ public class TesteSistemaPedidos {
             
         List<ItemPedido> itens = pedido.getItens();
         assertEquals(2, itens.get(0).getQuantidade());
+     }
+     
+     @Test
+     public void testaRetiraItemDePedido() {
+
+        Pedido pedido = new Pedido(100.0, "Nome do pedido");
+            
+        ItemPedido item = new ItemPedido("Nome do item", 50, 1);
+
+        pedido.acrescentaItem(item);
+        pedido.retiraItem("Nome do item");
+            
+        List<ItemPedido> itens = pedido.getItens();
+        assertEquals(false, itens.contains(item));
+     }
+     
+     @Test
+     public void testaRetiraItemQtdMaiorQueUmDePedido() {
+
+        Pedido pedido = new Pedido(100.0, "Nome do pedido");
+            
+        ItemPedido item = new ItemPedido("Nome do item", 50, 1);
+
+        pedido.acrescentaItem(item);
+        pedido.acrescentaItem(item);
+        pedido.retiraItem("Nome do item");
+            
+        List<ItemPedido> itens = pedido.getItens();
+        assertEquals(1, itens.get(0).getQuantidade());
+     }
+     
+     @Test
+     public void testaRetiraItemInexistenteDePedido() {
+        try{
+            Pedido pedido = new Pedido(100.0, "Nome do pedido");
+
+            ItemPedido item = new ItemPedido("Nome do item", 50, 1);
+
+            pedido.acrescentaItem(item);
+            pedido.acrescentaItem(item);
+            pedido.retiraItem("Nome qualquer");
+            
+           fail("Não levantou exceção");
+         }catch(Exception e){
+            assertEquals("Item não encontrado no pedido.", e.getMessage());
+         }
      }
 }

@@ -1,3 +1,5 @@
+package carrinhodecompras;
+
 
 import java.util.Objects;
 
@@ -38,7 +40,7 @@ public class ItemPedido {
         return this.quantidade;
     }
 
-    void setNome(String nome) {
+    public void setNome(String nome) {
         try{
             if (nome.isEmpty()){
                 throw new RuntimeException("Nome não pode ser vazio.");
@@ -50,7 +52,7 @@ public class ItemPedido {
         }
     }
 
-    void setPreco(double preco) {
+    public void setPreco(double preco) {
         if (preco<0){
             throw new RuntimeException("Preco não pode ser negativo.");
         }else{
@@ -58,7 +60,7 @@ public class ItemPedido {
         }
     }
 
-    void setQuantidade(int quantidade) {
+    public void setQuantidade(int quantidade) {
         if (quantidade<=0){
             throw new RuntimeException("Quantidade não pode ser zero ou negativa.");
         }else{
@@ -69,9 +71,8 @@ public class ItemPedido {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.nome);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.preco) ^ (Double.doubleToLongBits(this.preco) >>> 32));
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.nome);
         return hash;
     }
 
@@ -87,14 +88,11 @@ public class ItemPedido {
             return false;
         }
         final ItemPedido other = (ItemPedido) obj;
-        if (Double.doubleToLongBits(this.preco) != Double.doubleToLongBits(other.preco)) {
-            return false;
-        }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         return true;
     }
-    
+
     
 }
