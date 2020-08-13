@@ -16,11 +16,11 @@ public class Ex03TabelaASCII {
      */
     public static void main(String[] args) {
         for (int i = 1; i <= 255; i++){
-            System.out.println("Caracter    Dec     Oct     Hex");
+            System.out.println("Hex    Dec     Oct     Caracter");
             if (i<32){
-                System.out.println((char) 32+"           "+(i-1)+"     "+Integer.toOctalString(i) +"      "+String.valueOf(Integer.toHexString(i).toUpperCase()));
+                System.out.println(String.valueOf(Integer.toHexString(i).toUpperCase()) +"      "+(i-1)+"    "+Integer.toOctalString(i) +"      "+(char)32);
             }else{
-                System.out.println((char) i+"           "+(i-1)+"      "+Integer.toOctalString(i) +"      "+String.valueOf(Integer.toHexString(i).toUpperCase()));
+                System.out.println(String.valueOf(Integer.toHexString(i).toUpperCase())+"       "+(i-1)+"    "+Integer.toOctalString(i) +"      "+(char) i);
             }
             
         }

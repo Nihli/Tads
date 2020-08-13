@@ -18,7 +18,7 @@ public class Ex05TrianguloPascal {
         int[] n = new int[6];
         int linha=1;
         int numerosImpressosLinha = 0;
-        int coringa = 0;
+        int aux = 0;
         
         for (int i=1;i<22;i++){
             if (linha==numerosImpressosLinha){
@@ -40,11 +40,11 @@ public class Ex05TrianguloPascal {
                     n[numerosImpressosLinha-1]=valor;
                 }else{
                     if (numerosImpressosLinha>2){
-                        n[numerosImpressosLinha-2]=coringa;
+                        n[numerosImpressosLinha-2]=aux;
                     }
-                    coringa=valor;
+                    aux=valor;
                     if (numerosImpressosLinha+1==linha){
-                        n[numerosImpressosLinha-1]=coringa;
+                        n[numerosImpressosLinha-1]=aux;
                     }
                 }
             }
