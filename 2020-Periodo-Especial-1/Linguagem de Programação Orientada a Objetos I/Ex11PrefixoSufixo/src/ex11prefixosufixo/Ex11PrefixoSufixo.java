@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Lia
+ * @author Lia Alflen
  */
 public class Ex11PrefixoSufixo {
 
