@@ -18,6 +18,9 @@ public class Contato {
     private String endereco;
     private LocalDate dataNascimento;
 
+    public Contato() {
+    }
+
     public Contato(long id, String nome, String email, String endereco, LocalDate dataNascimento) {
         this.id = id;
         this.nome = nome;
@@ -64,6 +67,36 @@ public class Contato {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    @Override
+    public String toString() {
+        return "Contato{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", endereco=" + endereco + ", dataNascimento=" + dataNascimento + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + (int) (this.id ^ (this.id >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Contato other = (Contato) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
     
 }
