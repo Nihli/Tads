@@ -1,11 +1,7 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,7 +21,7 @@ public class CalculadoraFrame extends javax.swing.JFrame implements ActionListen
     
     private EstadoCalculadora estadoCalc = EstadoCalculadora.INICIAL;
     private int num1=0, num2=0;
-    private char sinal='+';
+    private char sinal='+', sinalNum1='+', sinalNum2='+';
     
     /**
      * Creates new form CalculadoraFrame
@@ -266,56 +262,89 @@ public class CalculadoraFrame extends javax.swing.JFrame implements ActionListen
             if (estadoCalc.equals(EstadoCalculadora.INICIAL)){
                num1=Integer.parseInt(digito);
                estadoCalc = estadoCalc.ENTRADA1;
+               display.setText(display.getText()+String.valueOf(num1));
             }else if (estadoCalc.equals(EstadoCalculadora.ENTRADA1)){
                String StrN1 = String.valueOf(num1);
                num1=Integer.parseInt(StrN1+digito);
+               display.setText(display.getText()+digito);
             }else if (estadoCalc.equals(EstadoCalculadora.OPERADOR)){
                num2=Integer.parseInt(digito);
                estadoCalc = estadoCalc.ENTRADA2;
+               display.setText(display.getText()+String.valueOf(num2));
             }else if (estadoCalc.equals(EstadoCalculadora.ENTRADA2)){
                String StrN2 = String.valueOf(num2);
                num2=Integer.parseInt(StrN2+digito);
+               display.setText(display.getText()+digito);
             }
             
-            JOptionPane.showMessageDialog(this, "Você clicou em um botão numérico: "+j.getText(), "Informação", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Você clicou em um botão numérico: "+j.getText(), "Informação", JOptionPane.INFORMATION_MESSAGE);
         }else if ("btnOperacao".equals(cmd)){
             javax.swing.JButton j = (javax.swing.JButton) e.getSource();
             String digito = j.getText();
             
+            if (estadoCalc.equals(EstadoCalculadora.INICIAL)){//para o sinal
+                sinalNum1=digito.charAt(0);
+                display.setText(String.valueOf(sinalNum1));
+            }
              if (estadoCalc.equals(EstadoCalculadora.ENTRADA1)){
                sinal=digito.charAt(0);
                estadoCalc = estadoCalc.OPERADOR;
+               display.setText(display.getText()+sinal);
             }else if (estadoCalc.equals(EstadoCalculadora.OPERADOR)){
+                if (digito.equals("+")||digito.equals("-")){
+                    sinalNum2=digito.charAt(0);
+                    if (display.getText().charAt(display.getText().length()-2)=='/'||display.getText().charAt(display.getText().length()-2)=='x'||display.getText().charAt(display.getText().length()-2)=='+'||display.getText().charAt(display.getText().length()-2)=='-') {
+                        display.setText(display.getText().substring(0, display.getText().length()-1)+sinal);
+                    }else{
+                        display.setText(display.getText()+digito);
+                    }
+                }
+            }else if (estadoCalc.equals(EstadoCalculadora.ENTRADA2)){
+               int resposta = calcula();
+               num1=resposta;
                sinal=digito.charAt(0);
+               display.setText(String.valueOf(num1)+sinal);
+               estadoCalc = estadoCalc.OPERADOR;
             }
             
-            JOptionPane.showMessageDialog(this, "Você clicou em um botão de operação", "Informação", JOptionPane.INFORMATION_MESSAGE);
+//            JOptionPane.showMessageDialog(this, "Você clicou em um botão de operação", "Informação", JOptionPane.INFORMATION_MESSAGE);
         }else if ("btnLimpar".equals(cmd)){
             estadoCalc = estadoCalc.INICIAL;
             num1=0;
             num2=0;
             sinal='+';
             display.setText("");
-            JOptionPane.showMessageDialog(this, "Você clicou no botão de limpar", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            sinalNum1='+';
+            sinalNum2='+';
+//            JOptionPane.showMessageDialog(this, "Você clicou no botão de limpar", "Informação", JOptionPane.INFORMATION_MESSAGE);
         }else if ("btnResultado".equals(cmd)){
             if (estadoCalc.equals(EstadoCalculadora.ENTRADA2)){
-                int resposta=0;
-                if(sinal=='+'){
-                    resposta = num1+num2;
-                }else if(sinal=='-'){
-                    resposta = num1-num2;
-                }else if(sinal=='x'){
-                    resposta = num1*num2;
-                }else {
-                    resposta = num1/num2;
-                }
+                int resposta = calcula();
                 display.setText(String.valueOf(resposta));
                 estadoCalc = estadoCalc.CALCULANDO;
 //                JOptionPane.showMessageDialog(this, "O resultado é: "+resposta, "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
-            
+        }    
+    }
+    
+    private int calcula(){
+        int resposta=0;
+        
+        String StrN = String.valueOf(sinalNum1);
+        num1=Integer.parseInt(StrN+num1);
+        
+        StrN = String.valueOf(sinalNum2);
+        num2=Integer.parseInt(StrN+num2);
+        
+        if(sinal=='+'){
+            resposta = num1+num2;
+        }else if(sinal=='-'){
+            resposta = num1-num2;
+        }else if(sinal=='x'){
+            resposta = num1*num2;
+        }else {
+            resposta = num1/num2;
         }
-        
-        
+        return resposta;
     }
 }
