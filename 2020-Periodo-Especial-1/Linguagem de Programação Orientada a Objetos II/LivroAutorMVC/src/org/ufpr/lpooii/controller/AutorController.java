@@ -19,7 +19,7 @@ import org.ufpr.lpooii.view.autor.JanelaAutorView;
 public class AutorController {
     private JanelaAutorView view;
     private AutorDAO dao;
-    private LivroDAO daoLivro;
+    private LivroDAO daoLivro = new LivroDAO();
 
     public AutorController(JanelaAutorView view, AutorDAO dao) {
         this.view = view;
@@ -39,23 +39,54 @@ public class AutorController {
 
             dao.inserirAutor(autor);
 
+            autor.setListaLivros();
+            
             view.inserirAutorView(autor);
         }catch(Exception e) {
             view.apresentaErro("Erro ao criar autor.");
+             e.printStackTrace();
         }
     }
 
     public void atualizarAutor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            Autor autor = view.getAutorParaAtualizar();
+            
+            if (autor==null) {
+                view.apresentaInfo("Selecione um autor na tabela para atualizar.");
+                return;
+            }
+            
+            dao.atualizar(autor);
+            autor.setListaLivros();
+            
+            view.atualizarAutor(autor);
+        }catch(Exception e) {
+            view.apresentaErro("Erro ao atualizar autor.");
+             e.printStackTrace();
+        }
     }
 
     public void excluirAutor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            List<Autor> listaParaExcluir = view.getAutoresParaExcluir();
+            
+            dao.excluirLista(listaParaExcluir);
+            view.excluirAutorView(listaParaExcluir);
+        }catch(Exception e) {
+            view.apresentaErro("Erro ao deletar autor.");
+             e.printStackTrace();
+        }
     }
 
     public void listarAutor() {
         try{
             List<Autor> lista = this.dao.listarAutores();
+            
+            for (Autor a : lista ){
+                a.setListaLivros();
+            }
+            
             view.mostrarListaAutores(lista);
         }catch(Exception e) {
                 view.apresentaErro("Erro ao listar autores.");
@@ -64,6 +95,7 @@ public class AutorController {
     }
     
     public Livro consultarLivro(int id){
+//        System.out.println(id);
         return daoLivro.consultarLivro(id);
     }
 }

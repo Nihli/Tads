@@ -96,7 +96,7 @@ public class LivroDAO {
         while (resultado.next()) {
             Autor autorLido = new Autor(resultado.getString("nome"));
             autorLido.setId(resultado.getInt("id"));
-            System.out.println(autorLido);
+//            System.out.println(autorLido);
             autores.add(autorLido);
         }
 

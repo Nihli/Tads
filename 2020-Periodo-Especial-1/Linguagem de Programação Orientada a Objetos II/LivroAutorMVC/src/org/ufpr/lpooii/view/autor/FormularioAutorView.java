@@ -5,8 +5,11 @@
  */
 package org.ufpr.lpooii.view.autor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
+import org.ufpr.lpooii.model.Autor;
 
 /**
  *
@@ -14,6 +17,7 @@ import javax.swing.JTextField;
  */
 public class FormularioAutorView extends javax.swing.JPanel {
 
+    private Autor autorSelecionadoParaAtualizacao;
     /**
      * Creates new form FormularioAutorView
      */
@@ -155,4 +159,31 @@ public class FormularioAutorView extends javax.swing.JPanel {
     private javax.swing.JTextField nomeCampo;
     private javax.swing.JLabel nomeLabel;
     // End of variables declaration//GEN-END:variables
+
+    void setAutor(Autor autor) {
+        autorSelecionadoParaAtualizacao = autor;
+        
+        dataNascimentoCampo.setText(autor.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        documentoCampo.setText(autor.getDocumento());
+        naturalidadeCampo.setText(autor.getNacionalidade());
+        nomeCampo.setText(autor.getNome());
+        livrosCampo.setText(autor.getListaLivros());
+    }
+
+    public Autor getAutorSelecionadoParaAtualizacao() {
+        if (autorSelecionadoParaAtualizacao==null) {
+            return null;
+        }
+        
+        LocalDate dataNascimento = LocalDate.parse(dataNascimentoCampo.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        autorSelecionadoParaAtualizacao.setDataNascimento(dataNascimento);
+        autorSelecionadoParaAtualizacao.setDocumento(documentoCampo.getText());
+        autorSelecionadoParaAtualizacao.setNacionalidade(naturalidadeCampo.getText());
+        autorSelecionadoParaAtualizacao.setNome(nomeCampo.getText());
+        autorSelecionadoParaAtualizacao.setListaLivros(livrosCampo.getText());
+        
+        return autorSelecionadoParaAtualizacao;
+    }
+    
+    
 }

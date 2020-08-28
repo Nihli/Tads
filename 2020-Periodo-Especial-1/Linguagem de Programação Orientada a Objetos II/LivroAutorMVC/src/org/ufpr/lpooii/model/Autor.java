@@ -20,6 +20,7 @@ public class Autor {
     private String documento;
     private String nacionalidade;
     private List<Livro> livros;
+    private String listaLivros="";
     
     public Autor(String nome) {
         this.nome = nome;
@@ -44,9 +45,13 @@ public class Autor {
         return nome;
     }
 
-    public void setLivros(List<Livro> livros) {
-         for(Livro livro: livros){
-             this.adicionarLivro(livro);
+    public void setLivros(List<Livro> livros, int flag) {
+        if (flag==1) {
+           for(Livro livro: livros){
+                this.adicionarLivro(livro);
+           }
+        }else{
+            this.livros = livros;
         }
     }
 
@@ -99,6 +104,22 @@ public class Autor {
     public void setNacionalidade(String nacionalidade) {
         this.nacionalidade = nacionalidade;
     }
+
+    public String getListaLivros() {
+        return listaLivros;
+    }
+
+    public void setListaLivros() {
+        listaLivros = "";
+        for (Livro l : livros) {
+            listaLivros = listaLivros + l.getId()+ "; ";
+        }
+//        System.out.println(getId() + "-" + livros.size() +"-" +listaLivros);
+    }
+    
+    public void setListaLivros(String listaLivros) {
+        this.listaLivros = listaLivros;
+    }
     
     
     
@@ -133,6 +154,8 @@ public class Autor {
 
     @Override
     public String toString() {
-        return "Autor{" + "id=" + id + ", nome=" + nome + ", livros=" + livros + '}';
+        return "Autor{" + "id=" + id + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", documento=" + documento + ", nacionalidade=" + nacionalidade + ", livros=" + livros + ", listaLivros=" + listaLivros + '}';
     }
+
+
 }

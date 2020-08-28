@@ -5,7 +5,11 @@
  */
 package org.ufpr.lpooii.view.autor;
 
+import java.awt.event.MouseAdapter;
+import java.util.List;
 import javax.swing.JTable;
+import org.ufpr.lpooii.controller.AutorController;
+import org.ufpr.lpooii.model.Autor;
 
 /**
  *
@@ -66,4 +70,10 @@ public class TabelaAutorView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabelaAutor;
     // End of variables declaration//GEN-END:variables
+
+    void setController(AutorController controller) {
+       
+    }
+
+
 }

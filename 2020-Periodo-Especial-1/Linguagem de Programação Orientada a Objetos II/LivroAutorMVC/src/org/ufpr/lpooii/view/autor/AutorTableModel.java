@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import org.ufpr.lpooii.model.Autor;
+import org.ufpr.lpooii.model.Livro;
 
 /**
  *
  * @author Lia
  */
 public class AutorTableModel extends AbstractTableModel{
- private String[] colunas=new String[]{"id","Nome", "Nascimento", "Documento","Nacionalidade"};
+ private String[] colunas=new String[]{"id","Nome", "Nascimento", "Documento","Nacionalidade", "Livros"};
 
     private List<Autor> lista=new ArrayList();
 
@@ -60,6 +61,7 @@ public class AutorTableModel extends AbstractTableModel{
             case 2: return autor.getDataNascimento();//if column 2 (birthday)
             case 3: return autor.getDocumento();
             case 4: return autor.getNacionalidade() ;
+            case 5: return autor.getListaLivros();
             default : return null;
         }
     }
@@ -84,6 +86,11 @@ public class AutorTableModel extends AbstractTableModel{
             case 4:
                 autor.setNacionalidade((String) value);
                 break;
+            case 5:
+//                for (Livro l : autor.getLivros()){
+//                    autor.setListaLivros(autor.getListaLivros()+String.valueOf(l.getId()));
+//                }
+                autor.setListaLivros();
             default:
         }
         this.fireTableCellUpdated(row, col);
@@ -120,7 +127,7 @@ public class AutorTableModel extends AbstractTableModel{
         return lista.get(linha);
     }
 
-    void removeContatos(List<Autor> listaParaExcluir) {
+    void removeAutores(List<Autor> listaParaExcluir) {
         listaParaExcluir.forEach((autor) -> {
             removeAutor(autor);
         });

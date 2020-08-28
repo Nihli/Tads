@@ -16,7 +16,10 @@ public class AutorDAO {
     private final String stmtInserir = "INSERT INTO autor(nome, dataNascimento, documento, nacionalidade) VALUES(?,?,?,?)";
     private final String stmtConsultar = "SELECT * FROM autor WHERE id = ?";
     private final String stmtListar = "SELECT * FROM autor";
-    private final String stmtExcluir = "DELETE FORM SELECT * FROM auAUTOR WHERE ID = ?";
+    private final String stmtExcluir = "DELETE FROM autor WHERE ID = ?";
+    private final String stmtExcluirRelacionamento = "DELETE FROM livro_autor WHERE idAutor = ?";
+    private final String stmtAtualizar = "UPDATE autor set nome=?, dataNascimento=?, documento=?, nacionalidade=? WHERE id=?";
+
 
     public void inserirAutor(Autor autor) {
         Connection con = null;
@@ -49,6 +52,37 @@ public class AutorDAO {
         return rs.getInt(1);
     }
 
+    public void atualizar(Autor autor) throws SQLException{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            con.setAutoCommit(false);
+            
+            stmt = con.prepareStatement(stmtAtualizar);
+ 
+            stmt.setString(1, autor.getNome());
+            stmt.setDate(2, Date.valueOf(autor.getDataNascimento()));
+            stmt.setString(3, autor.getDocumento());
+            stmt.setString(4,autor.getNacionalidade());
+            stmt.setLong(5, autor.getId());
+            stmt.executeUpdate();
+            
+            excluirRelacionamento(autor.getId(),con);
+            
+            this.gravarLivros(autor, con);
+
+            con.commit();
+         } catch (SQLException ex) {
+            con.rollback();
+            throw new RuntimeException("Erro ao atualizar um autor no banco de dados. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+
+    }
+    
     public Autor consultarAutor(int id) {
         Connection con = null;
         PreparedStatement stmt = null;
@@ -109,6 +143,9 @@ public class AutorDAO {
                 autor.setDataNascimento(dataNascimento);
                 autor.setDocumento(rs.getString("documento"));
                 autor.setNacionalidade(rs.getString("nacionalidade"));
+                
+                autor.setLivros(lerLivros(autor.getId(), con), 1);
+                autor.setListaLivros();
                 lista.add(autor);
             }
             return lista;
@@ -122,20 +159,44 @@ public class AutorDAO {
 
     }
     
-    public void excluirAutor(long id){
+    public void excluirAutor(long id) throws SQLException{
         Connection con = null;
         PreparedStatement stmt = null;
         try{
             con = ConnectionFactory.getConnection();
+            con.setAutoCommit(false);
+            excluirRelacionamento(id, con);
             stmt = con.prepareStatement(stmtExcluir);
             stmt.setLong(1, id);
             stmt.executeUpdate();
+            
+            con.commit();
         } catch (SQLException ex) {
+            con.rollback();
             throw new RuntimeException("Erro ao inserir um autor no banco de dados. Origem="+ex.getMessage());
         } finally{
             try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
             try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
         }        
+    }
+    
+    public void excluirRelacionamento(long id, Connection con){
+        PreparedStatement stmt = null;
+        try{
+            stmt = con.prepareStatement(stmtExcluirRelacionamento);
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao excluir um relacionamento no banco de dados. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+        }        
+    }
+    
+    public void excluirLista(List<Autor> autores) throws SQLException{
+        for (Autor a: autores) {
+            excluirAutor(a.getId());
+        }
     }
     
     public Autor listarLivrosDeUmAutor(int id) {
@@ -155,7 +216,7 @@ public class AutorDAO {
                 autor.setDocumento(rs.getString("documento"));
                 autor.setNacionalidade(rs.getString("nacionalidade"));
                 List<Livro> listLivros = lerLivros(id,con);
-                autor.setLivros(listLivros);
+                autor.setLivros(listLivros, 1);
                 autor.setId(id);
             }
 
@@ -187,7 +248,7 @@ public class AutorDAO {
         while (resultado.next()) {
             Livro livroLido = new Livro(resultado.getString("titulo"));
             livroLido.setId(resultado.getInt("id"));
-            System.out.println(livroLido);
+//            System.out.println(livroLido);
             livros.add(livroLido);
         }
 

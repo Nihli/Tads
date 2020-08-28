@@ -18,6 +18,7 @@ import org.ufpr.lpooii.view.autor.JanelaAutorView;
  */
 public class MenuView extends javax.swing.JPanel implements ActionListener{
 
+    private JanelaMenuView janelaMenuView;
     /**
      * Creates new form MenuView
      */
@@ -27,6 +28,12 @@ public class MenuView extends javax.swing.JPanel implements ActionListener{
         btnAutor.addActionListener(this);
         btnAutor.addActionListener(this);
     }
+
+    public void setJanelaMenuView(JanelaMenuView janelaMenuView) {
+        this.janelaMenuView = janelaMenuView;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,14 +99,14 @@ public class MenuView extends javax.swing.JPanel implements ActionListener{
         if (cmd.equals("abrirAutorView")){
             JanelaAutorView view = new JanelaAutorView();
             AutorDAO autorDao = new AutorDAO();
-        
-        AutorController controller = new AutorController(view, autorDao);
+
+//            Frame[] f = JanelaMenuView.getFrames();
+//            for (Frame f1 : f) {
+//                f1.dispose();
+//            }
             
-            Frame[] f = JanelaMenuView.getFrames();
-            System.out.println(f.length);
-            for (Frame f1 : f) {
-                f1.dispose();
-            }
+            AutorController controller = new AutorController(view, autorDao);
+            janelaMenuView.dispose();
 //            
 //            JanelaAutorView janelaAutorView = new JanelaAutorView();
 //            janelaAutorView.setVisible(true);
