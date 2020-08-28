@@ -20,33 +20,33 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="nomeLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="tituloLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nomeCampo" max="32767" attributes="0"/>
+                      <Component id="tituloCampo" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="dataNascimentoLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="dataPublicacaoLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dataNascimentoCampo" max="32767" attributes="0"/>
+                      <Component id="dataPublicacaoCampo" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="documentoLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="assuntoLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="documentoCampo" max="32767" attributes="0"/>
+                      <Component id="assuntoCampo" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="naturalidadeLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="codIsbnLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="naturalidadeCampo" max="32767" attributes="0"/>
+                      <Component id="codigoIsbnCampo" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="72" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="livrosLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="autoresLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="livrosCampo" max="32767" attributes="0"/>
+                      <Component id="autoresCampo" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -58,28 +58,28 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nomeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nomeCampo" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="dataNascimentoCampo" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="dataNascimentoLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="tituloLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tituloCampo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="documentoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="documentoCampo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dataPublicacaoCampo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dataPublicacaoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="naturalidadeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="naturalidadeCampo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="assuntoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="assuntoCampo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="livrosLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="livrosCampo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="codIsbnLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="codigoIsbnCampo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="autoresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="autoresCampo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -89,45 +89,45 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="nomeLabel">
+    <Component class="javax.swing.JLabel" name="tituloLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nome:"/>
+        <Property name="text" type="java.lang.String" value="Titulo:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="nomeCampo">
+    <Component class="javax.swing.JTextField" name="tituloCampo">
     </Component>
-    <Component class="javax.swing.JLabel" name="dataNascimentoLabel">
+    <Component class="javax.swing.JLabel" name="dataPublicacaoLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Data de Nascimento:"/>
+        <Property name="text" type="java.lang.String" value="Data de Publica&#xe7;&#xe3;o:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="dataNascimentoCampo">
+    <Component class="javax.swing.JFormattedTextField" name="dataPublicacaoCampo">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="##/##/####" subtype="-1" type="5"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="documentoLabel">
+    <Component class="javax.swing.JLabel" name="assuntoLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Documento:"/>
+        <Property name="text" type="java.lang.String" value="Assunto:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="documentoCampo">
+    <Component class="javax.swing.JTextField" name="assuntoCampo">
     </Component>
-    <Component class="javax.swing.JLabel" name="naturalidadeLabel">
+    <Component class="javax.swing.JLabel" name="codIsbnLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Naturalidade:"/>
+        <Property name="text" type="java.lang.String" value="C&#xf3;digo Isbn:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="naturalidadeCampo">
+    <Component class="javax.swing.JTextField" name="codigoIsbnCampo">
     </Component>
-    <Component class="javax.swing.JLabel" name="livrosLabel">
+    <Component class="javax.swing.JLabel" name="autoresLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Livros:"/>
+        <Property name="text" type="java.lang.String" value="Autores:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="livrosCampo">
+    <Component class="javax.swing.JTextField" name="autoresCampo">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>

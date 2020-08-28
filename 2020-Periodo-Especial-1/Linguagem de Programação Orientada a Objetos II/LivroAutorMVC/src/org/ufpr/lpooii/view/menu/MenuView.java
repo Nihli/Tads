@@ -9,8 +9,11 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.ufpr.lpooii.controller.AutorController;
+import org.ufpr.lpooii.controller.LivroController;
 import org.ufpr.lpooii.model.dao.AutorDAO;
+import org.ufpr.lpooii.model.dao.LivroDAO;
 import org.ufpr.lpooii.view.autor.JanelaAutorView;
+import org.ufpr.lpooii.view.livro.JanelaLivroView;
 
 /**
  *
@@ -26,7 +29,7 @@ public class MenuView extends javax.swing.JPanel implements ActionListener{
         initComponents();
         
         btnAutor.addActionListener(this);
-        btnAutor.addActionListener(this);
+        btnLivro.addActionListener(this);
     }
 
     public void setJanelaMenuView(JanelaMenuView janelaMenuView) {
@@ -95,6 +98,7 @@ public class MenuView extends javax.swing.JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
+        System.out.println(cmd);
         
         if (cmd.equals("abrirAutorView")){
             JanelaAutorView view = new JanelaAutorView();
@@ -113,7 +117,11 @@ public class MenuView extends javax.swing.JPanel implements ActionListener{
 
             
         }else if (cmd.equals("abrirLivroView")){
+           JanelaLivroView view = new JanelaLivroView();
+           LivroDAO livroDao = new LivroDAO();
            
+           LivroController controller = new LivroController(view, livroDao);
+           janelaMenuView.dispose();
         }
     }
 }

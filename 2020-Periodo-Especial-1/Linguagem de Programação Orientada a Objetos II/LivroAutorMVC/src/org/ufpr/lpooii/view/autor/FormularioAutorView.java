@@ -62,7 +62,7 @@ public class FormularioAutorView extends javax.swing.JPanel {
 
         livrosLabel.setText("Livros:");
 
-        jLabel2.setText("*separe por virgula se tiver mais de um livro");
+        jLabel2.setText("*separe por ponto e virgula se tiver mais de um livro");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,7 +89,7 @@ public class FormularioAutorView extends javax.swing.JPanel {
                         .addComponent(naturalidadeCampo))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(0, 119, Short.MAX_VALUE))
+                        .addGap(0, 72, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(livrosLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -106,8 +106,7 @@ public class FormularioAutorView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dataNascimentoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dataNascimentoLabel)))
+                    .addComponent(dataNascimentoLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(documentoLabel)

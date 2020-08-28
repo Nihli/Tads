@@ -5,6 +5,7 @@
  */
 package org.ufpr.lpooii.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +17,11 @@ import java.util.List;
 public class Livro {
     private int id;
     private String titulo;
+    private String assunto;
+    private String codigoIsbn;
+    private LocalDate dataPublicacao;
     private List<Autor> autores;
+    private String listaLivros;
     
     public Livro(String titulo) {
         this.titulo = titulo;
@@ -70,4 +75,38 @@ public class Livro {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getAssunto() {
+        return assunto;
+    }
+
+    public void setAssunto(String assunto) {
+        this.assunto = assunto;
+    }
+
+    public String getCodigoIsbn() {
+        return codigoIsbn;
+    }
+
+    public void setCodigoIsbn(String codigoIsbn) {
+        this.codigoIsbn = codigoIsbn;
+    }
+
+    public LocalDate getDataPublicacao() {
+        return dataPublicacao;
+    }
+
+    public void setDataPublicacao(LocalDate dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
+    }
+
+    public String getListaLivros() {
+        return listaLivros;
+    }
+
+    public void setListaLivros() {
+
+    }
+    
+    
 }

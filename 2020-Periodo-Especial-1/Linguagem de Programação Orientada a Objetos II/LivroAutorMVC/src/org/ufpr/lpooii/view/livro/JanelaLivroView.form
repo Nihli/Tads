@@ -23,34 +23,34 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="botoesAutorView" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="tabelaAutorView" min="-2" max="-2" attributes="0"/>
+          <Component id="botoesLivroView" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="tabelaLivroView" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Component id="formularioAutorView" alignment="1" max="32767" attributes="0"/>
+          <Component id="formularioLivroView" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="botoesAutorView" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="tabelaAutorView" min="-2" pref="96" max="-2" attributes="0"/>
+              <Component id="botoesLivroView" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tabelaLivroView" min="-2" pref="96" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="formularioAutorView" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <Component id="formularioLivroView" min="-2" pref="222" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="org.ufpr.lpooii.view.autor.BotoesAutorView" name="botoesAutorView">
+    <Component class="org.ufpr.lpooii.view.livro.BotoesLivroView" name="botoesLivroView">
     </Component>
-    <Component class="org.ufpr.lpooii.view.autor.TabelaAutorView" name="tabelaAutorView">
+    <Component class="org.ufpr.lpooii.view.livro.TabelaLivroView" name="tabelaLivroView">
     </Component>
-    <Component class="org.ufpr.lpooii.view.autor.FormularioAutorView" name="formularioAutorView">
+    <Component class="org.ufpr.lpooii.view.livro.FormularioLivroView" name="formularioLivroView">
     </Component>
   </SubComponents>
 </Form>

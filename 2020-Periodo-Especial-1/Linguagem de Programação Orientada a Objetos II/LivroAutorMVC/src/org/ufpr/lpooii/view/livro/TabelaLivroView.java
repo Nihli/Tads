@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ufpr.lpooii.view.autor;
+package org.ufpr.lpooii.view.livro;
 
+import org.ufpr.lpooii.view.autor.*;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JTable;
@@ -15,12 +16,12 @@ import org.ufpr.lpooii.model.Autor;
  *
  * @author Lia
  */
-public class TabelaAutorView extends javax.swing.JPanel {
+public class TabelaLivroView extends javax.swing.JPanel {
 
     /**
      * Creates new form TabelaAutorView
      */
-    public TabelaAutorView() {
+    public TabelaLivroView() {
         initComponents();
     }
 
@@ -34,9 +35,9 @@ public class TabelaAutorView extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaAutor = new javax.swing.JTable();
+        tabelaLivro = new javax.swing.JTable();
 
-        tabelaAutor.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaLivro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -47,7 +48,7 @@ public class TabelaAutorView extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tabelaAutor);
+        jScrollPane2.setViewportView(tabelaLivro);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,14 +62,14 @@ public class TabelaAutorView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public JTable getTabelaAutor() {
-        return tabelaAutor;
-    }
     
+    public JTable getTabelaLivro() {
+        return tabelaLivro;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tabelaAutor;
+    private javax.swing.JTable tabelaLivro;
     // End of variables declaration//GEN-END:variables
 
 
