@@ -1,9 +1,11 @@
 package org.ufpr.lpooii.model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.ufpr.lpooii.model.Autor;
@@ -11,7 +13,7 @@ import org.ufpr.lpooii.model.Livro;
 
 public class AutorDAO {
 
-    private final String stmtInserir = "INSERT INTO autor(nome) VALUES(?)";
+    private final String stmtInserir = "INSERT INTO autor(nome, dataNascimento, documento, nacionalidade) VALUES(?,?,?,?)";
     private final String stmtConsultar = "SELECT * FROM autor WHERE id = ?";
     private final String stmtListar = "SELECT * FROM autor";
     private final String stmtExcluir = "DELETE FORM SELECT * FROM auAUTOR WHERE ID = ?";
@@ -24,6 +26,9 @@ public class AutorDAO {
             con.setAutoCommit(false);
             stmt = con.prepareStatement(stmtInserir,PreparedStatement.RETURN_GENERATED_KEYS);
             stmt.setString(1, autor.getNome());
+            stmt.setDate(2, Date.valueOf(autor.getDataNascimento()));
+            stmt.setString(3, autor.getDocumento());
+            stmt.setString(4, autor.getNacionalidade());
             stmt.executeUpdate();
             autor.setId(lerIdAutor(stmt));
             
@@ -57,6 +62,10 @@ public class AutorDAO {
             if(rs.next()){
                 autorLido = new Autor(rs.getString("nome"));
                 autorLido.setId(rs.getInt("id"));
+                LocalDate dataNascimento = rs.getDate("dataNascimento").toLocalDate();
+                autorLido.setDataNascimento(dataNascimento);
+                autorLido.setDocumento(rs.getString("documento"));
+                autorLido.setNacionalidade(rs.getString("nacionalidade"));
                 return autorLido;
             }else{
                 throw new RuntimeException("Não existe autor com este id. Id="+id);
@@ -96,6 +105,10 @@ public class AutorDAO {
             while(rs.next()){
                 Autor autor = new Autor(rs.getString("nome"));
                 autor.setId(rs.getInt("id"));
+                LocalDate dataNascimento = rs.getDate("dataNascimento").toLocalDate();
+                autor.setDataNascimento(dataNascimento);
+                autor.setDocumento(rs.getString("documento"));
+                autor.setNacionalidade(rs.getString("nacionalidade"));
                 lista.add(autor);
             }
             return lista;
@@ -137,7 +150,10 @@ public class AutorDAO {
             Autor autor = null;
             if (rs.next()) {
                 autor = new Autor(rs.getString("nome"));
-                
+                LocalDate dataNascimento = rs.getDate("dataNascimento").toLocalDate();
+                autor.setDataNascimento(dataNascimento);
+                autor.setDocumento(rs.getString("documento"));
+                autor.setNacionalidade(rs.getString("nacionalidade"));
                 List<Livro> listLivros = lerLivros(id,con);
                 autor.setLivros(listLivros);
                 autor.setId(id);

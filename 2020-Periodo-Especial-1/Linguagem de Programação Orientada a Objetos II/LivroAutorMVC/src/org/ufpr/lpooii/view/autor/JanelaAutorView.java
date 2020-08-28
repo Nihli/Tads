@@ -5,7 +5,14 @@
  */
 package org.ufpr.lpooii.view.autor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import org.ufpr.lpooii.controller.AutorController;
+import org.ufpr.lpooii.model.Autor;
+import org.ufpr.lpooii.model.Livro;
 
 /**
  *
@@ -72,15 +79,51 @@ public class JanelaAutorView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private AutorTableModel autorTableModel = new AutorTableModel();
+    private AutorController controllerAutor;
 
     public void setController(AutorController controller) {
         botoesAutorView.setController(controller);
+        controllerAutor = controller;
     }
 
     public void initView() {
         tabelaAutorView.getTabelaAutor().setModel(autorTableModel);
         
         java.awt.EventQueue.invokeLater(() -> this.setVisible(true));
+    }
+
+    public Autor getAutorFormulario() {
+        String nome = formularioAutorView.getNomeCampo().getText();
+        String documento = formularioAutorView.getDocumentoCampo().getText();
+        String naturalidade = formularioAutorView.getNaturalidadeCampo().getText();
+        String[] arrayLivros = formularioAutorView.getLivrosCampo().getText().split(";");
+        LocalDate dataNascimento = LocalDate.parse(formularioAutorView.getDataNascimentoCampo().getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        
+        List<Livro> livros = new ArrayList();
+        
+        for(int i=0;i<arrayLivros.length;i++){
+            if (arrayLivros[i]!=""&&arrayLivros[i].matches("[0-9]+")){
+                Livro l = controllerAutor.consultarLivro(Integer.parseInt(arrayLivros[i]));
+                
+                if (l!=null){
+                    livros.add(l);
+                }
+            }
+        }
+    
+        return new Autor(nome, dataNascimento, documento, naturalidade, livros);
+    }
+
+    public void inserirAutorView(Autor autor) {
+        autorTableModel.adicionaAutor(autor);
+    }
+
+    public void apresentaErro(String erro) {
+        JOptionPane.showMessageDialog(null, erro + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void mostrarListaAutores(List<Autor> lista) {
+       autorTableModel.setListaAutor(lista);
     }
     
     

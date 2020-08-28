@@ -18,17 +18,27 @@ public class Ex02TrianguloDeNumeros {
         int numerosImpressosLinha=0;
         int linha=1;
         
-        for (int i=1;i<=15;i++){
-            if (linha==numerosImpressosLinha){
-                System.out.println("\n");
-                numerosImpressosLinha=0;
-                linha++;
+        String x = "1;4;56;-5";
+        String[] s = x.split(";");
+        System.out.println(s.length);
+        for (int i=0;i<s.length;i++){
+            if (s[i].matches("[0-9]+")){
+                System.out.println(s[i]);
             }
-            
-            System.out.print(i+" ");
-            numerosImpressosLinha++;
-
         }
+        
+        
+//        for (int i=1;i<=15;i++){
+//            if (linha==numerosImpressosLinha){
+//                System.out.println("\n");
+//                numerosImpressosLinha=0;
+//                linha++;
+//            }
+//            
+//            System.out.print(i+" ");
+//            numerosImpressosLinha++;
+//
+//        }
     }
     
 }

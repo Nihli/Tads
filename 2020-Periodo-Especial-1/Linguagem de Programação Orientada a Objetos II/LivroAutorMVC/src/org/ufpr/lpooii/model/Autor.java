@@ -26,11 +26,15 @@ public class Autor {
         this.livros = new ArrayList();
     }
 
-    public Autor(String nome, List<Livro> livros) {
+    public Autor(String nome, LocalDate dataNascimento, String documento, String nacionalidade, List<Livro> livros) {
         this.nome = nome;
-        this.livros = new ArrayList();
-        this.setLivros(livros);
+        this.dataNascimento = dataNascimento;
+        this.documento = documento;
+        this.nacionalidade = nacionalidade;
+        this.livros = livros;
     }
+
+    
 
     public void setNome(String nome) {
         this.nome = nome;

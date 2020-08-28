@@ -5,6 +5,9 @@
  */
 package org.ufpr.lpooii.view.autor;
 
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Lia
@@ -119,6 +122,25 @@ public class FormularioAutorView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public JFormattedTextField getDataNascimentoCampo() {
+        return dataNascimentoCampo;
+    }
+
+    public JTextField getDocumentoCampo() {
+        return documentoCampo;
+    }
+
+    public JTextField getLivrosCampo() {
+        return livrosCampo;
+    }
+
+    public JTextField getNaturalidadeCampo() {
+        return naturalidadeCampo;
+    }
+
+    public JTextField getNomeCampo() {
+        return nomeCampo;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField dataNascimentoCampo;
