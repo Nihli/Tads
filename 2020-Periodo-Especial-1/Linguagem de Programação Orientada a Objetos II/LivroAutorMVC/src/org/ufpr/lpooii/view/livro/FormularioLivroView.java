@@ -12,6 +12,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import org.ufpr.lpooii.model.Autor;
 import org.ufpr.lpooii.model.Livro;
+import org.ufpr.lpooii.view.menu.JanelaMenuView;
 
 /**
  *
@@ -20,6 +21,7 @@ import org.ufpr.lpooii.model.Livro;
 public class FormularioLivroView extends javax.swing.JPanel {
 
     private Livro livroSelecionadoParaAtualizacao;
+    private JanelaLivroView janelaLivroView;
     /**
      * Creates new form FormularioAutorView
      */
@@ -47,6 +49,7 @@ public class FormularioLivroView extends javax.swing.JPanel {
         autoresLabel = new javax.swing.JLabel();
         autoresCampo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
 
         tituloLabel.setText("Titulo:");
 
@@ -65,6 +68,13 @@ public class FormularioLivroView extends javax.swing.JPanel {
         autoresLabel.setText("Autores:");
 
         jLabel2.setText("*separe por ponto e virgula se tiver mais de um livro");
+
+        btnVoltar.setText("< Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -95,7 +105,10 @@ public class FormularioLivroView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(autoresLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autoresCampo)))
+                        .addComponent(autoresCampo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVoltar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -121,11 +134,20 @@ public class FormularioLivroView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(autoresLabel)
                     .addComponent(autoresCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        JanelaMenuView view = new JanelaMenuView();
+        
+        view.show();
+        janelaLivroView.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     public JTextField getAssuntoCampo() {
         return assuntoCampo;
@@ -146,13 +168,17 @@ public class FormularioLivroView extends javax.swing.JPanel {
     public JTextField getTituloCampo() {
         return tituloCampo;
     }
-    
+
+    public void setJanelaLivroView(JanelaLivroView janelaLivroView) {
+        this.janelaLivroView = janelaLivroView;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField assuntoCampo;
     private javax.swing.JLabel assuntoLabel;
     private javax.swing.JTextField autoresCampo;
     private javax.swing.JLabel autoresLabel;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel codIsbnLabel;
     private javax.swing.JTextField codigoIsbnCampo;
     private javax.swing.JFormattedTextField dataPublicacaoCampo;

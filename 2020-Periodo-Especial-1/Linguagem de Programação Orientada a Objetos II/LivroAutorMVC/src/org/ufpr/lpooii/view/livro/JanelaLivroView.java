@@ -29,6 +29,7 @@ public class JanelaLivroView extends javax.swing.JFrame {
      */
     public JanelaLivroView() {
         initComponents();
+        formularioLivroView.setJanelaLivroView(this);
         
         setLocationRelativeTo(null);
     }
