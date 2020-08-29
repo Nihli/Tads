@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import org.ufpr.lpooii.model.Autor;
+import org.ufpr.lpooii.view.menu.JanelaMenuView;
 
 /**
  *
@@ -18,6 +19,7 @@ import org.ufpr.lpooii.model.Autor;
 public class FormularioAutorView extends javax.swing.JPanel {
 
     private Autor autorSelecionadoParaAtualizacao;
+    private JanelaAutorView janelaAutorView;
     /**
      * Creates new form FormularioAutorView
      */
@@ -45,6 +47,7 @@ public class FormularioAutorView extends javax.swing.JPanel {
         livrosLabel = new javax.swing.JLabel();
         livrosCampo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
 
         nomeLabel.setText("Nome:");
 
@@ -63,6 +66,13 @@ public class FormularioAutorView extends javax.swing.JPanel {
         livrosLabel.setText("Livros:");
 
         jLabel2.setText("*separe por ponto e virgula se tiver mais de um livro");
+
+        btnVoltar.setText("< Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -93,7 +103,10 @@ public class FormularioAutorView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(livrosLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(livrosCampo)))
+                        .addComponent(livrosCampo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVoltar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,11 +132,20 @@ public class FormularioAutorView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(livrosLabel)
                     .addComponent(livrosCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        JanelaMenuView view = new JanelaMenuView();
+
+        view.show();
+        janelaAutorView.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     public JFormattedTextField getDataNascimentoCampo() {
         return dataNascimentoCampo;
@@ -145,7 +167,13 @@ public class FormularioAutorView extends javax.swing.JPanel {
         return nomeCampo;
     }
 
+    public void setJanelaAutorView(JanelaAutorView janelaAutorView) {
+        this.janelaAutorView = janelaAutorView;
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JFormattedTextField dataNascimentoCampo;
     private javax.swing.JLabel dataNascimentoLabel;
     private javax.swing.JTextField documentoCampo;

@@ -27,6 +27,7 @@ public class JanelaAutorView extends javax.swing.JFrame {
      */
     public JanelaAutorView() {
         initComponents();
+        formularioAutorView.setJanelaAutorView(this);
         
         setLocationRelativeTo(null);
     }
