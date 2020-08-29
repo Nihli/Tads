@@ -234,7 +234,7 @@ public class AutorDAO {
 
     private List<Livro> lerLivros(long idAutor, Connection con) throws SQLException{
         //Select para pegar os autores de um livro
-        String sql = "SELECT livro.id,livro.titulo"
+        String sql = "SELECT livro.id,livro.titulo, livro.assunto, livro.codigoIsbn, livro.dataPublicacao"
                 + " FROM livro"
                 + " INNER JOIN livro_autor"
                 + " 	ON livro.id = livro_autor.idLivro"
@@ -246,8 +246,14 @@ public class AutorDAO {
         ResultSet resultado = stmt.executeQuery();
         livros = new ArrayList<Livro>();
         while (resultado.next()) {
-            Livro livroLido = new Livro(resultado.getString("titulo"));
+            Livro livroLido = new Livro();
+            livroLido.setTitulo(resultado.getString("titulo"));
+//            livroLido.setAutores(listaAutores);
             livroLido.setId(resultado.getInt("id"));
+            LocalDate dataPublicacao = resultado.getDate("dataPublicacao").toLocalDate();
+            livroLido.setDataPublicacao(dataPublicacao);
+            livroLido.setAssunto(resultado.getString("assunto"));
+            livroLido.setCodigoIsbn(resultado.getString("codigoIsbn"));
 //            System.out.println(livroLido);
             livros.add(livroLido);
         }

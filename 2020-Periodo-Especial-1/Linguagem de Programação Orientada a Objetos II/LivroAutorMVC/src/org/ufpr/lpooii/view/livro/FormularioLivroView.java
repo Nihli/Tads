@@ -126,7 +126,28 @@ public class FormularioLivroView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public JTextField getAssuntoCampo() {
+        return assuntoCampo;
+    }
 
+    public JTextField getAutoresCampo() {
+        return autoresCampo;
+    }
+
+    public JTextField getCodigoIsbnCampo() {
+        return codigoIsbnCampo;
+    }
+
+    public JFormattedTextField getDataPublicacaoCampo() {
+        return dataPublicacaoCampo;
+    }
+
+    public JTextField getTituloCampo() {
+        return tituloCampo;
+    }
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField assuntoCampo;
     private javax.swing.JLabel assuntoLabel;

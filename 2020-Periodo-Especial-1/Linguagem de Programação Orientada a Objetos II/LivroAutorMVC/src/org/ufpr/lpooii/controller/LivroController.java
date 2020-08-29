@@ -5,6 +5,10 @@
  */
 package org.ufpr.lpooii.controller;
 
+import java.util.List;
+import org.ufpr.lpooii.model.Autor;
+import org.ufpr.lpooii.model.Livro;
+import org.ufpr.lpooii.model.dao.AutorDAO;
 import org.ufpr.lpooii.model.dao.LivroDAO;
 import org.ufpr.lpooii.view.livro.JanelaLivroView;
 
@@ -15,6 +19,7 @@ import org.ufpr.lpooii.view.livro.JanelaLivroView;
 public class LivroController {
     private JanelaLivroView view;
     private LivroDAO dao;
+    private AutorDAO autorDao = new AutorDAO();
 
     public LivroController(JanelaLivroView view, LivroDAO dao) {
         this.view = view;
@@ -30,7 +35,10 @@ public class LivroController {
     }
 
     public void criarLivro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Livro livro = view.getLivroFormulario();
+        dao.inserirLivro(livro);
+        livro.setListaAutores();
+        view.inserirLivroView(livro);
     }
 
     public void atualizarLivro() {
@@ -42,7 +50,12 @@ public class LivroController {
     }
 
     public void listarLivro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Livro> lista = this.dao.listarLivroComAutores();
+        view.mostrarListaAutores(lista);
+    }
+
+    public Autor consultarAutor(int id) {
+        return autorDao.consultarAutor(id);
     }
     
     

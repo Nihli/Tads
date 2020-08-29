@@ -5,13 +5,10 @@
  */
 package org.ufpr.lpooii.view.livro;
 
-import org.ufpr.lpooii.view.autor.*;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JTable;
 import org.ufpr.lpooii.controller.AutorController;
-import org.ufpr.lpooii.model.Autor;
-
 /**
  *
  * @author Lia

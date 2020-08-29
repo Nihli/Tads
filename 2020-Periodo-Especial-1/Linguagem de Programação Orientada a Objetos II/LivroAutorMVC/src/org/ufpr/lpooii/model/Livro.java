@@ -21,19 +21,26 @@ public class Livro {
     private String codigoIsbn;
     private LocalDate dataPublicacao;
     private List<Autor> autores;
-    private String listaLivros;
+    private String listaAutores;
     
-    public Livro(String titulo) {
+    public Livro(String titulo, String assunto, String codigoIsbn, LocalDate dataPublicacao, List<Autor> autores) {
         this.titulo = titulo;
-        this.autores = new ArrayList();
+        this.assunto = assunto;
+        this.codigoIsbn = codigoIsbn;
+        this.dataPublicacao = dataPublicacao;
+        this.autores = autores;
     }
 
-    public Livro(String titulo,List<Autor> autores) {
-        this.titulo = titulo;
-        this.autores = new ArrayList();
-        this.setAutores(autores);
+    public Livro() {
     }
 
+    public Livro(String titulo, List<Autor> autores) {
+        this.titulo = titulo;
+        this.autores = autores;
+    }
+
+    
+    
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -54,7 +61,11 @@ public class Livro {
         return this.autores;
     }
 
-    public void adicionarAutor(Autor autor) {
+   public void adicionarAutor(Autor autor) {
+       if (this.autores==null) {
+           this.autores = new ArrayList();
+       }
+       
         if (!this.getAutores().contains(autor)) {
             this.autores.add(autor);
             autor.adicionarLivro(this);
@@ -100,13 +111,20 @@ public class Livro {
         this.dataPublicacao = dataPublicacao;
     }
 
-    public String getListaLivros() {
-        return listaLivros;
-    }
-
-    public void setListaLivros() {
-
+    public String getListaAutores() {
+        return listaAutores;
+    } 
+    
+    public void setListaAutores() {
+        listaAutores = "";
+        for (Autor a : autores) {
+            listaAutores = listaAutores + a.getId()+ "; ";
+        }
+//        System.out.println(getId() + "-" + livros.size() +"-" +listaLivros);
     }
     
-    
+    public void setListaAutores(String listaAutores) {
+        this.listaAutores = listaAutores;
+    }
+
 }

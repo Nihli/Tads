@@ -5,7 +5,13 @@
  */
 package org.ufpr.lpooii.view.livro;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import org.ufpr.lpooii.controller.LivroController;
+import org.ufpr.lpooii.model.Autor;
+import org.ufpr.lpooii.model.Livro;
 
 /**
  *
@@ -14,6 +20,7 @@ import org.ufpr.lpooii.controller.LivroController;
 public class JanelaLivroView extends javax.swing.JFrame {
 
     private LivroTableModel livroTableModel = new LivroTableModel();    
+    private LivroController livroController;
     /**
      * Creates new form JanelaLivroView
      */
@@ -72,11 +79,42 @@ public class JanelaLivroView extends javax.swing.JFrame {
 
     public void setController(LivroController controller) {
         botoesLivroView.setController(controller);
+        livroController = controller;
     }
 
     public void initView() {
         java.awt.EventQueue.invokeLater(() -> this.setVisible(true));
         
         tabelaLivroView.getTabelaLivro().setModel(livroTableModel);
+    }
+
+    public Livro getLivroFormulario() {
+        String titulo = formularioLivroView.getTituloCampo().getText();
+        String assunto = formularioLivroView.getAssuntoCampo().getText();
+        String codigoIsbn = formularioLivroView.getCodigoIsbnCampo().getText();
+        String[] arrayAutores = formularioLivroView.getAutoresCampo().getText().split(";");
+        LocalDate dataPublicacao = LocalDate.parse(formularioLivroView.getDataPublicacaoCampo().getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        
+        List<Autor> autores = new ArrayList();
+        
+        for(int i=0;i<arrayAutores.length;i++){
+            if (arrayAutores[i]!=""&&arrayAutores[i].matches("[0-9]+")){
+                Autor a = livroController.consultarAutor(Integer.parseInt(arrayAutores[i]));
+                
+                if (a!=null){
+                    autores.add(a);
+                }
+            }
+        }
+    
+        return new Livro(titulo, assunto, codigoIsbn, dataPublicacao, autores);
+    }
+
+    public void inserirLivroView(Livro livro) {
+        livroTableModel.adicionaLivro(livro);
+    }
+
+    public void mostrarListaAutores(List<Livro> lista) {
+        livroTableModel.setListaLivro(lista);
     }
 }

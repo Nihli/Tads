@@ -60,7 +60,7 @@ public class LivroTableModel extends AbstractTableModel{
             case 2: return livro.getDataPublicacao();//if column 2 (birthday)
             case 3: return livro.getAssunto();
             case 4: return livro.getCodigoIsbn() ;
-            case 5: return livro.getListaLivros();
+            case 5: return livro.getListaAutores();
             default : return null;
         }
     }
@@ -89,7 +89,7 @@ public class LivroTableModel extends AbstractTableModel{
 //                for (Livro l : autor.getLivros()){
 //                    autor.setListaLivros(autor.getListaLivros()+String.valueOf(l.getId()));
 //                }
-                livro.setListaLivros();
+                livro.setListaAutores();
             default:
         }
         this.fireTableCellUpdated(row, col);
