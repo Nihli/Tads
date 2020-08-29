@@ -49,11 +49,15 @@ public class Livro {
         return titulo;
     }
 
-    public void setAutores(List<Autor> autores) {
-        Iterator iterator = autores.iterator();
-        while (iterator.hasNext()) {
-            Autor autor = (Autor) iterator.next();
-            this.adicionarAutor(autor);
+    public void setAutores(List<Autor> autores, int flag) {
+        if (flag==1) {
+            Iterator iterator = autores.iterator();
+            while (iterator.hasNext()) {
+                Autor autor = (Autor) iterator.next();
+                this.adicionarAutor(autor);
+            }
+        }else{
+            this.autores = autores;
         }
     }
 

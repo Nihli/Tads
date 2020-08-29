@@ -116,6 +116,7 @@ public class JanelaAutorView extends javax.swing.JFrame {
         List<Livro> livros = new ArrayList();
         
         for(int i=0;i<arrayLivros.length;i++){
+            arrayLivros[i] = arrayLivros[i].trim();
             if (arrayLivros[i]!=""&&arrayLivros[i].matches("[0-9]+")){
                 Livro l = controllerAutor.consultarLivro(Integer.parseInt(arrayLivros[i]));
                 
@@ -164,6 +165,7 @@ public class JanelaAutorView extends javax.swing.JFrame {
         List<Livro> livros = new ArrayList();
         
         for(int i=0;i<arrayLivros.length;i++){
+            arrayLivros[i] = arrayLivros[i].trim();
             if (arrayLivros[i]!=""&&arrayLivros[i].matches("[0-9]+")){
                 Livro l = controllerAutor.consultarLivro(Integer.parseInt(arrayLivros[i]));
                 System.out.println(l.getId());

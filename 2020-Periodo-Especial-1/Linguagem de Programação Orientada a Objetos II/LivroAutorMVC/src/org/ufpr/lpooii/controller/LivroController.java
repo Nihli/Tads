@@ -38,14 +38,34 @@ public class LivroController {
     }
 
     public void criarLivro() {
-        Livro livro = view.getLivroFormulario();
-        dao.inserirLivro(livro);
-        livro.setListaAutores();
-        view.inserirLivroView(livro);
+        try{
+            Livro livro = view.getLivroFormulario();
+            dao.inserirLivro(livro);
+            livro.setListaAutores();
+            view.inserirLivroView(livro);
+        } catch (Exception ex) {
+            view.apresentaErro("Erro ao criar um livro.");
+            ex.printStackTrace();
+        }
+        
     }
 
     public void atualizarLivro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Livro livro = view.getLivroParaAtualizar();
+            
+            if (livro==null) {
+                view.apresentaInfo("Selecione um autor na tabela para atualizar.");
+                return;
+            }
+            
+            dao.atualizar(livro);
+            livro.setListaAutores();
+            view.atualizarLivro(livro);
+        } catch (Exception ex) {
+            view.apresentaErro("Erro ao atualizar um livro.");
+            ex.printStackTrace();
+        }
     }
 
     public void excluirLivro() {
@@ -53,14 +73,20 @@ public class LivroController {
             List<Livro> listaParaExcluir = view.getLivrosParaExcluir();
             dao.excluirLista(listaParaExcluir);
             view.excluirLivroView(listaParaExcluir);
-        } catch (SQLException ex) {
-            Logger.getLogger(LivroController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            view.apresentaErro("Erro ao excluir um livro.");
+            ex.printStackTrace();
         }
     }
 
     public void listarLivro() {
-        List<Livro> lista = this.dao.listarLivroComAutores();
-        view.mostrarListaAutores(lista);
+        try{
+            List<Livro> lista = this.dao.listarLivroComAutores();
+            view.mostrarListaAutores(lista);
+        } catch (Exception ex) {
+            view.apresentaErro("Erro ao Listar livros.");
+            ex.printStackTrace();
+        }
     }
 
     public Autor consultarAutor(int id) {

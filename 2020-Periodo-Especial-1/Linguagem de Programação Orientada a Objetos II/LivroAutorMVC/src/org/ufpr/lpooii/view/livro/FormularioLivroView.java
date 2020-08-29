@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import org.ufpr.lpooii.model.Autor;
+import org.ufpr.lpooii.model.Livro;
 
 /**
  *
@@ -18,7 +19,7 @@ import org.ufpr.lpooii.model.Autor;
  */
 public class FormularioLivroView extends javax.swing.JPanel {
 
-//    private Autor autorSelecionadoParaAtualizacao;
+    private Livro livroSelecionadoParaAtualizacao;
     /**
      * Creates new form FormularioAutorView
      */
@@ -145,7 +146,6 @@ public class FormularioLivroView extends javax.swing.JPanel {
     public JTextField getTituloCampo() {
         return tituloCampo;
     }
-
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -162,30 +162,30 @@ public class FormularioLivroView extends javax.swing.JPanel {
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 
-//    void setAutor(Autor autor) {
-//        autorSelecionadoParaAtualizacao = autor;
-//        
-//        dataPublicacaoCampo.setText(autor.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-//        assuntoCampo.setText(autor.getDocumento());
-//        codigoIsbnCampo.setText(autor.getNacionalidade());
-//        tituloCampo.setText(autor.getNome());
-//        autoresCampo.setText(autor.getListaLivros());
-//    }
-//
-//    public Autor getAutorSelecionadoParaAtualizacao() {
-//        if (autorSelecionadoParaAtualizacao==null) {
-//            return null;
-//        }
-//        
-//        LocalDate dataNascimento = LocalDate.parse(dataPublicacaoCampo.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-//        autorSelecionadoParaAtualizacao.setDataNascimento(dataNascimento);
-//        autorSelecionadoParaAtualizacao.setDocumento(assuntoCampo.getText());
-//        autorSelecionadoParaAtualizacao.setNacionalidade(codigoIsbnCampo.getText());
-//        autorSelecionadoParaAtualizacao.setNome(tituloCampo.getText());
-//        autorSelecionadoParaAtualizacao.setListaLivros(autoresCampo.getText());
-//        
-//        return autorSelecionadoParaAtualizacao;
-//    }
-    
+    void setLivro(Livro livro) {
+        livroSelecionadoParaAtualizacao = livro;
+        
+        dataPublicacaoCampo.setText(livro.getDataPublicacao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        assuntoCampo.setText(livro.getAssunto());
+        codigoIsbnCampo.setText(livro.getCodigoIsbn());
+        tituloCampo.setText(livro.getTitulo());
+        autoresCampo.setText(livro.getListaAutores());
+    }
+
+
+    public Livro getLivroSelecionadoParaAtualizacao() {
+        if (livroSelecionadoParaAtualizacao==null) {
+            return null;
+        }
+        
+        LocalDate dataNascimento = LocalDate.parse(dataPublicacaoCampo.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        livroSelecionadoParaAtualizacao.setDataPublicacao(dataNascimento);
+        livroSelecionadoParaAtualizacao.setAssunto(assuntoCampo.getText());
+        livroSelecionadoParaAtualizacao.setCodigoIsbn(codigoIsbnCampo.getText());
+        livroSelecionadoParaAtualizacao.setTitulo(tituloCampo.getText());
+        livroSelecionadoParaAtualizacao.setListaAutores(autoresCampo.getText());
+        
+        return livroSelecionadoParaAtualizacao;
+    }
     
 }

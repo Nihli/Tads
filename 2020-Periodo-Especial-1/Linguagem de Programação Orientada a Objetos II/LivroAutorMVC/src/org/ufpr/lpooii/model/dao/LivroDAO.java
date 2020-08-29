@@ -18,6 +18,8 @@ public class LivroDAO {
     private final String stmtListaLivroAutor = "SELECT * FROM livro";
     private final String stmtExcluir = "DELETE FROM livro WHERE ID = ?";
     private final String stmtExcluirRelacionamento = "DELETE FROM livro_autor WHERE idLivro = ?";
+    private final String stmtAtualizar = "UPDATE livro set titulo=?, dataPublicacao=?, assunto=?, codigoIsbn=? WHERE id=?";
+
 
     public void inserirLivro(Livro livro) {
         Connection con = null;
@@ -50,6 +52,37 @@ public class LivroDAO {
         return rs.getInt(1);
     }   
 
+    public void atualizar(Livro livro) throws SQLException{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            con.setAutoCommit(false);
+            
+            stmt = con.prepareStatement(stmtAtualizar);
+ 
+            stmt.setString(1, livro.getTitulo());
+            stmt.setDate(2, Date.valueOf(livro.getDataPublicacao()));
+            stmt.setString(3, livro.getAssunto());
+            stmt.setString(4,livro.getCodigoIsbn());
+            stmt.setLong(5, livro.getId());
+            stmt.executeUpdate();
+            
+            excluirRelacionamento(livro.getId(),con);
+            
+            this.gravarAutores(livro, con);
+
+            con.commit();
+         } catch (SQLException ex) {
+            con.rollback();
+            throw new RuntimeException("Erro ao atualizar um livro no banco de dados. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+
+    }
+     
     public Livro consultarLivro(int id) {
         Connection con=null;
         PreparedStatement stmt=null;
@@ -65,7 +98,7 @@ public class LivroDAO {
                 List<Autor> listaAutores = lerAutores(id,con);
                 
                 livroLido.setTitulo(rs.getString("titulo"));
-                livroLido.setAutores(listaAutores);
+                livroLido.setAutores(listaAutores,1);
                 livroLido. setId(rs.getInt("id"));
                 LocalDate dataPublicacao = rs.getDate("dataPublicacao").toLocalDate();
                 livroLido.setDataPublicacao(dataPublicacao);
@@ -138,7 +171,7 @@ public class LivroDAO {
                 livro.setTitulo(rs.getString("titulo"));
                 
                 List<Autor> listAutores = lerAutores(id,con);
-                livro.setAutores(listAutores);
+                livro.setAutores(listAutores,1);
                 livro.setId(id);
             }
 

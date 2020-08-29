@@ -5,10 +5,12 @@
  */
 package org.ufpr.lpooii.view.livro;
 
+import java.awt.event.MouseAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.ufpr.lpooii.controller.LivroController;
 import org.ufpr.lpooii.model.Autor;
 import org.ufpr.lpooii.model.Livro;
@@ -21,6 +23,7 @@ public class JanelaLivroView extends javax.swing.JFrame {
 
     private LivroTableModel livroTableModel = new LivroTableModel();    
     private LivroController livroController;
+    private int linhaClicadoParaAtualizacao = -1;
     /**
      * Creates new form JanelaLivroView
      */
@@ -80,6 +83,17 @@ public class JanelaLivroView extends javax.swing.JFrame {
     public void setController(LivroController controller) {
         botoesLivroView.setController(controller);
         livroController = controller;
+        
+        tabelaLivroView.getTabelaLivro().addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                linhaClicadoParaAtualizacao = tabelaLivroView.getTabelaLivro().rowAtPoint(evt.getPoint());
+                
+                Livro livro = livroTableModel.getLivro(linhaClicadoParaAtualizacao);
+                
+                formularioLivroView.setLivro(livro);
+            }
+        });
     }
 
     public void initView() {
@@ -98,6 +112,7 @@ public class JanelaLivroView extends javax.swing.JFrame {
         List<Autor> autores = new ArrayList();
         
         for(int i=0;i<arrayAutores.length;i++){
+            arrayAutores[i] = arrayAutores[i].trim();
             if (arrayAutores[i]!=""&&arrayAutores[i].matches("[0-9]+")){
                 Autor a = livroController.consultarAutor(Integer.parseInt(arrayAutores[i]));
                 
@@ -133,5 +148,42 @@ public class JanelaLivroView extends javax.swing.JFrame {
 
     public void excluirLivroView(List<Livro> listaParaExcluir) {
         livroTableModel.removeLivros(listaParaExcluir);
+    }
+
+    public Livro getLivroParaAtualizar() {
+//        return formularioLivroView.getLivroSelecionadoParaAtualizacao();
+        
+        Livro livro = formularioLivroView.getLivroSelecionadoParaAtualizacao();
+        System.out.println(livro.getListaAutores());
+        String[] arrayAutores = livro.getListaAutores().split(";");
+        
+        List<Autor> autores = new ArrayList();
+        
+        for(int i=0;i<arrayAutores.length;i++){
+            arrayAutores[i] = arrayAutores[i].trim();
+            if (arrayAutores[i]!=""&&arrayAutores[i].matches("[0-9]+")){
+                Autor a = livroController.consultarAutor(Integer.parseInt(arrayAutores[i]));
+                System.out.println(a.getId());
+                if (a!=null){
+                    autores.add(a);
+                }
+            }
+        }
+        
+        livro.setAutores(autores, 2);
+        
+        return livro;
+    }
+
+    public void atualizarLivro(Livro livro) {
+        livroTableModel.fireTableRowsUpdated(linhaClicadoParaAtualizacao, linhaClicadoParaAtualizacao);
+    }
+
+    public void apresentaInfo(String info) {
+        JOptionPane.showMessageDialog(null, info + "\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void apresentaErro(String erro) {
+        JOptionPane.showMessageDialog(null, erro + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
