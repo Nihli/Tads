@@ -126,7 +126,7 @@ public class LivroTableModel extends AbstractTableModel{
         return lista.get(linha);
     }
 
-    void removeAutores(List<Livro> listaParaExcluir) {
+    void removeLivros(List<Livro> listaParaExcluir) {
         listaParaExcluir.forEach((Livro) -> {
             removeLivro(Livro);
         });

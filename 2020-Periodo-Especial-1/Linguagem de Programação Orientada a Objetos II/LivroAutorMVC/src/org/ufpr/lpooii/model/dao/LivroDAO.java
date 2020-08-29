@@ -16,6 +16,8 @@ public class LivroDAO {
     private final String stmtInserir = "INSERT INTO livro(titulo,assunto, dataPublicacao, codigoIsbn) VALUES(?,?,?,?)";
     private final String stmtConsultar = "SELECT * FROM livro WHERE id = ?";
     private final String stmtListaLivroAutor = "SELECT * FROM livro";
+    private final String stmtExcluir = "DELETE FROM livro WHERE ID = ?";
+    private final String stmtExcluirRelacionamento = "DELETE FROM livro_autor WHERE idLivro = ?";
 
     public void inserirLivro(Livro livro) {
         Connection con = null;
@@ -182,8 +184,45 @@ public class LivroDAO {
             try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
             try{con.close();;}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};                
         }
-        
-        
+    }
+    
+    public void excluirLivro(long id) throws SQLException{
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            con.setAutoCommit(false);
+            excluirRelacionamento(id, con);
+            stmt = con.prepareStatement(stmtExcluir);
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+            
+            con.commit();
+        } catch (SQLException ex) {
+            con.rollback();
+            throw new RuntimeException("Erro ao excluir um livro do banco de dados. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }        
+    }
+    
+    public void excluirRelacionamento(long id, Connection con){
+        PreparedStatement stmt = null;
+        try{
+            stmt = con.prepareStatement(stmtExcluirRelacionamento);
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao excluir um relacionamento no banco de dados. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+        }        
+    }
 
+    public void excluirLista(List<Livro> lista) throws SQLException {
+        for(Livro l: lista){
+            excluirLivro(l.getId());
+        }
     }
 }

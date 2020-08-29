@@ -5,7 +5,10 @@
  */
 package org.ufpr.lpooii.controller;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.ufpr.lpooii.model.Autor;
 import org.ufpr.lpooii.model.Livro;
 import org.ufpr.lpooii.model.dao.AutorDAO;
@@ -46,7 +49,13 @@ public class LivroController {
     }
 
     public void excluirLivro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            List<Livro> listaParaExcluir = view.getLivrosParaExcluir();
+            dao.excluirLista(listaParaExcluir);
+            view.excluirLivroView(listaParaExcluir);
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void listarLivro() {

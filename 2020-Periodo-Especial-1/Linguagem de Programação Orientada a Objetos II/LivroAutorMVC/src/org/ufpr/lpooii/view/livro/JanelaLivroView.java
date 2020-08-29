@@ -117,4 +117,21 @@ public class JanelaLivroView extends javax.swing.JFrame {
     public void mostrarListaAutores(List<Livro> lista) {
         livroTableModel.setListaLivro(lista);
     }
+
+    public List<Livro> getLivrosParaExcluir() {
+        int[] linhasSelecionadas = this.tabelaLivroView.getTabelaLivro().getSelectedRows();
+        
+        List<Livro> listaExcluir = new ArrayList();
+        
+        for (int i=0;i<linhasSelecionadas.length;i++) {
+            Livro livro = livroTableModel.getLivro(linhasSelecionadas[i]);
+            listaExcluir.add(livro);
+        }
+        
+        return listaExcluir;
+    }
+
+    public void excluirLivroView(List<Livro> listaParaExcluir) {
+        livroTableModel.removeLivros(listaParaExcluir);
+    }
 }
