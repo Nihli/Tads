@@ -8,8 +8,10 @@ package org.ufpr.sistemabanco.view.menuinicial;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.ufpr.sistemabanco.controller.ClienteController;
+import org.ufpr.sistemabanco.controller.VinculaContaController;
 import org.ufpr.sistemabanco.model.dao.ClienteDao;
 import org.ufpr.sistemabanco.view.cliente.JanelaClienteView;
+import org.ufpr.sistemabanco.view.vinculaconta.JanelaVinculaContaView;
 
 /**
  *
@@ -100,6 +102,14 @@ public class BotoesMenuView extends javax.swing.JPanel implements ActionListener
             
             janelaMenuView.dispose();
         }else if (cmd.equals("abrirVinculaContaClienteView")){
+            JanelaVinculaContaView janelaVinculaContaView = new JanelaVinculaContaView();
+            ClienteDao clienteDao = new ClienteDao();
+            
+            VinculaContaController clienteController = new VinculaContaController(janelaVinculaContaView, clienteDao);
+            
+            janelaMenuView.dispose();
+
+
             
         }else if (cmd.equals("abrirContaView")){
         

@@ -5,6 +5,9 @@
  */
 package org.ufpr.sistemabanco.view.cliente;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import org.ufpr.sistemabanco.controller.ClienteController;
 
 /**
@@ -81,7 +84,16 @@ public class botoesClienteView extends javax.swing.JPanel {
     void setController(ClienteController controller) {
       this.btnCriar.addActionListener(e -> controller.criarCliente());
       this.btnAtualizar.addActionListener(e -> controller.atualizarCliente());
-      this.btnExcluir.addActionListener(e -> controller.excluirCliente());
+      this.btnExcluir.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse cliente?\nAo excluir um cliente, todas as contas vinculadas a ele serão excluídas também." + "\n", "Confirmar exclusão", JOptionPane.OK_CANCEL_OPTION);
+          
+            if (resposta == JOptionPane.OK_OPTION) {
+                controller.excluirCliente();
+            }
+          }
+      });
       this.btnListar.addActionListener(e -> controller.listarCliente());
     }
 }

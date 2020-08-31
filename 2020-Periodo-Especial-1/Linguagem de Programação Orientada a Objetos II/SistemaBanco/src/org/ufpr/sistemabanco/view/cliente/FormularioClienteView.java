@@ -30,6 +30,7 @@ public class FormularioClienteView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         nomeLabel = new javax.swing.JLabel();
         nomeCampo = new javax.swing.JTextField();
         sobrenomeLabel = new javax.swing.JLabel();
@@ -40,6 +41,10 @@ public class FormularioClienteView extends javax.swing.JPanel {
         cpfCampo = new javax.swing.JTextField();
         enderecoLabel = new javax.swing.JLabel();
         enderecoCampo = new javax.swing.JTextField();
+        salarioLabel = new javax.swing.JLabel();
+        salarioCampo = new javax.swing.JTextField();
+
+        jLabel1.setText("jLabel1");
 
         nomeLabel.setText("Nome:");
 
@@ -50,6 +55,8 @@ public class FormularioClienteView extends javax.swing.JPanel {
         cpfLabel.setText("CPF:");
 
         enderecoLabel.setText("Endereço:");
+
+        salarioLabel.setText("Salário:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -62,14 +69,17 @@ public class FormularioClienteView extends javax.swing.JPanel {
                     .addComponent(nomeLabel)
                     .addComponent(rgLabel)
                     .addComponent(cpfLabel)
-                    .addComponent(enderecoLabel))
+                    .addComponent(enderecoLabel)
+                    .addComponent(salarioLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(enderecoCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                    .addComponent(cpfCampo)
-                    .addComponent(rgCampo)
-                    .addComponent(sobrenomeCampo)
-                    .addComponent(nomeCampo))
+                    .addComponent(salarioCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(enderecoCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                        .addComponent(cpfCampo)
+                        .addComponent(rgCampo)
+                        .addComponent(sobrenomeCampo)
+                        .addComponent(nomeCampo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -95,6 +105,10 @@ public class FormularioClienteView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(enderecoLabel)
                     .addComponent(enderecoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salarioLabel)
+                    .addComponent(salarioCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -105,10 +119,13 @@ public class FormularioClienteView extends javax.swing.JPanel {
     private javax.swing.JLabel cpfLabel;
     private javax.swing.JTextField enderecoCampo;
     private javax.swing.JLabel enderecoLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField nomeCampo;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JTextField rgCampo;
     private javax.swing.JLabel rgLabel;
+    private javax.swing.JTextField salarioCampo;
+    private javax.swing.JLabel salarioLabel;
     private javax.swing.JTextField sobrenomeCampo;
     private javax.swing.JLabel sobrenomeLabel;
     // End of variables declaration//GEN-END:variables
@@ -135,6 +152,10 @@ public class FormularioClienteView extends javax.swing.JPanel {
         return sobrenomeCampo;
     }
 
+    public JTextField getSalarioCampo() {
+        return salarioCampo;
+    }
+
     public Cliente getClienteSelecionadoParaAtualizacao() {
         if (clienteSelecionadoParaAtualizacao==null) {
            return null;
@@ -145,8 +166,9 @@ public class FormularioClienteView extends javax.swing.JPanel {
         clienteSelecionadoParaAtualizacao.setRg(rgCampo.getText());
         clienteSelecionadoParaAtualizacao.setCpf(cpfCampo.getText());
         clienteSelecionadoParaAtualizacao.setEndereco(enderecoCampo.getText());
+        clienteSelecionadoParaAtualizacao.setSalario(Double.parseDouble(salarioCampo.getText().replace(",", ".")));
 
-        return clienteSelecionadoParaAtualizacao;
+            return clienteSelecionadoParaAtualizacao;
     }
 
     void setCliente(Cliente cliente) {
@@ -157,6 +179,7 @@ public class FormularioClienteView extends javax.swing.JPanel {
         rgCampo.setText(cliente.getRg());
         cpfCampo.setText(cliente.getCpf());
         enderecoCampo.setText(cliente.getEndereco());
+        salarioCampo.setText(String.valueOf(cliente.getSalario()));
     }
 
 

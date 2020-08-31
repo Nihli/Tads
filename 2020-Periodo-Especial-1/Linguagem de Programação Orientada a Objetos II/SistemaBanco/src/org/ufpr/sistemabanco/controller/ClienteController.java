@@ -82,6 +82,16 @@ public class ClienteController {
             e.printStackTrace();
         }
     }
-    
-    
+
+    public void buscarCliente(int atributo) {
+         try{
+            String busca = view.getBusca();
+            List<Cliente> lista = dao.buscaClientes(busca.trim(), atributo);
+
+            view.mostrarListaClientes(lista);
+        }catch(Exception e) {
+            view.apresentaErro("Erro ao listar clientes.");
+            e.printStackTrace();
+        }
+    }
 }

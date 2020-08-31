@@ -9,24 +9,27 @@ package org.ufpr.sistemabanco.model;
  *
  * @author Lia
  */
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
     private int id;
     private String nome;
     private String sobrenome;
     private String rg;
     private String cpf;
     private String endereco;
+    private double salario;
 
     public Cliente() {
     }
 
-    public Cliente(String nome, String sobrenome, String rg, String cpf, String endereco) {
+    public Cliente(String nome, String sobrenome, String rg, String cpf, String endereco, double salario) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.rg = rg;
         this.cpf = cpf;
         this.endereco = endereco;
+        this.salario = salario;
     }
+
 
     public int getId() {
         return id;
@@ -74,6 +77,19 @@ public class Cliente {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+    
+    @Override
+    public int compareTo(Cliente o) {
+        return this.getNome().compareTo(o.getNome());
     }
     
 }

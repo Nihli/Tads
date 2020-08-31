@@ -7,8 +7,10 @@ package org.ufpr.sistemabanco.view.cliente;
 
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
 import org.ufpr.sistemabanco.controller.ClienteController;
 import org.ufpr.sistemabanco.model.Cliente;
 
@@ -36,9 +38,13 @@ public class JanelaClienteView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         botoesClienteView = new org.ufpr.sistemabanco.view.cliente.botoesClienteView();
         tabelaClienteView = new org.ufpr.sistemabanco.view.cliente.TabelaClienteView();
         formularioClienteView = new org.ufpr.sistemabanco.view.cliente.FormularioClienteView();
+        buscaClienteView = new org.ufpr.sistemabanco.view.cliente.BuscaClienteView();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,22 +53,29 @@ public class JanelaClienteView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(formularioClienteView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tabelaClienteView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botoesClienteView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tabelaClienteView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buscaClienteView, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botoesClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(formularioClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(buscaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(tabelaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botoesClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabelaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(formularioClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -70,7 +83,9 @@ public class JanelaClienteView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.ufpr.sistemabanco.view.cliente.botoesClienteView botoesClienteView;
+    private org.ufpr.sistemabanco.view.cliente.BuscaClienteView buscaClienteView;
     private org.ufpr.sistemabanco.view.cliente.FormularioClienteView formularioClienteView;
+    private javax.swing.JButton jButton1;
     private org.ufpr.sistemabanco.view.cliente.TabelaClienteView tabelaClienteView;
     // End of variables declaration//GEN-END:variables
 
@@ -79,6 +94,7 @@ public class JanelaClienteView extends javax.swing.JFrame {
     
     public void setController(ClienteController controller) {
         botoesClienteView.setController(controller);
+        buscaClienteView.setController(controller);
         
         tabelaClienteView.getTabelaCliente().addMouseListener(new MouseAdapter() {
             @Override
@@ -98,6 +114,23 @@ public class JanelaClienteView extends javax.swing.JFrame {
          java.awt.EventQueue.invokeLater(() -> this.setVisible(true));
          
          tabelaClienteView.getTabelaCliente().setModel(clienteTableModel);
+         
+        TableRowSorter<ClienteTableModel> sorter = new TableRowSorter(tabelaClienteView.getTabelaCliente().getModel());
+        sorter.setComparator(0, new Comparator<String>() {
+ 
+            @Override
+            public int compare(String name1, String name2) {
+                return name1.compareTo(name2);
+            }
+        });
+        sorter.setComparator(1, new Comparator<String>() {
+ 
+            @Override
+            public int compare(String name1, String name2) {
+                return name1.compareTo(name2);
+            }
+        });
+        tabelaClienteView.getTabelaCliente().setRowSorter(sorter);
     }
 
     public Cliente getClienteFormulario() {
@@ -106,8 +139,9 @@ public class JanelaClienteView extends javax.swing.JFrame {
       String rg = formularioClienteView.getRgCampo().getText();
       String cpf = formularioClienteView.getCpfCampo().getText();
       String endereco = formularioClienteView.getEnderecoCampo().getText();
+      double salario = formularioClienteView.getSalarioCampo().getText().equals("")?0.0:Double.parseDouble(formularioClienteView.getSalarioCampo().getText().replace(",","."));
 
-      return new Cliente(nome, sobrenome, rg, cpf, endereco);
+      return new Cliente(nome, sobrenome, rg, cpf, endereco, salario);
     }
 
     public void inserirClienteView(Cliente cliente) {
@@ -148,5 +182,9 @@ public class JanelaClienteView extends javax.swing.JFrame {
 
     public void atualizarCliente(Cliente cliente) {
         clienteTableModel.fireTableRowsUpdated(linhaClicadaParaAtualizacao, linhaClicadaParaAtualizacao);
+    }
+
+    public String getBusca() {
+        return buscaClienteView.getBuscaCampo().getText();
     }
 }

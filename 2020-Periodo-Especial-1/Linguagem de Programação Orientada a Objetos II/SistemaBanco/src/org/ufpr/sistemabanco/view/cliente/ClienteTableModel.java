@@ -15,7 +15,7 @@ import org.ufpr.sistemabanco.model.Cliente;
  * @author Lia
  */
 public class ClienteTableModel extends AbstractTableModel{
- private String[] colunas=new String[]{"id","Nome", "Sobrenome", "RG","CPF", "Endereço"};
+ private String[] colunas=new String[]{"Nome","Sobrenome", "RG", "CPF","Endereço", "Salario"};
 
     private List<Cliente> lista=new ArrayList();
 
@@ -54,12 +54,12 @@ public class ClienteTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         Cliente cliente = lista.get(rowIndex);
         switch (columnIndex) {
-            case 0: return cliente.getId();//if column 0 (code)
-            case 1: return cliente.getNome();//if column 1 (name)
-            case 2: return cliente.getSobrenome();//if column 2 (birthday)
-            case 3: return cliente.getRg();
-            case 4: return cliente.getCpf() ;
-            case 5: return cliente.getEndereco();
+            case 0: return cliente.getNome();//if column 0 (code)
+            case 1: return cliente.getSobrenome();//if column 1 (name)
+            case 2: return cliente.getRg();//if column 2 (birthday)
+            case 3: return cliente.getCpf();
+            case 4: return cliente.getEndereco() ;
+            case 5: return cliente.getSalario();
             default : return null;
         }
     }
@@ -69,22 +69,22 @@ public class ClienteTableModel extends AbstractTableModel{
         Cliente cliente = lista.get(row);
         switch (col) {
             case 0:
-                cliente.setId((int) value); //if column 0 (code)
+                cliente.setNome((String) value); //if column 0 (code)
                 break;
             case 1:
-                cliente.setNome((String) value);
-                break;
-            case 2:
                 cliente.setSobrenome((String) value);
                 break;
-            case 3:
+            case 2:
                 cliente.setRg((String) value);
                 break;
-            case 4:
+            case 3:
                 cliente.setCpf((String) value);
                 break;
-            case 5:
+            case 4:
                 cliente.setEndereco((String) value);
+                break;
+            case 5:
+                cliente.setSalario((Double) value);
             default:
         }
         this.fireTableCellUpdated(row, col);
