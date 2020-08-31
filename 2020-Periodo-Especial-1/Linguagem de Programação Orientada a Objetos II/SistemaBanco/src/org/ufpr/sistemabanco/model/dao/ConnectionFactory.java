@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     
     public static Connection getConnection() throws SQLException{
-        return DriverManager.getConnection("jdbc:mysql://localhost/lpooiilivroautormvc?useTimezone=true&serverTimezone=UTC&useSSL=false", "root", "root");
+        return DriverManager.getConnection("jdbc:mysql://localhost/sistemabanco?useTimezone=true&serverTimezone=UTC&useSSL=false", "root", "root");
     }
     
         

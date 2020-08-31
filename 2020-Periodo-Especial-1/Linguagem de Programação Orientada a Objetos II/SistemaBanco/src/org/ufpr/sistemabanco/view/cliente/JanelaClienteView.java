@@ -5,6 +5,7 @@
  */
 package org.ufpr.sistemabanco.view.cliente;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.ufpr.sistemabanco.controller.ClienteController;
@@ -102,11 +103,27 @@ public class JanelaClienteView extends javax.swing.JFrame {
         clienteTableModel.setListaCliente(lista);
     }
     
+    public List<Cliente> getClientesParaExcluir(){
+        int[] linhasSelecionadas = this.tabelaClienteView.getTabelaCliente().getSelectedRows();
+        List<Cliente> listaExcluir = new ArrayList();
+          
+        for (int i=0;i<linhasSelecionadas.length;i++){
+            Cliente cliente = clienteTableModel.getCliente(linhasSelecionadas[i]);
+            listaExcluir.add(cliente);
+        }
+           
+        return listaExcluir;
+    }
+    
         public void apresentaInfo(String info) {
         JOptionPane.showMessageDialog(null, info + "\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void apresentaErro(String erro) {
         JOptionPane.showMessageDialog(null, erro + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void excluirClienteView(List<Cliente> listaParaExcluir) {
+        clienteTableModel.removeClientes(listaParaExcluir);
     }
 }

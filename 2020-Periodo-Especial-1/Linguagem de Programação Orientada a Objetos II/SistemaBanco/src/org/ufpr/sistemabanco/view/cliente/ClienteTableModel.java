@@ -121,7 +121,7 @@ public class ClienteTableModel extends AbstractTableModel{
         return lista.get(linha);
     }
 
-    void removeLivros(List<Cliente> listaParaExcluir) {
+    void removeClientes(List<Cliente> listaParaExcluir) {
         listaParaExcluir.forEach((cliente) -> {
             removeCliente(cliente);
         });

@@ -47,7 +47,15 @@ public class ClienteController {
     }
 
     public void excluirCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            List<Cliente> listaParaExcluir = view.getClientesParaExcluir();
+            dao.excluirLista(listaParaExcluir);
+
+            view.excluirClienteView(listaParaExcluir);
+        }catch(Exception e) {
+            view.apresentaErro("Erro ao listar clientes.");
+            e.printStackTrace();
+        }
     }
 
     public void listarCliente() {

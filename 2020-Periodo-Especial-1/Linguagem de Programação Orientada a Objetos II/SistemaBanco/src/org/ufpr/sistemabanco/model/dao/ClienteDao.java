@@ -25,6 +25,7 @@ import org.ufpr.sistemabanco.model.Cliente;
 public class ClienteDao {
     private final String stmtInsere = "INSERT INTO cliente(nome, sobrenome, rg, cpf, endereco) VALUES (?,?,?,?,?)";
     private final String stmtListar = "SELECT * FROM cliente";
+    private final String stmtExcluir = "DELETE FROM cliente WHERE id=?";
     
     public void insere(Cliente cliente) {
         Connection conn = null;
@@ -94,6 +95,38 @@ public class ClienteDao {
             }catch(SQLException e){
                 throw new RuntimeException("Houve um erro ao fechar os atributos da conexão.");
             }
+        }
+    }
+       
+    public void remove(Cliente cliente) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtExcluir);
+            
+            int x = 0;
+            
+            stmt.setLong(++x, cliente.getId());
+            
+            stmt.executeUpdate();
+            
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }
+        finally{
+            try{
+                ConnectionFactory.close(conn, stmt);
+            }catch(SQLException e){
+                throw new RuntimeException("Houve um erro ao fechar os atributos da conexão.");
+            }
+        }
+    }
+
+    public void excluirLista(List<Cliente> listaParaExcluir) {
+        for (Cliente cliente: listaParaExcluir) {
+            remove(cliente);
         }
     }
 }
