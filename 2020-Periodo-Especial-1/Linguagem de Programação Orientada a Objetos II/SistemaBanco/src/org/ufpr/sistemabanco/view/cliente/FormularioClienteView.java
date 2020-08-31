@@ -6,17 +6,18 @@
 package org.ufpr.sistemabanco.view.cliente;
 
 import javax.swing.JTextField;
+import org.ufpr.sistemabanco.model.Cliente;
 
 /**
  *
  * @author Lia
  */
-public class FormularioCliente extends javax.swing.JPanel {
+public class FormularioClienteView extends javax.swing.JPanel {
 
     /**
      * Creates new form FormularioCliente
      */
-    public FormularioCliente() {
+    public FormularioClienteView() {
         initComponents();
     }
 
@@ -112,6 +113,8 @@ public class FormularioCliente extends javax.swing.JPanel {
     private javax.swing.JLabel sobrenomeLabel;
     // End of variables declaration//GEN-END:variables
 
+    private Cliente clienteSelecionadoParaAtualizacao;
+    
     public JTextField getCpfCampo() {
         return cpfCampo;
     }
@@ -130,6 +133,30 @@ public class FormularioCliente extends javax.swing.JPanel {
 
     public JTextField getSobrenomeCampo() {
         return sobrenomeCampo;
+    }
+
+    public Cliente getClienteSelecionadoParaAtualizacao() {
+        if (clienteSelecionadoParaAtualizacao==null) {
+           return null;
+        }
+        
+        clienteSelecionadoParaAtualizacao.setNome(nomeCampo.getText());
+        clienteSelecionadoParaAtualizacao.setSobrenome(sobrenomeCampo.getText());
+        clienteSelecionadoParaAtualizacao.setRg(rgCampo.getText());
+        clienteSelecionadoParaAtualizacao.setCpf(cpfCampo.getText());
+        clienteSelecionadoParaAtualizacao.setEndereco(enderecoCampo.getText());
+
+        return clienteSelecionadoParaAtualizacao;
+    }
+
+    void setCliente(Cliente cliente) {
+        clienteSelecionadoParaAtualizacao = cliente;
+              
+        nomeCampo.setText(cliente.getNome());
+        sobrenomeCampo.setText(cliente.getSobrenome());
+        rgCampo.setText(cliente.getRg());
+        cpfCampo.setText(cliente.getCpf());
+        enderecoCampo.setText(cliente.getEndereco());
     }
 
 

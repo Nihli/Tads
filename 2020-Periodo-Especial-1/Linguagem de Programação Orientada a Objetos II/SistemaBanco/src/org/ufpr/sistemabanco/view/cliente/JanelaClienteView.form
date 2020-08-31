@@ -26,7 +26,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="formularioCliente" max="32767" attributes="0"/>
+                  <Component id="formularioClienteView" max="32767" attributes="0"/>
                   <Component id="tabelaClienteView" alignment="1" max="32767" attributes="0"/>
                   <Component id="botoesClienteView" alignment="1" max="32767" attributes="0"/>
               </Group>
@@ -41,7 +41,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="tabelaClienteView" min="-2" pref="94" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="formularioCliente" min="-2" max="-2" attributes="0"/>
+              <Component id="formularioClienteView" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -52,7 +52,7 @@
     </Component>
     <Component class="org.ufpr.sistemabanco.view.cliente.TabelaClienteView" name="tabelaClienteView">
     </Component>
-    <Component class="org.ufpr.sistemabanco.view.cliente.FormularioCliente" name="formularioCliente">
+    <Component class="org.ufpr.sistemabanco.view.cliente.FormularioClienteView" name="formularioClienteView">
     </Component>
   </SubComponents>
 </Form>

@@ -5,6 +5,7 @@
  */
 package org.ufpr.sistemabanco.view.cliente;
 
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -37,7 +38,7 @@ public class JanelaClienteView extends javax.swing.JFrame {
 
         botoesClienteView = new org.ufpr.sistemabanco.view.cliente.botoesClienteView();
         tabelaClienteView = new org.ufpr.sistemabanco.view.cliente.TabelaClienteView();
-        formularioCliente = new org.ufpr.sistemabanco.view.cliente.FormularioCliente();
+        formularioClienteView = new org.ufpr.sistemabanco.view.cliente.FormularioClienteView();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,7 +49,7 @@ public class JanelaClienteView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(formularioCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(formularioClienteView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tabelaClienteView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botoesClienteView, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -60,7 +61,7 @@ public class JanelaClienteView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(formularioCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(formularioClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -69,14 +70,28 @@ public class JanelaClienteView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.ufpr.sistemabanco.view.cliente.botoesClienteView botoesClienteView;
-    private org.ufpr.sistemabanco.view.cliente.FormularioCliente formularioCliente;
+    private org.ufpr.sistemabanco.view.cliente.FormularioClienteView formularioClienteView;
     private org.ufpr.sistemabanco.view.cliente.TabelaClienteView tabelaClienteView;
     // End of variables declaration//GEN-END:variables
 
     private ClienteTableModel clienteTableModel = new ClienteTableModel();
+    private int linhaClicadaParaAtualizacao = -1;
     
     public void setController(ClienteController controller) {
         botoesClienteView.setController(controller);
+        
+        tabelaClienteView.getTabelaCliente().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                
+                linhaClicadaParaAtualizacao =  tabelaClienteView.getTabelaCliente().rowAtPoint(evt.getPoint());
+               
+              Cliente cliente = clienteTableModel.getCliente(linhaClicadaParaAtualizacao);
+              
+              formularioClienteView.setCliente(cliente);
+             
+            }
+        }); 
     }
 
     public void initView() {
@@ -86,11 +101,11 @@ public class JanelaClienteView extends javax.swing.JFrame {
     }
 
     public Cliente getClienteFormulario() {
-      String nome = formularioCliente.getNomeCampo().getText();
-      String sobrenome = formularioCliente.getSobrenomeCampo().getText();
-      String rg = formularioCliente.getRgCampo().getText();
-      String cpf = formularioCliente.getCpfCampo().getText();
-      String endereco = formularioCliente.getEnderecoCampo().getText();
+      String nome = formularioClienteView.getNomeCampo().getText();
+      String sobrenome = formularioClienteView.getSobrenomeCampo().getText();
+      String rg = formularioClienteView.getRgCampo().getText();
+      String cpf = formularioClienteView.getCpfCampo().getText();
+      String endereco = formularioClienteView.getEnderecoCampo().getText();
 
       return new Cliente(nome, sobrenome, rg, cpf, endereco);
     }
@@ -125,5 +140,13 @@ public class JanelaClienteView extends javax.swing.JFrame {
 
     public void excluirClienteView(List<Cliente> listaParaExcluir) {
         clienteTableModel.removeClientes(listaParaExcluir);
+    }
+
+    public Cliente getClienteParaAtualizar() {
+        return formularioClienteView.getClienteSelecionadoParaAtualizacao();
+    }
+
+    public void atualizarCliente(Cliente cliente) {
+        clienteTableModel.fireTableRowsUpdated(linhaClicadaParaAtualizacao, linhaClicadaParaAtualizacao);
     }
 }

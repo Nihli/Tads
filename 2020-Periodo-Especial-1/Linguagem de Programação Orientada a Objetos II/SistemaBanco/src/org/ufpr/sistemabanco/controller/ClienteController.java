@@ -43,7 +43,21 @@ public class ClienteController {
     }
 
     public void atualizarCliente() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try{
+            Cliente cliente = view.getClienteParaAtualizar();
+            
+            if (cliente==null) {
+                view.apresentaInfo("Selecione um cliente na tabela para atualizar.");
+                return;
+            }
+            
+            dao.atualizar(cliente);
+            
+            view.atualizarCliente(cliente);
+        }catch(Exception e) {
+            view.apresentaErro("Erro ao atualizar cliente.");
+            e.printStackTrace();
+        }
     }
 
     public void excluirCliente() {
@@ -53,7 +67,7 @@ public class ClienteController {
 
             view.excluirClienteView(listaParaExcluir);
         }catch(Exception e) {
-            view.apresentaErro("Erro ao listar clientes.");
+            view.apresentaErro("Erro ao excluir o cliente.");
             e.printStackTrace();
         }
     }
