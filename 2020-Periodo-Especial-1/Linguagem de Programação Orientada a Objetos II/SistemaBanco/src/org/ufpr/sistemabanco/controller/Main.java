@@ -5,6 +5,10 @@
  */
 package org.ufpr.sistemabanco.controller;
 
+import org.ufpr.sistemabanco.model.Cliente;
+import org.ufpr.sistemabanco.model.Conta;
+import org.ufpr.sistemabanco.model.ContaCorrente;
+import org.ufpr.sistemabanco.model.ContaInvestimento;
 import org.ufpr.sistemabanco.view.menuinicial.JanelaMenuView;
 
 /**
@@ -19,6 +23,19 @@ public class Main {
         JanelaMenuView view = new JanelaMenuView();
         
         view.show();
-        
+//        Cliente c = new Cliente("Lia", "Alflen", "rg","cpf", "enderec", 100);
+//        ContaCorrente cc = new ContaCorrente(100,c, 50, "1");
+//        cc.deposita(20);
+//        cc.saca(171);
+//        System.out.println(cc.getSaldo());
+//        cc.remunera();
+//        System.out.println(cc.getSaldo());
+
+//        ContaInvestimento ci = new ContaInvestimento(100, 50,c, 105, "1");
+////        ci.deposita(120);
+//        ci.saca(6);
+//        System.out.println(ci.getSaldo());
+//        ci.remunera();
+//        System.out.println(ci.getSaldo());
     }
 }

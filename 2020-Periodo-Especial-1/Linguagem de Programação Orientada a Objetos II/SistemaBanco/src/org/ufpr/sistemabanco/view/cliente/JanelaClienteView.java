@@ -164,7 +164,7 @@ public class JanelaClienteView extends javax.swing.JFrame {
         return listaExcluir;
     }
     
-        public void apresentaInfo(String info) {
+    public void apresentaInfo(String info) {
         JOptionPane.showMessageDialog(null, info + "\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
 

@@ -84,7 +84,7 @@ public class ClienteController {
     }
 
     public void buscarCliente(int atributo) {
-         try{
+        try{
             String busca = view.getBusca();
             List<Cliente> lista = dao.buscaClientes(busca.trim(), atributo);
 

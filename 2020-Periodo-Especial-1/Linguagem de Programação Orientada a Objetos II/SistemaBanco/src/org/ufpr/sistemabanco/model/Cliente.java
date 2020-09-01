@@ -30,7 +30,6 @@ public class Cliente implements Comparable<Cliente>{
         this.salario = salario;
     }
 
-
     public int getId() {
         return id;
     }
