@@ -5,6 +5,8 @@
  */
 package org.ufpr.sistemabanco.controller;
 
+import java.util.List;
+import org.ufpr.sistemabanco.model.ContaI;
 import org.ufpr.sistemabanco.model.dao.ClienteDao;
 import org.ufpr.sistemabanco.model.dao.ContaDao;
 import org.ufpr.sistemabanco.view.manipulaconta.JanelaManipulaContaView;
@@ -48,7 +50,13 @@ public class ContaController {
     }
 
     public void buscarConta(int selectedIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (selectedIndex == 0) {
+            String busca = view.getBusca();
+            
+            List<ContaI> listaContas = contaDao.buscaContaPorCPF(busca);
+            
+            view.mostrarListaContas(listaContas);
+        }
     }
     
 }

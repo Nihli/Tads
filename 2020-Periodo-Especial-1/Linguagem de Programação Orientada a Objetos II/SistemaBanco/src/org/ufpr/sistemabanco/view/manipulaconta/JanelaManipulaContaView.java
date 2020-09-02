@@ -5,7 +5,9 @@
  */
 package org.ufpr.sistemabanco.view.manipulaconta;
 
+import java.util.List;
 import org.ufpr.sistemabanco.controller.ContaController;
+import org.ufpr.sistemabanco.model.ContaI;
 
 /**
  *
@@ -84,4 +86,12 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
     private org.ufpr.sistemabanco.view.manipulaconta.BuscaClienteView buscaClienteView;
     private org.ufpr.sistemabanco.view.manipulaconta.TabelaContaView tabelaContaView;
     // End of variables declaration//GEN-END:variables
+
+    public String getBusca() {
+        return buscaClienteView.getBuscaCampo().getText();
+    }
+
+    public void mostrarListaContas(List<ContaI> listaContas) {
+        contaTableModel.setListaConta(listaContas);
+    }
 }
