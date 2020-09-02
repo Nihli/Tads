@@ -22,6 +22,13 @@ public abstract class Conta implements ContaI{
         this.saldo = depositoInicial;
     }
     
+    public Conta(double depositoInicial, Cliente dono, int numero, double saldo) {
+        this.depositoInicial = depositoInicial;
+        this.dono = dono;
+        this.numero = numero;
+        this.saldo = saldo;
+    }
+    
     @Override
     public boolean deposita(double valor) {
         if (valor>=0){

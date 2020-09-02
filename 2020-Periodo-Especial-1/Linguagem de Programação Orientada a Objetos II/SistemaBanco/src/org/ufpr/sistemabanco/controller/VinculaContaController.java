@@ -39,6 +39,7 @@ public class VinculaContaController {
     public void buscarCliente(int atributo) {
         try{
             String busca = view.getBusca();
+            
             List<Cliente> lista = clienteDao.buscaClientes(busca.trim(), atributo);
 
             view.mostrarListaClientes(lista);

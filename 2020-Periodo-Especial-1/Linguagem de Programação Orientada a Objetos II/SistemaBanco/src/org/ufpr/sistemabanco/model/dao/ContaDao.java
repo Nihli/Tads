@@ -26,6 +26,7 @@ public class ContaDao {
     private final String stmtAtualizarContaNumero = "UPDATE conta SET numero=? WHERE idConta=?";
     private final String stmtInserirInvestimento = "INSERT INTO conta(idCliente, saldo, depositoInicial, montanteMinimo, depositoMinimo, numero, tipo) VALUES (?,?,?,?,?,?,?)";
     private final String stmtContaPorCpf = "SELECT * FROM cliente as c INNER JOIN conta as co ON c.id = co.idCliente WHERE c.cpf LIKE ?";
+    private final String stmtAtualizarSaldo = "UPDATE conta SET saldo=? WHERE idConta=?";
 
     
     public void insere(ContaCorrente conta) {
@@ -162,11 +163,13 @@ public class ContaDao {
                 c.setPossuiConta(true);
 
                 if (rs.getString("tipo").equals("cc")){
-                    ContaCorrente cc = new ContaCorrente(rs.getDouble("limite"),c, rs.getDouble("depositoInicial"), rs.getInt("numero"));
+                    ContaCorrente cc = new ContaCorrente(rs.getDouble("limite"),c, rs.getDouble("depositoInicial"), rs.getInt("numero"), rs.getDouble("saldo"));
+                    cc.setId(rs.getInt("idConta"));
                     contas.add(cc);
                 }else if (rs.getString("tipo").equals("ci")){
-                    ContaInvestimento ci = new ContaInvestimento(rs.getDouble("montanteMinimo"), rs.getDouble("depositoMinimo"), c, rs.getDouble("depositoInicial"), rs.getInt("numero"));
-                     contas.add(ci);
+                    ContaInvestimento ci = new ContaInvestimento(rs.getDouble("montanteMinimo"), rs.getDouble("depositoMinimo"), c, rs.getDouble("depositoInicial"), rs.getInt("numero"), rs.getDouble("saldo"));
+                    ci.setId(rs.getInt("idConta"));
+                    contas.add(ci);
                 }
             }
             
@@ -176,6 +179,33 @@ public class ContaDao {
         }finally{
             try{
                 ConnectionFactory.close(conn, stmt, rs);
+            }catch(SQLException e){
+                throw new RuntimeException("Houve um erro ao fechar os atributos da conexão.");
+            }
+        }
+    }
+
+    public void atualizaSaldo(double valor, int id) {
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            stmt = conn.prepareStatement(stmtAtualizarSaldo);
+            
+            int x = 0;
+            
+            stmt.setDouble(++x, valor);
+            stmt.setInt(++x, id);
+            
+            stmt.executeUpdate();
+            
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }finally{
+            try{
+                ConnectionFactory.close(conn, stmt);
             }catch(SQLException e){
                 throw new RuntimeException("Houve um erro ao fechar os atributos da conexão.");
             }

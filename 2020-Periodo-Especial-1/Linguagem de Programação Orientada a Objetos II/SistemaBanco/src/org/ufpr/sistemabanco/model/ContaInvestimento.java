@@ -19,6 +19,12 @@ public class ContaInvestimento extends Conta{
         this.montanteMinimo = montanteMinimo;
         this.depositoMinimo = depositoMinimo;
     }
+    
+    public ContaInvestimento(double montanteMinimo, double depositoMinimo, Cliente cliente, double depositoInicial, int numero, double saldo) {
+        super(depositoInicial, cliente, numero, saldo);
+        this.montanteMinimo = montanteMinimo;
+        this.depositoMinimo = depositoMinimo;
+    }
 
     @Override
     public boolean saca(double valor) {
@@ -49,6 +55,7 @@ public class ContaInvestimento extends Conta{
 
     @Override
     public void remunera() {
+        System.out.println("Remunera da Investimento");
         super.deposita(getSaldo()*0.02);
     }
 

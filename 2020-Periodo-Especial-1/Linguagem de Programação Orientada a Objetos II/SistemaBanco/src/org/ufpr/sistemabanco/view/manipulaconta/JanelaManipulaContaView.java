@@ -122,6 +122,10 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
         return Double.parseDouble(botoesOperacaoContaView.getValorSacarCampo().getText().replace(",", "."));
     }
     
+    public double getValorDepositar() {
+        return Double.parseDouble(botoesOperacaoContaView.getValorDepositarCampo().getText().replace(",", "."));
+    }
+    
     public void apresentaInfo(String info) {
         JOptionPane.showMessageDialog(null, info + "\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -129,4 +133,5 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
     public void apresentaErro(String erro) {
         JOptionPane.showMessageDialog(null, erro + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
     }
+
 }

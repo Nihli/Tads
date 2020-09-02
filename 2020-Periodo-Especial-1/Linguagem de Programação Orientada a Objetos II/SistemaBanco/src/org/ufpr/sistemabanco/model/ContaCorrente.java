@@ -17,6 +17,11 @@ public class ContaCorrente extends Conta{
         super(depositoInicial, cliente, numero);
         this.limite = limite;
     }
+    
+    public ContaCorrente(double limite, Cliente cliente, double depositoInicial, int numero, double saldo) {
+        super(depositoInicial, cliente, numero, saldo);
+        this.limite = limite;
+    }
 
     @Override
     public boolean saca(double valor) {
@@ -31,6 +36,7 @@ public class ContaCorrente extends Conta{
 
     @Override
     public void remunera() {
+        System.out.println("Remunera da Corrente");
         super.deposita(getSaldo()*0.01);
     }
 
