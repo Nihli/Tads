@@ -7,6 +7,8 @@ package org.ufpr.sistemabanco.controller;
 
 import java.util.List;
 import org.ufpr.sistemabanco.model.Cliente;
+import org.ufpr.sistemabanco.model.ContaCorrente;
+import org.ufpr.sistemabanco.model.ContaInvestimento;
 import org.ufpr.sistemabanco.model.dao.ClienteDao;
 import org.ufpr.sistemabanco.view.vinculaconta.JanelaVinculaContaView;
 
@@ -51,5 +53,29 @@ public class VinculaContaController {
             view.apresentaErro("Erro ao listar clientes.");
             e.printStackTrace();
         }
+    }
+
+    public void criarContaCorrente() {
+        Cliente cliente = view.getClienteParaVincular();
+        
+        if (cliente == null) {
+             view.apresentaInfo("Nenhum cliente selecionado para criar a conta.");
+             return;
+        }
+        
+        ContaCorrente conta = view.getContaCorrente(cliente);
+        
+        
+    }
+    
+     public void criarContaInvestimento() {
+        Cliente cliente = view.getClienteParaVincular();
+        
+        if (cliente == null) {
+             view.apresentaInfo("Nenhum cliente selecionado para criar a conta.");
+             return;
+        }
+        
+        ContaInvestimento conta = view.ContaInvestimento(cliente);
     }
 }

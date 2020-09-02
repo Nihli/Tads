@@ -5,6 +5,11 @@
  */
 package org.ufpr.sistemabanco.view.vinculaconta;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import org.ufpr.sistemabanco.controller.VinculaContaController;
+
 /**
  *
  * @author Lia
@@ -61,4 +66,26 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
     private javax.swing.JLabel NumContaLabel;
     private javax.swing.JToggleButton btnCriarConta;
     // End of variables declaration//GEN-END:variables
+
+    private JanelaVinculaContaView view;
+    
+    void setController(VinculaContaController controller) {
+        
+        this.btnCriarConta.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              if (view.getPanelAtivo().equals("corrente")){
+                controller.criarContaCorrente();
+              } else if (view.getPanelAtivo().equals("corrente")){
+                controller.criarContaInvestimento();
+              } else {
+                JOptionPane.showMessageDialog(null, "Selecione o tipo da conta." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+              }
+          }
+      });
+    }
+
+    void setView(JanelaVinculaContaView aThis) {
+        this.view = view;
+    }
 }

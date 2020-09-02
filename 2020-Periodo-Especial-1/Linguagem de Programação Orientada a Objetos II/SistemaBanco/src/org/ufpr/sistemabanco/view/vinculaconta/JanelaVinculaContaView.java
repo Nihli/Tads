@@ -11,6 +11,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import org.ufpr.sistemabanco.controller.VinculaContaController;
 import org.ufpr.sistemabanco.model.Cliente;
+import org.ufpr.sistemabanco.model.ContaCorrente;
+import org.ufpr.sistemabanco.model.ContaInvestimento;
 
 /**
  *
@@ -38,22 +40,12 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
 
         buscaClienteView = new org.ufpr.sistemabanco.view.vinculaconta.BuscaClienteView();
         tabelaClienteView = new org.ufpr.sistemabanco.view.vinculaconta.TabelaClienteView();
-        tipoContaView1 = new org.ufpr.sistemabanco.view.vinculaconta.TipoContaView();
+        tipoContaView = new org.ufpr.sistemabanco.view.vinculaconta.TipoContaView();
         panelConta = new javax.swing.JPanel();
         panelDefault = new javax.swing.JPanel();
-        panelContaInvestimento = new javax.swing.JPanel();
-        montanteMinCampo = new javax.swing.JTextField();
-        depositoInicialLabel = new javax.swing.JLabel();
-        depositoInicialCampo = new javax.swing.JTextField();
-        depositoMinLabel = new javax.swing.JLabel();
-        depositoMinCampo = new javax.swing.JTextField();
-        montanteMinLabel = new javax.swing.JLabel();
-        panelContaCorrente = new javax.swing.JPanel();
-        depositoLabel = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        botaoNumeroConta1 = new org.ufpr.sistemabanco.view.vinculaconta.BotaoNumeroConta();
+        panelContaCorrente = new org.ufpr.sistemabanco.view.vinculaconta.ContaCorrenteView();
+        panelContaInvestimento = new org.ufpr.sistemabanco.view.vinculaconta.ContaInvestimentoView();
+        botaoNumeroConta = new org.ufpr.sistemabanco.view.vinculaconta.BotaoNumeroConta();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,94 +66,8 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
         );
 
         panelConta.add(panelDefault, "card2");
-
-        panelContaInvestimento.setForeground(new java.awt.Color(153, 255, 153));
-
-        depositoInicialLabel.setText("Deposito inicial:");
-
-        depositoMinLabel.setText("Deposito mínimo:");
-
-        montanteMinLabel.setText("Montante mínimo:");
-
-        javax.swing.GroupLayout panelContaInvestimentoLayout = new javax.swing.GroupLayout(panelContaInvestimento);
-        panelContaInvestimento.setLayout(panelContaInvestimentoLayout);
-        panelContaInvestimentoLayout.setHorizontalGroup(
-            panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelContaInvestimentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(depositoInicialLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelContaInvestimentoLayout.createSequentialGroup()
-                            .addGroup(panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContaInvestimentoLayout.createSequentialGroup()
-                                    .addComponent(depositoMinLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                .addGroup(panelContaInvestimentoLayout.createSequentialGroup()
-                                    .addComponent(montanteMinLabel)
-                                    .addGap(8, 8, 8)))
-                            .addGroup(panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(montanteMinCampo)
-                                .addComponent(depositoMinCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))))
-                    .addComponent(depositoInicialCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(62, Short.MAX_VALUE))
-        );
-        panelContaInvestimentoLayout.setVerticalGroup(
-            panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelContaInvestimentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(montanteMinLabel)
-                    .addComponent(montanteMinCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(depositoMinLabel)
-                    .addComponent(depositoMinCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelContaInvestimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(depositoInicialLabel)
-                    .addComponent(depositoInicialCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        panelConta.add(panelContaInvestimento, "card3");
-
-        panelContaCorrente.setForeground(new java.awt.Color(153, 255, 153));
-
-        depositoLabel.setText("Deposito:");
-
-        jLabel1.setText("Limite:");
-
-        javax.swing.GroupLayout panelContaCorrenteLayout = new javax.swing.GroupLayout(panelContaCorrente);
-        panelContaCorrente.setLayout(panelContaCorrenteLayout);
-        panelContaCorrenteLayout.setHorizontalGroup(
-            panelContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelContaCorrenteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(depositoLabel)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(panelContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                    .addComponent(jTextField2))
-                .addGap(52, 52, 52))
-        );
-        panelContaCorrenteLayout.setVerticalGroup(
-            panelContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelContaCorrenteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(depositoLabel)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelContaCorrenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
-
-        panelConta.add(panelContaCorrente, "card4");
+        panelConta.add(panelContaCorrente, "card3");
+        panelConta.add(panelContaInvestimento, "card4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -174,12 +80,12 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
                     .addComponent(tabelaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(tipoContaView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tipoContaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoNumeroConta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botaoNumeroConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,12 +94,11 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(tipoContaView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tipoContaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelConta, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoNumeroConta1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoNumeroConta, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -201,24 +106,14 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.ufpr.sistemabanco.view.vinculaconta.BotaoNumeroConta botaoNumeroConta1;
+    private org.ufpr.sistemabanco.view.vinculaconta.BotaoNumeroConta botaoNumeroConta;
     private org.ufpr.sistemabanco.view.vinculaconta.BuscaClienteView buscaClienteView;
-    private javax.swing.JTextField depositoInicialCampo;
-    private javax.swing.JLabel depositoInicialLabel;
-    private javax.swing.JLabel depositoLabel;
-    private javax.swing.JTextField depositoMinCampo;
-    private javax.swing.JLabel depositoMinLabel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField montanteMinCampo;
-    private javax.swing.JLabel montanteMinLabel;
     private javax.swing.JPanel panelConta;
-    private javax.swing.JPanel panelContaCorrente;
-    private javax.swing.JPanel panelContaInvestimento;
+    private org.ufpr.sistemabanco.view.vinculaconta.ContaCorrenteView panelContaCorrente;
+    private org.ufpr.sistemabanco.view.vinculaconta.ContaInvestimentoView panelContaInvestimento;
     private javax.swing.JPanel panelDefault;
     private org.ufpr.sistemabanco.view.vinculaconta.TabelaClienteView tabelaClienteView;
-    private org.ufpr.sistemabanco.view.vinculaconta.TipoContaView tipoContaView1;
+    private org.ufpr.sistemabanco.view.vinculaconta.TipoContaView tipoContaView;
     // End of variables declaration//GEN-END:variables
 
     private ClienteTableModel clienteTableModel = new ClienteTableModel();
@@ -227,7 +122,9 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
 
     public void setController(VinculaContaController controller) {
         buscaClienteView.setController(controller);
-        tipoContaView1.setView(this);
+        botaoNumeroConta.setController(controller);
+        tipoContaView.setView(this);
+        botaoNumeroConta.setView(this);
         controller.listarCliente();
         
     }
@@ -258,6 +155,10 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
     
     public Cliente getClienteParaVincular(){
         linhaClicada = tabelaClienteView.getTabelaCliente().getSelectedRow();
+        
+        if (linhaClicada == -1){
+            return null;
+        }
         Cliente cliente = clienteTableModel.getCliente(linhaClicada);
 
         return cliente;
@@ -283,5 +184,28 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
     
     public String getBusca() {
         return buscaClienteView.getBuscaCampo().getText();
+    }
+
+    public String getPanelAtivo() {
+        return panelAtivo;
+    }
+
+    public ContaCorrente getContaCorrente(Cliente cliente) {
+        double depositoInicial = Double.parseDouble(panelContaCorrente.getDepositoCampo().getText().replace(",", "."));
+        double limite = Double.parseDouble(panelContaCorrente.getLimiteCampo().getText().replace(",", "."));
+
+        ContaCorrente contaCorrente = new ContaCorrente(limite, cliente, depositoInicial, "");
+        
+        return contaCorrente;
+    }
+
+    public ContaInvestimento ContaInvestimento(Cliente cliente) {
+        double montanteMin = Double.parseDouble(panelContaInvestimento.getMontanteMinCampo().getText().replace(",", "."));
+        double depositoMin = Double.parseDouble(panelContaInvestimento.getDepositoMinCampo().getText().replace(",", "."));
+        double depositoInicial = Double.parseDouble(panelContaInvestimento.getDepositoInicialCampo().getText().replace(",", "."));
+    
+        ContaInvestimento contaInvestimento = new ContaInvestimento(montanteMin, depositoMin, cliente, depositoInicial, "");
+        
+        return contaInvestimento;
     }
 }

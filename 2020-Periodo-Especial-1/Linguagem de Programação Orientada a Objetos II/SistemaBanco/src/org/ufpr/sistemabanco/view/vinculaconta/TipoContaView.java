@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
  * @author Lia
  */
 public class TipoContaView extends javax.swing.JPanel implements ActionListener{
-//public class TipoContaView extends javax.swing.JPanel{
 
     /**
      * Creates new form TipoContaView
@@ -80,21 +79,6 @@ public class TipoContaView extends javax.swing.JPanel implements ActionListener{
     public void setView(JanelaVinculaContaView view) {
         this.view = view;
     }
-
-    
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        this.contaPanel.add(new ContaCorrenteView());
-//        this.contaPanel.revalidate();
-//        this.contaPanel.repaint();
-//        
-//        view.getContentPane().removeAll(); //or .remove(previousPanel);
-//        view.getContentPane().add(new ContaCorrenteView());
-//        panel.buildPanel(); // panel needs a builder method
-//        frame.revalidate(); // in- and validate in one !! 
-//        frame.pack(); //
-////        this.contaPanel = new ContaCorrenteView();
-//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

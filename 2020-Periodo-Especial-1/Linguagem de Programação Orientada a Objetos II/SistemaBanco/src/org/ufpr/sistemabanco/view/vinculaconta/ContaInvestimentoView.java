@@ -5,6 +5,8 @@
  */
 package org.ufpr.sistemabanco.view.vinculaconta;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author Lia
@@ -27,16 +29,16 @@ public class ContaInvestimentoView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        montanteMinLabel = new javax.swing.JLabel();
-        montanteMinCampo = new javax.swing.JTextField();
         depositoMinLabel = new javax.swing.JLabel();
         depositoMinCampo = new javax.swing.JTextField();
+        montanteMinLabel = new javax.swing.JLabel();
+        montanteMinCampo = new javax.swing.JTextField();
         depositoInicialLabel = new javax.swing.JLabel();
         depositoInicialCampo = new javax.swing.JTextField();
 
-        montanteMinLabel.setText("Montante mínimo:");
-
         depositoMinLabel.setText("Deposito mínimo:");
+
+        montanteMinLabel.setText("Montante mínimo:");
 
         depositoInicialLabel.setText("Deposito inicial:");
 
@@ -48,15 +50,18 @@ public class ContaInvestimentoView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(depositoInicialLabel, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(montanteMinLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(montanteMinCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(depositoMinLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(depositoMinCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(depositoInicialLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(depositoMinLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(montanteMinLabel)
+                                    .addGap(8, 8, 8)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(montanteMinCampo)
+                                .addComponent(depositoMinCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))))
                     .addComponent(depositoInicialCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -75,7 +80,7 @@ public class ContaInvestimentoView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(depositoInicialLabel)
                     .addComponent(depositoInicialCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -88,4 +93,16 @@ public class ContaInvestimentoView extends javax.swing.JPanel {
     private javax.swing.JTextField montanteMinCampo;
     private javax.swing.JLabel montanteMinLabel;
     // End of variables declaration//GEN-END:variables
+
+    public JTextField getDepositoInicialCampo() {
+        return depositoInicialCampo;
+    }
+
+    public JTextField getDepositoMinCampo() {
+        return depositoMinCampo;
+    }
+
+    public JTextField getMontanteMinCampo() {
+        return montanteMinCampo;
+    }
 }

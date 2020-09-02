@@ -5,6 +5,8 @@
  */
 package org.ufpr.sistemabanco.view.vinculaconta;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author Lia
@@ -29,12 +31,12 @@ public class ContaCorrenteView extends javax.swing.JPanel {
 
         depositoLabel = new javax.swing.JLabel();
         depositoCampo = new javax.swing.JTextField();
-        limiteLabel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         limiteCampo = new javax.swing.JTextField();
 
         depositoLabel.setText("Deposito:");
 
-        limiteLabel.setText("Limite:");
+        jLabel1.setText("Limite:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -42,17 +44,14 @@ public class ContaCorrenteView extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(depositoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(depositoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(limiteLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(limiteCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(depositoLabel)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(depositoCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                    .addComponent(limiteCampo))
+                .addGap(52, 52, 52))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,7 +62,7 @@ public class ContaCorrenteView extends javax.swing.JPanel {
                     .addComponent(depositoCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(limiteLabel)
+                    .addComponent(jLabel1)
                     .addComponent(limiteCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -73,7 +72,18 @@ public class ContaCorrenteView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField depositoCampo;
     private javax.swing.JLabel depositoLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField limiteCampo;
-    private javax.swing.JLabel limiteLabel;
     // End of variables declaration//GEN-END:variables
+
+    public JTextField getDepositoCampo() {
+        return depositoCampo;
+    }
+
+    public JTextField getLimiteCampo() {
+        return limiteCampo;
+    }
+
+    
+
 }
