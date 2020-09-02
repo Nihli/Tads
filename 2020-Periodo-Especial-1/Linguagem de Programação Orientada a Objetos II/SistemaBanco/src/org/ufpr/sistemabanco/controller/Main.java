@@ -5,9 +5,12 @@
  */
 package org.ufpr.sistemabanco.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.ufpr.sistemabanco.model.Cliente;
 import org.ufpr.sistemabanco.model.Conta;
 import org.ufpr.sistemabanco.model.ContaCorrente;
+import org.ufpr.sistemabanco.model.ContaI;
 import org.ufpr.sistemabanco.model.ContaInvestimento;
 import org.ufpr.sistemabanco.view.menuinicial.JanelaMenuView;
 
@@ -37,5 +40,22 @@ public class Main {
 //        System.out.println(ci.getSaldo());
 //        ci.remunera();
 //        System.out.println(ci.getSaldo());
+
+//        List<ContaI> list = new ArrayList();
+//        Cliente c = new Cliente("Lia", "Alflen", "rg","cpf", "enderec", 100);
+//        ContaInvestimento ci = new ContaInvestimento(100, 50,c, 105, 1);
+//        ContaCorrente cc = new ContaCorrente(100,c, 50, 1);
+//        
+//        list.add(ci);
+//        list.add(cc);
+//        
+//        for (int i=0;i<list.size();i++){
+//            System.out.println(list.get(i) instanceof ContaInvestimento);
+//            System.out.println(list.get(i) instanceof ContaCorrente);
+//        }
+        
+        
+        
+    
     }
 }
