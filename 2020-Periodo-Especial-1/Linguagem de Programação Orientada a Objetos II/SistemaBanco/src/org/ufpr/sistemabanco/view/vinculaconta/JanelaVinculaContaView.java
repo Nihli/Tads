@@ -194,7 +194,7 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
         double depositoInicial = Double.parseDouble(panelContaCorrente.getDepositoCampo().getText().replace(",", "."));
         double limite = Double.parseDouble(panelContaCorrente.getLimiteCampo().getText().replace(",", "."));
 
-        ContaCorrente contaCorrente = new ContaCorrente(limite, cliente, depositoInicial, "");
+        ContaCorrente contaCorrente = new ContaCorrente(limite, cliente, depositoInicial, 0);
         
         return contaCorrente;
     }
@@ -204,8 +204,12 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
         double depositoMin = Double.parseDouble(panelContaInvestimento.getDepositoMinCampo().getText().replace(",", "."));
         double depositoInicial = Double.parseDouble(panelContaInvestimento.getDepositoInicialCampo().getText().replace(",", "."));
     
-        ContaInvestimento contaInvestimento = new ContaInvestimento(montanteMin, depositoMin, cliente, depositoInicial, "");
+        ContaInvestimento contaInvestimento = new ContaInvestimento(montanteMin, depositoMin, cliente, depositoInicial, 0);
         
         return contaInvestimento;
+    }
+
+    public void mostraNumeroConta(ContaCorrente conta) {
+        botaoNumeroConta.getNumContaLabel().setText(String.format("Numero: %s",conta.getNumero()));
     }
 }

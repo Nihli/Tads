@@ -10,10 +10,11 @@ package org.ufpr.sistemabanco.model;
  * @author Lia
  */
 public class ContaInvestimento extends Conta{
+    private int id;
     private double montanteMinimo;
     private double depositoMinimo;
 
-    public ContaInvestimento(double montanteMinimo, double depositoMinimo, Cliente cliente, double depositoInicial, String numero) {
+    public ContaInvestimento(double montanteMinimo, double depositoMinimo, Cliente cliente, double depositoInicial, int numero) {
         super(depositoInicial, cliente, numero);
         this.montanteMinimo = montanteMinimo;
         this.depositoMinimo = depositoMinimo;
@@ -50,5 +51,20 @@ public class ContaInvestimento extends Conta{
     public void remunera() {
         super.deposita(getSaldo()*0.02);
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getMontanteMinimo() {
+        return montanteMinimo;
+    }
+
+    public double getDepositoMinimo() {
+        return depositoMinimo;
+    }
 }

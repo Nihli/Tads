@@ -13,9 +13,9 @@ public abstract class Conta implements ContaI{
     private double saldo;
     private double depositoInicial;
     private Cliente dono;
-    private String numero;
+    private int numero;
 
-    public Conta(double depositoInicial, Cliente dono, String numero) {
+    public Conta(double depositoInicial, Cliente dono, int numero) {
         this.depositoInicial = depositoInicial;
         this.dono = dono;
         this.numero = numero;
@@ -47,7 +47,7 @@ public abstract class Conta implements ContaI{
 
     @Override
     public final int getNumero() {
-        return this.getNumero();
+        return this.numero;
     }
 
     @Override
@@ -62,6 +62,10 @@ public abstract class Conta implements ContaI{
     public void setDepositoInicial(double depositoInicial) {
         this.depositoInicial = depositoInicial;
     }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
     
-     
+    
 }

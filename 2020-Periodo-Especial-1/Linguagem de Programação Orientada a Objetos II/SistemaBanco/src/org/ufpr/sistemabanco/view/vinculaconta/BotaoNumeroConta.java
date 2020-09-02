@@ -7,6 +7,7 @@ package org.ufpr.sistemabanco.view.vinculaconta;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.ufpr.sistemabanco.controller.VinculaContaController;
 
@@ -85,7 +86,17 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
       });
     }
 
-    void setView(JanelaVinculaContaView aThis) {
+    void setView(JanelaVinculaContaView view) {
         this.view = view;
     }
+
+    public void setNumContaLabel(JLabel NumContaLabel) {
+        this.NumContaLabel = NumContaLabel;
+    }
+
+    public JLabel getNumContaLabel() {
+        return NumContaLabel;
+    }
+    
+     
 }

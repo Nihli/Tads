@@ -10,6 +10,7 @@ import org.ufpr.sistemabanco.model.Cliente;
 import org.ufpr.sistemabanco.model.ContaCorrente;
 import org.ufpr.sistemabanco.model.ContaInvestimento;
 import org.ufpr.sistemabanco.model.dao.ClienteDao;
+import org.ufpr.sistemabanco.model.dao.ContaDao;
 import org.ufpr.sistemabanco.view.vinculaconta.JanelaVinculaContaView;
 
 /**
@@ -19,10 +20,12 @@ import org.ufpr.sistemabanco.view.vinculaconta.JanelaVinculaContaView;
 public class VinculaContaController {
     private JanelaVinculaContaView view;
     private ClienteDao clienteDao;
+    private ContaDao contaDao;
 
-    public VinculaContaController(JanelaVinculaContaView view, ClienteDao clienteDao) {
+    public VinculaContaController(JanelaVinculaContaView view, ClienteDao clienteDao, ContaDao contaDao) {
         this.view = view;
         this.clienteDao = clienteDao;
+        this.contaDao = contaDao;
         
         initController();
     }
@@ -65,7 +68,9 @@ public class VinculaContaController {
         
         ContaCorrente conta = view.getContaCorrente(cliente);
         
+        contaDao.insere(conta);
         
+        view.mostraNumeroConta(conta);
     }
     
      public void criarContaInvestimento() {

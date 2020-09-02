@@ -10,9 +10,10 @@ package org.ufpr.sistemabanco.model;
  * @author Lia
  */
 public class ContaCorrente extends Conta{
+    private int id;
     private double limite;
 
-    public ContaCorrente(double limite, Cliente cliente, double depositoInicial, String numero) {
+    public ContaCorrente(double limite, Cliente cliente, double depositoInicial, int numero) {
         super(depositoInicial, cliente, numero);
         this.limite = limite;
     }
@@ -32,5 +33,18 @@ public class ContaCorrente extends Conta{
     public void remunera() {
         super.deposita(getSaldo()*0.01);
     }
+
+    public double getLimite() {
+        return limite;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     
 }
