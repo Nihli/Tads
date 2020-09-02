@@ -8,7 +8,9 @@ package org.ufpr.sistemabanco.view.manipulaconta;
 import org.ufpr.sistemabanco.view.cliente.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import org.ufpr.sistemabanco.controller.ClienteController;
 import org.ufpr.sistemabanco.controller.ContaController;
 
@@ -38,6 +40,10 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
         btnSaldo = new javax.swing.JButton();
         btnRemunerar = new javax.swing.JButton();
         btnSacar = new javax.swing.JButton();
+        valorSacarLabel = new javax.swing.JLabel();
+        valorSacarCampo = new javax.swing.JTextField();
+        valorDepositarLabel = new javax.swing.JLabel();
+        valorDepositarCampo = new javax.swing.JTextField();
 
         btnDepositar.setText("Depositar");
 
@@ -47,30 +53,50 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
 
         btnSacar.setText("Sacar");
 
+        valorSacarLabel.setText("valor a sacar:");
+
+        valorDepositarLabel.setText("valor a depositar:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSacar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDepositar)
-                .addGap(18, 18, 18)
-                .addComponent(btnSaldo)
-                .addGap(18, 18, 18)
-                .addComponent(btnRemunerar)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnRemunerar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDepositar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSacar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(valorDepositarLabel)
+                            .addComponent(valorSacarLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(valorSacarCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                            .addComponent(valorDepositarCampo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSacar)
+                    .addComponent(valorSacarLabel)
+                    .addComponent(valorSacarCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDepositar)
-                    .addComponent(btnSaldo)
-                    .addComponent(btnRemunerar))
+                    .addComponent(valorDepositarLabel)
+                    .addComponent(valorDepositarCampo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnSaldo)
+                .addGap(18, 18, 18)
+                .addComponent(btnRemunerar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -81,12 +107,79 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
     private javax.swing.JButton btnRemunerar;
     private javax.swing.JButton btnSacar;
     private javax.swing.JButton btnSaldo;
+    private javax.swing.JTextField valorDepositarCampo;
+    private javax.swing.JLabel valorDepositarLabel;
+    private javax.swing.JTextField valorSacarCampo;
+    private javax.swing.JLabel valorSacarLabel;
     // End of variables declaration//GEN-END:variables
 
+    JanelaManipulaContaView view;
+    
     void setController(ContaController controller) {
-        this.btnSacar.addActionListener(e -> controller.sacar());
-      this.btnDepositar.addActionListener(e -> controller.depositar());
-      this.btnSaldo.addActionListener(e -> controller.saldo());
-      this.btnRemunerar.addActionListener(e -> controller.remunerar());
+        this.btnSacar.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            if (verificaLinha()){
+                controller.sacar();
+            }
+          }
+        });
+        
+        this.btnDepositar.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            if (verificaLinha()){
+                controller.depositar();
+            }
+          }
+        });
+
+        this.btnSaldo.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            
+            if (verificaLinha()){
+                controller.saldo();
+            }
+          }
+        });
+        
+        this.btnRemunerar.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            if (verificaLinha()){
+                controller.remunerar();
+            }
+          }
+        });
+    }
+
+    public void setView(JanelaManipulaContaView view) {
+        this.view = view;
+    }
+
+    public JTextField getValorDepositarCampo() {
+        return valorDepositarCampo;
+    }
+
+    public JLabel getValorDepositarLabel() {
+        return valorDepositarLabel;
+    }
+
+    public JTextField getValorSacarCampo() {
+        return valorSacarCampo;
+    }
+
+    public JLabel getValorSacarLabel() {
+        return valorSacarLabel;
+    }
+    
+    private boolean verificaLinha(){
+        int linha = view.getLinhaClicada();
+         if (linha == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhuma conta selecionada para realizar a operação." + "\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        return true;
     }
 }

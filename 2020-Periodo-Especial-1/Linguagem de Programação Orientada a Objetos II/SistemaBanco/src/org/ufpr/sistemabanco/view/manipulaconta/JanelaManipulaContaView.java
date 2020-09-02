@@ -6,8 +6,11 @@
 package org.ufpr.sistemabanco.view.manipulaconta;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.ufpr.sistemabanco.controller.ContaController;
+import org.ufpr.sistemabanco.model.ContaCorrente;
 import org.ufpr.sistemabanco.model.ContaI;
+import org.ufpr.sistemabanco.model.ContaInvestimento;
 
 /**
  *
@@ -62,18 +65,20 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
                 .addComponent(buscaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaContaView, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botoesOperacaoContaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private ContaTableModel contaTableModel = new ContaTableModel();
+   
 
     public void setController(ContaController controller) {
         botoesOperacaoContaView.setController(controller);
         buscaClienteView.setController(controller);
+        
+        botoesOperacaoContaView.setView(this);
     }
 
     public void initView() {
@@ -87,11 +92,41 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
     private org.ufpr.sistemabanco.view.manipulaconta.TabelaContaView tabelaContaView;
     // End of variables declaration//GEN-END:variables
 
+    private ContaTableModel contaTableModel = new ContaTableModel();
+    private int linhaClicada = -1;
+    
     public String getBusca() {
         return buscaClienteView.getBuscaCampo().getText();
     }
 
     public void mostrarListaContas(List<ContaI> listaContas) {
         contaTableModel.setListaConta(listaContas);
+    }
+    
+    public ContaI getContaParaManipular(){
+        linhaClicada = tabelaContaView.getTabelaConta().getSelectedRow();
+        
+        if (linhaClicada == -1){
+            return null;
+        }
+
+        return contaTableModel.getConta(linhaClicada);
+    }
+
+    public int getLinhaClicada() {
+        linhaClicada = tabelaContaView.getTabelaConta().getSelectedRow();
+        return linhaClicada;
+    }
+
+    public double getValorSacar() {
+        return Double.parseDouble(botoesOperacaoContaView.getValorSacarCampo().getText().replace(",", "."));
+    }
+    
+    public void apresentaInfo(String info) {
+        JOptionPane.showMessageDialog(null, info + "\n", "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void apresentaErro(String erro) {
+        JOptionPane.showMessageDialog(null, erro + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
