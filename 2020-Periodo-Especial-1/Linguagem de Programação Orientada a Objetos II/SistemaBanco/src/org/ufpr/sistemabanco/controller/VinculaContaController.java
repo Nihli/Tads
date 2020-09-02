@@ -5,6 +5,7 @@
  */
 package org.ufpr.sistemabanco.controller;
 
+import java.util.Collections;
 import java.util.List;
 import org.ufpr.sistemabanco.model.Cliente;
 import org.ufpr.sistemabanco.model.ContaCorrente;
@@ -49,7 +50,9 @@ public class VinculaContaController {
     
     public void listarCliente() {
         try{
-            List<Cliente> lista = clienteDao.listaClientes();
+            List<Cliente> lista = clienteDao.listaClientesComConta();
+            
+            Collections.sort(lista);
 
             view.mostrarListaClientes(lista);
         }catch(Exception e) {
@@ -59,28 +62,55 @@ public class VinculaContaController {
     }
 
     public void criarContaCorrente() {
-        Cliente cliente = view.getClienteParaVincular();
-        
-        if (cliente == null) {
-             view.apresentaInfo("Nenhum cliente selecionado para criar a conta.");
-             return;
+        try{
+            Cliente cliente = view.getClienteParaVincular();
+
+            if (cliente == null) {
+                 view.apresentaInfo("Nenhum cliente selecionado para criar a conta.");
+                 return;
+            }
+            
+            ContaCorrente conta = view.getContaCorrente(cliente);
+           
+            if (conta!=null){
+                contaDao.insere(conta);
+
+                view.mostraNumeroConta(conta.getNumero());
+            }
+            
+        }catch(Exception e){
+            if (e.getMessage().contains("Duplicate entry")){
+                view.apresentaErro("Erro ao criar a conta. Cliente já possui uma conta vinculada a ele.");
+            }else{
+                view.apresentaErro("Erro ao criar a conta.");
+                e.printStackTrace();
+            }
         }
-        
-        ContaCorrente conta = view.getContaCorrente(cliente);
-        
-        contaDao.insere(conta);
-        
-        view.mostraNumeroConta(conta);
     }
     
      public void criarContaInvestimento() {
-        Cliente cliente = view.getClienteParaVincular();
-        
-        if (cliente == null) {
-             view.apresentaInfo("Nenhum cliente selecionado para criar a conta.");
-             return;
+        try{
+            Cliente cliente = view.getClienteParaVincular();
+
+            if (cliente == null) {
+                 view.apresentaInfo("Nenhum cliente selecionado para criar a conta.");
+                 return;
+            }
+
+            ContaInvestimento conta = view.ContaInvestimento(cliente);
+
+            if (conta!=null){
+                contaDao.insere(conta);
+
+                view.mostraNumeroConta(conta.getNumero());
+            }
+        }catch(Exception e){
+            if (e.getMessage().contains("Duplicate entry")){
+                view.apresentaErro("Erro ao criar a conta. Cliente já possui uma conta vinculada a ele.");
+            }else{
+                view.apresentaErro("Erro ao criar a conta.");
+                e.printStackTrace();
+            }
         }
-        
-        ContaInvestimento conta = view.ContaInvestimento(cliente);
     }
 }

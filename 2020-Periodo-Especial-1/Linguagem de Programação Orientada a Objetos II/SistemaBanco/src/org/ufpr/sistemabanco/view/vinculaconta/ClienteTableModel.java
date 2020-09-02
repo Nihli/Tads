@@ -16,7 +16,7 @@ import org.ufpr.sistemabanco.model.Cliente;
  * @author Lia
  */
 public class ClienteTableModel extends AbstractTableModel{
- private String[] colunas=new String[]{"Nome","Sobrenome", "CPF", "Salario"};
+ private String[] colunas=new String[]{"Nome","Sobrenome", "CPF", "Salario", "Conta"};
 
     private List<Cliente> lista=new ArrayList();
 
@@ -59,6 +59,7 @@ public class ClienteTableModel extends AbstractTableModel{
             case 1: return cliente.getSobrenome();//if column 1 (name)
             case 2: return cliente.getCpf();//if column 2 (birthday)
             case 3: return cliente.getSalario();
+            case 4: return cliente.isPossuiConta()?"Possui":"Não possui";
             default : return null;
         }
     }
@@ -78,6 +79,9 @@ public class ClienteTableModel extends AbstractTableModel{
                 break;
             case 3:
                 cliente.setSalario((Double) value);
+                break;
+            case 4:
+                cliente.setPossuiConta((boolean) value);
                 break;
             default:
         }

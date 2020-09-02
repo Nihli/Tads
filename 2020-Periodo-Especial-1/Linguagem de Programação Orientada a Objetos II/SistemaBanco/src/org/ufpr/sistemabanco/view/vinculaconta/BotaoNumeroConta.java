@@ -77,7 +77,7 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
           public void actionPerformed(ActionEvent e) {
               if (view.getPanelAtivo().equals("corrente")){
                 controller.criarContaCorrente();
-              } else if (view.getPanelAtivo().equals("corrente")){
+              } else if (view.getPanelAtivo().equals("investimento")){
                 controller.criarContaInvestimento();
               } else {
                 JOptionPane.showMessageDialog(null, "Selecione o tipo da conta." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);

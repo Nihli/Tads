@@ -191,25 +191,44 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
     }
 
     public ContaCorrente getContaCorrente(Cliente cliente) {
-        double depositoInicial = Double.parseDouble(panelContaCorrente.getDepositoCampo().getText().replace(",", "."));
-        double limite = Double.parseDouble(panelContaCorrente.getLimiteCampo().getText().replace(",", "."));
+        try{
+            double depositoInicial = Double.parseDouble(panelContaCorrente.getDepositoCampo().getText().replace(",", "."));
+            double limite = Double.parseDouble(panelContaCorrente.getLimiteCampo().getText().replace(",", "."));
+            ContaCorrente contaCorrente = new ContaCorrente(limite, cliente, depositoInicial, 0);
 
-        ContaCorrente contaCorrente = new ContaCorrente(limite, cliente, depositoInicial, 0);
-        
-        return contaCorrente;
+            return contaCorrente;
+        }catch(Exception e){
+            if (e.getMessage().contains("empty String")){
+                apresentaErro("Erro ao criar a conta. Preencha os campos da conta com valores numéricos.");
+            }else{
+                apresentaErro("Erro ao criar a conta.");
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     public ContaInvestimento ContaInvestimento(Cliente cliente) {
-        double montanteMin = Double.parseDouble(panelContaInvestimento.getMontanteMinCampo().getText().replace(",", "."));
-        double depositoMin = Double.parseDouble(panelContaInvestimento.getDepositoMinCampo().getText().replace(",", "."));
-        double depositoInicial = Double.parseDouble(panelContaInvestimento.getDepositoInicialCampo().getText().replace(",", "."));
-    
-        ContaInvestimento contaInvestimento = new ContaInvestimento(montanteMin, depositoMin, cliente, depositoInicial, 0);
-        
-        return contaInvestimento;
+        try{
+            double montanteMin = Double.parseDouble(panelContaInvestimento.getMontanteMinCampo().getText().replace(",", "."));
+            double depositoMin = Double.parseDouble(panelContaInvestimento.getDepositoMinCampo().getText().replace(",", "."));
+            double depositoInicial = Double.parseDouble(panelContaInvestimento.getDepositoInicialCampo().getText().replace(",", "."));
+
+            ContaInvestimento contaInvestimento = new ContaInvestimento(montanteMin, depositoMin, cliente, depositoInicial, 0);
+
+            return contaInvestimento;
+        }catch(Exception e){
+            if (e.getMessage().contains("empty String")){
+                apresentaErro("Erro ao criar a conta. Preencha os campos da conta com valores numéricos.");
+            }else{
+                apresentaErro("Erro ao criar a conta.");
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
-    public void mostraNumeroConta(ContaCorrente conta) {
-        botaoNumeroConta.getNumContaLabel().setText(String.format("Numero: %s",conta.getNumero()));
+    public void mostraNumeroConta(int numero) {
+        botaoNumeroConta.getNumContaLabel().setText(String.format("Numero: %d",numero));
     }
 }

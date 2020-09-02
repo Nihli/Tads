@@ -23,13 +23,23 @@ public class ConnectionFactory {
     
         
     public static void close(Connection con, PreparedStatement stmt, ResultSet rs) throws SQLException {
-        rs.close();
-        stmt.close();
-        con.close();
+        if (rs!=null) {
+            rs.close();
+        }
+        if (stmt!=null) {
+            stmt.close();
+        }
+        if (con!=null) {
+            con.close();
+        }
     }
     
     public static void close(Connection con, PreparedStatement stmt) throws SQLException {
-        stmt.close();
-        con.close();
+        if (stmt!=null) {
+            stmt.close();
+        }
+        if (con!=null) {
+            con.close();
+        }
     }
 }

@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.ufpr.sistemabanco.model.Cliente;
 import org.ufpr.sistemabanco.model.ContaCorrente;
+import org.ufpr.sistemabanco.model.ContaInvestimento;
 
 /**
  *
@@ -19,7 +20,8 @@ import org.ufpr.sistemabanco.model.ContaCorrente;
  */
 public class ContaDao {
     private final String stmtInserirCorrente = "INSERT INTO conta(idCliente, saldo, depositoInicial, limite, numero) VALUES (?,?,?,?,?)";
-    private final String stmtAtualizarCorrenteNumero = "UPDATE conta SET numero=? WHERE idConta=?";
+    private final String stmtAtualizarContaNumero = "UPDATE conta SET numero=? WHERE idConta=?";
+    private final String stmtInserirInvestimento = "INSERT INTO conta(idCliente, saldo, depositoInicial, montanteMinimo, depositoMinimo, numero) VALUES (?,?,?,?,?,?)";
 
     
     public void insere(ContaCorrente conta) {
@@ -48,9 +50,52 @@ public class ContaDao {
             
             int num = 10000+conta.getId();
             
-            atualizaNumeroConta(stmtAtualizarCorrenteNumero, conn, conta.getId(), num);
+            atualizaNumeroConta(stmtAtualizarContaNumero, conn, conta.getId(), num);
             conta.setNumero(num);
             System.out.println("Bom dia");
+            conn.commit();
+        }catch(SQLException e){
+            try{conn.rollback();}catch(SQLException ex1){throw new RuntimeException(e.getMessage());};
+            throw new RuntimeException(e.getMessage());
+        }finally{
+            try{
+                ConnectionFactory.close(conn, stmt, rs);
+            }catch(SQLException e){
+                throw new RuntimeException("Houve um erro ao fechar os atributos da conexão.");
+            }
+        }
+    }
+    
+    public void insere(ContaInvestimento conta) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            stmt = conn.prepareStatement(stmtInserirInvestimento, Statement.RETURN_GENERATED_KEYS);
+            
+            int x = 0;
+
+            stmt.setInt(++x, conta.getDono().getId());
+            stmt.setDouble(++x, conta.getSaldo());
+            stmt.setDouble(++x, conta.getDepositoInicial());
+            stmt.setDouble(++x, conta.getMontanteMinimo());
+            stmt.setDouble(++x, conta.getDepositoMinimo());
+            stmt.setInt(++x,0);
+            
+            stmt.execute();
+            
+            rs = stmt.getGeneratedKeys();
+            rs.next();
+            conta.setId(rs.getInt(1));
+            
+            int num = 10000+conta.getId();
+            
+            atualizaNumeroConta(stmtAtualizarContaNumero, conn, conta.getId(), num);
+            conta.setNumero(num);
+
             conn.commit();
         }catch(SQLException e){
             try{conn.rollback();}catch(SQLException ex1){throw new RuntimeException(e.getMessage());};

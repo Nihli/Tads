@@ -17,6 +17,7 @@ public class Cliente implements Comparable<Cliente>{
     private String cpf;
     private String endereco;
     private double salario;
+    private boolean possuiConta;
 
     public Cliente() {
     }
@@ -84,6 +85,14 @@ public class Cliente implements Comparable<Cliente>{
 
     public void setSalario(double salario) {
         this.salario = salario;
+    }
+
+    public boolean isPossuiConta() {
+        return possuiConta;
+    }
+
+    public void setPossuiConta(boolean possuiConta) {
+        this.possuiConta = possuiConta;
     }
     
     @Override
