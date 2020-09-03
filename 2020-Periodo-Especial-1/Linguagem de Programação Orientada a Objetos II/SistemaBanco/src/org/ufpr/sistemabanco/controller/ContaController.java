@@ -160,5 +160,17 @@ public class ContaController {
             e.printStackTrace();
         }
     }
+
+    public void informacoesConta() {
+        ContaI conta = view.getContaParaManipular();
+        if (conta instanceof ContaCorrente){
+            ContaCorrente cc = (ContaCorrente)conta;
+            view.apresentaInfo("Conta "+ cc.getNumero()+"\nDepósito inicial: R$ " + cc.getDepositoInicial()+"\nLimite: R$" +cc.getLimite());
+        }else if (conta instanceof ContaInvestimento){
+            ContaInvestimento ci = (ContaInvestimento)conta;
+            view.apresentaInfo("Conta "+ ci.getNumero()+"\nDepósito inicial: R$ " + ci.getDepositoInicial()+"\nMontante mínimo: R$"
+                    +ci.getMontanteMinimo()+"\nDepósito mínimo: R$" +ci.getDepositoMinimo());
+        }
+    }
     
 }
