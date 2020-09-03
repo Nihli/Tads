@@ -20,7 +20,6 @@ public class ConnectionFactory {
     public static Connection getConnection() throws SQLException{
         return DriverManager.getConnection("jdbc:mysql://localhost/sistemabanco?useTimezone=true&serverTimezone=UTC&useSSL=false", "root", "root");
     }
-    
         
     public static void close(Connection con, PreparedStatement stmt, ResultSet rs) throws SQLException {
         if (rs!=null) {

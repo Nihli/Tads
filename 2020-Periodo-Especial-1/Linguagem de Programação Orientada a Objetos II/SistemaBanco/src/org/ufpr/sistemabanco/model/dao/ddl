@@ -1,0 +1,27 @@
+CREATE DATABASE sistemabanco;
+USE sistemabanco;
+
+CREATE TABLE cliente(
+	id int auto_increment NOT NULL,
+    nome varchar(100) NOT NULL,
+    sobrenome varchar(100) NOT NULL,
+    rg varchar(15) UNIQUE NOT NULL,
+    cpf varchar(11) UNIQUE NOT NULL,
+    endereco varchar(100) NOT NULL,
+    salario decimal(10,2) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE conta(
+	idConta int auto_increment NOT NULL,
+    idCliente int UNIQUE NOT NULL,
+    tipo varchar(2) NOT NULL,
+	saldo decimal(10,2) NOT NULL,
+    depositoInicial decimal(10,2) NOT NULL,
+	numero INT UNIQUE NOT NULL,
+    limite decimal(10,2),
+    montanteMinimo decimal(10,2),
+    depositoMinimo decimal(10,2),
+    PRIMARY KEY(idConta),
+	FOREIGN KEY(idCliente) REFERENCES cliente(id)
+);
