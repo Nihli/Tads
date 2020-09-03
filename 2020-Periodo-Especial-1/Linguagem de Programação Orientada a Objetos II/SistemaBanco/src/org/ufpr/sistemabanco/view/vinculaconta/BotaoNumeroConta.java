@@ -40,8 +40,6 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
 
         btnCriarConta.setText("Gerar Conta");
 
-        NumContaLabel.setText("Numero:");
-
         btnVoltar.setText("< Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,7 +56,7 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
                 .addComponent(btnCriarConta)
                 .addGap(18, 18, 18)
                 .addComponent(NumContaLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                 .addComponent(btnVoltar)
                 .addGap(20, 20, 20))
         );

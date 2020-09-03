@@ -76,8 +76,8 @@ public class VinculaContaController {
             if (conta!=null){
                 contaDao.insere(conta);
 
-                view.mostraNumeroConta(conta.getNumero());
-                
+//                view.mostraNumeroConta(conta.getNumero());
+                view.apresentaInfo("Conta corrente criada!\nNúmero da conta: "+ conta.getNumero());
                 view.limpaCampos();
             }
             
@@ -105,8 +105,9 @@ public class VinculaContaController {
             if (conta!=null){
                 contaDao.insere(conta);
 
-                view.mostraNumeroConta(conta.getNumero());
-                
+//                view.mostraNumeroConta(conta.getNumero());
+                 view.apresentaInfo("Conta investimento criada!\nNúmero da conta: "+ conta.getNumero());
+
                 view.limpaCampos();
             }
         }catch(Exception e){
