@@ -38,6 +38,13 @@ public class ClienteController {
             view.inserirClienteView(cliente);
             view.limpaCampos();
         }catch(Exception e) {
+            if (e.getMessage().contains("Duplicate entry")){
+                view.apresentaErro("Erro ao criar cliente. CPF ou RG já pertencem a outro cliente.");
+                return;
+            } else if (e.getMessage().contains("Data too long")){
+                view.apresentaErro("Erro ao criar cliente. CPF deve ter apenas 11 caracteres e o RG no máximo 15.");
+                return;
+            }
             view.apresentaErro("Erro ao criar cliente.");
             e.printStackTrace();
         }
@@ -56,6 +63,13 @@ public class ClienteController {
             
             view.atualizarCliente(cliente);
         }catch(Exception e) {
+            if (e.getMessage().contains("Duplicate entry")){
+                view.apresentaErro("Erro ao criar cliente. CPF ou RG já pertencem a outro cliente.");
+                return;
+            }else if (e.getMessage().contains("Data too long")){
+                view.apresentaErro("Erro ao criar cliente. CPF deve ter apenas 11 caracteres e o RG no máximo 15.");
+                return;
+            }
             view.apresentaErro("Erro ao atualizar cliente.");
             e.printStackTrace();
         }

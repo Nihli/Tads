@@ -118,6 +118,7 @@ public class JanelaClienteView extends javax.swing.JFrame {
     public void setController(ClienteController controller) {
         botoesClienteView.setController(controller);
         buscaClienteView.setController(controller);
+        formularioClienteView.setView(this);
         
         tabelaClienteView.getTabelaCliente().addMouseListener(new MouseAdapter() {
             @Override
@@ -162,9 +163,14 @@ public class JanelaClienteView extends javax.swing.JFrame {
       String rg = formularioClienteView.getRgCampo().getText();
       String cpf = formularioClienteView.getCpfCampo().getText();
       String endereco = formularioClienteView.getEnderecoCampo().getText();
-      double salario = formularioClienteView.getSalarioCampo().getText().equals("")?0.0:Double.parseDouble(formularioClienteView.getSalarioCampo().getText().replace(",","."));
-
-      return new Cliente(nome, sobrenome, rg, cpf, endereco, salario);
+      double salario=0.0;
+      try{
+        salario = formularioClienteView.getSalarioCampo().getText().equals("")?0.0:Double.parseDouble(formularioClienteView.getSalarioCampo().getText().replace(",","."));
+      }catch(NumberFormatException e){
+            apresentaErro("Valor de salário inválido, são aceitos apenas valores numéricos.\nConta será criada com o salário 0.0");
+      }finally{
+        return new Cliente(nome, sobrenome, rg, cpf, endereco, salario);
+      }
     }
 
     public void inserirClienteView(Cliente cliente) {

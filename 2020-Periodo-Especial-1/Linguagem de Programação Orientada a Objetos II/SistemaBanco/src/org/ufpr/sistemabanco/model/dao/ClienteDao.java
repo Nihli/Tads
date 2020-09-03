@@ -30,6 +30,7 @@ public class ClienteDao {
     private final String stmtBuscarPorRg = "SELECT * FROM cliente WHERE rg LIKE ?";
     private final String stmtBuscarPorCpf = "SELECT * FROM cliente WHERE cpf LIKE ?";
     private final String stmtExcluir = "DELETE FROM cliente WHERE id=?";
+    private final String stmtExcluirRelacionamento = "DELETE FROM conta WHERE idCliente=?";
     private final String stmtAtualizar = "UPDATE cliente SET nome=?, sobrenome=?, rg=?, cpf=?, endereco=?, salario=? WHERE id=?";
     private final String stmtListarComConta = "SELECT c.id, c.nome, c.sobrenome, c.rg, c.cpf, c.endereco, c.salario, co.idConta FROM cliente as c LEFT OUTER JOIN conta as co ON c.id = co.idCliente";
     private final String stmtListarComContaPorCpf = "SELECT c.id, c.nome, c.sobrenome, c.rg, c.cpf, c.endereco, c.salario, co.idConta FROM cliente as c LEFT OUTER JOIN conta as co ON c.id = co.idCliente WHERE c.cpf LIKE ?";
@@ -107,8 +108,7 @@ public class ClienteDao {
             }
         }
     }
-    
-       
+         
     public List<Cliente> listaClientesComConta() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -151,7 +151,6 @@ public class ClienteDao {
             }
         }
     }
-    
     
     public List<Cliente> listaClientesComConta(String busca, int opcao) {
         Connection conn = null;
@@ -248,6 +247,10 @@ public class ClienteDao {
         
         try {
             conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false);
+            
+            removerRelacionamentoComConta(conn, cliente.getId());
+            
             stmt = conn.prepareStatement(stmtExcluir);
             
             int x = 0;
@@ -256,7 +259,10 @@ public class ClienteDao {
             
             stmt.executeUpdate();
             
+            conn.commit();
+            
         }catch(SQLException e){
+            try{conn.rollback();}catch(SQLException ex1){throw new RuntimeException(e.getMessage());};
             throw new RuntimeException(e.getMessage());
         }
         finally{
@@ -265,6 +271,23 @@ public class ClienteDao {
             }catch(SQLException e){
                 throw new RuntimeException("Houve um erro ao fechar os atributos da conexão.");
             }
+        }
+    }
+    
+    public void removerRelacionamentoComConta(Connection conn, int id) {
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = conn.prepareStatement(stmtExcluirRelacionamento);
+            
+            int x = 0;
+            
+            stmt.setInt(++x, id);
+            
+            stmt.executeUpdate();
+
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
         }
     }
 

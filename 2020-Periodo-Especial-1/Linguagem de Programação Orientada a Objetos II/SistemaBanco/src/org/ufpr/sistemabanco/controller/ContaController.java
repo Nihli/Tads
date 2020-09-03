@@ -146,13 +146,18 @@ public class ContaController {
     }
 
     public void buscarConta(int selectedIndex) {
-        if (selectedIndex == 0) {
-            
-            String busca = view.getBusca();
-            System.out.println("Buscando: "+busca);
-            List<ContaI> listaContas = contaDao.buscaContaPorCPF(busca.trim());
-            
-            view.mostrarListaContas(listaContas);
+        try{
+            if (selectedIndex == 0) {
+
+                String busca = view.getBusca();
+                System.out.println("Buscando: "+busca);
+                List<ContaI> listaContas = contaDao.buscaContaPorCPF(busca.trim());
+
+                view.mostrarListaContas(listaContas);
+            }
+        }catch(Exception e){
+            view.apresentaErro("Erro ao buscar contas.");
+            e.printStackTrace();
         }
     }
     

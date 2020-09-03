@@ -131,6 +131,7 @@ public class FormularioClienteView extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private Cliente clienteSelecionadoParaAtualizacao;
+    private JanelaClienteView view;
     
     public JTextField getCpfCampo() {
         return cpfCampo;
@@ -156,6 +157,11 @@ public class FormularioClienteView extends javax.swing.JPanel {
         return salarioCampo;
     }
 
+    public void setView(JanelaClienteView view) {
+        this.view = view;
+    }
+    
+
     public Cliente getClienteSelecionadoParaAtualizacao() {
         if (clienteSelecionadoParaAtualizacao==null) {
            return null;
@@ -166,9 +172,16 @@ public class FormularioClienteView extends javax.swing.JPanel {
         clienteSelecionadoParaAtualizacao.setRg(rgCampo.getText());
         clienteSelecionadoParaAtualizacao.setCpf(cpfCampo.getText());
         clienteSelecionadoParaAtualizacao.setEndereco(enderecoCampo.getText());
-        clienteSelecionadoParaAtualizacao.setSalario(Double.parseDouble(salarioCampo.getText().replace(",", ".")));
 
+        try{
+            clienteSelecionadoParaAtualizacao.setSalario(Double.parseDouble(salarioCampo.getText().replace(",", ".")));
+        }catch(NumberFormatException e){
+            view.apresentaErro("Valor de salário inválido, são aceitos apenas valores numéricos.\nConta será atualizada com o salário 0.0");
+            clienteSelecionadoParaAtualizacao.setSalario(0.0);
             return clienteSelecionadoParaAtualizacao;
+        }
+        
+        return clienteSelecionadoParaAtualizacao;
     }
 
     void setCliente(Cliente cliente) {
