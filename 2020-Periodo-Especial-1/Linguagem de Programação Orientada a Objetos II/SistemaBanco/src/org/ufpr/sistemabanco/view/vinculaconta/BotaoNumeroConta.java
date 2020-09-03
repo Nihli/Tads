@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import org.ufpr.sistemabanco.controller.VinculaContaController;
+import org.ufpr.sistemabanco.view.menuinicial.JanelaMenuView;
 
 /**
  *
@@ -35,10 +36,18 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
 
         btnCriarConta = new javax.swing.JToggleButton();
         NumContaLabel = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
 
         btnCriarConta.setText("Gerar Conta");
 
         NumContaLabel.setText("Numero:");
+
+        btnVoltar.setText("< Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -49,7 +58,9 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
                 .addComponent(btnCriarConta)
                 .addGap(18, 18, 18)
                 .addComponent(NumContaLabel)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -57,15 +68,24 @@ public class BotaoNumeroConta extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCriarConta)
-                    .addComponent(NumContaLabel))
+                    .addComponent(NumContaLabel)
+                    .addComponent(btnVoltar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        JanelaMenuView menuView = new JanelaMenuView();
+        
+        menuView.show();
+        view.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NumContaLabel;
     private javax.swing.JToggleButton btnCriarConta;
+    private javax.swing.JButton btnVoltar;
     // End of variables declaration//GEN-END:variables
 
     private JanelaVinculaContaView view;

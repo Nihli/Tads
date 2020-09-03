@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.ufpr.sistemabanco.controller.ClienteController;
 import org.ufpr.sistemabanco.controller.ContaController;
+import org.ufpr.sistemabanco.view.menuinicial.JanelaMenuView;
 
 /**
  *
@@ -44,6 +45,7 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
         valorSacarCampo = new javax.swing.JTextField();
         valorDepositarLabel = new javax.swing.JLabel();
         valorDepositarCampo = new javax.swing.JTextField();
+        btnVoltar = new javax.swing.JButton();
 
         btnDepositar.setText("Depositar");
 
@@ -53,9 +55,16 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
 
         btnSacar.setText("Sacar");
 
-        valorSacarLabel.setText("valor a sacar:");
+        valorSacarLabel.setText("valor a sacar (R$):");
 
-        valorDepositarLabel.setText("valor a depositar:");
+        valorDepositarLabel.setText("valor a depositar (R$):");
+
+        btnVoltar.setText("< Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,14 +79,19 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
                             .addComponent(btnRemunerar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnDepositar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSacar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(valorDepositarLabel)
-                            .addComponent(valorSacarLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(valorSacarCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-                            .addComponent(valorDepositarCampo))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(valorSacarLabel)
+                                    .addComponent(valorDepositarLabel))
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(valorDepositarCampo, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                    .addComponent(valorSacarCampo)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(btnVoltar)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,10 +110,19 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(btnSaldo)
                 .addGap(18, 18, 18)
-                .addComponent(btnRemunerar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRemunerar)
+                    .addComponent(btnVoltar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        JanelaMenuView menuview = new JanelaMenuView();
+        
+        menuview.show();
+        view.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -107,6 +130,7 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
     private javax.swing.JButton btnRemunerar;
     private javax.swing.JButton btnSacar;
     private javax.swing.JButton btnSaldo;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JTextField valorDepositarCampo;
     private javax.swing.JLabel valorDepositarLabel;
     private javax.swing.JTextField valorSacarCampo;
@@ -162,16 +186,8 @@ public class botoesOperacaoContaView extends javax.swing.JPanel {
         return valorDepositarCampo;
     }
 
-    public JLabel getValorDepositarLabel() {
-        return valorDepositarLabel;
-    }
-
     public JTextField getValorSacarCampo() {
         return valorSacarCampo;
-    }
-
-    public JLabel getValorSacarLabel() {
-        return valorSacarLabel;
     }
     
     private boolean verificaLinha(){

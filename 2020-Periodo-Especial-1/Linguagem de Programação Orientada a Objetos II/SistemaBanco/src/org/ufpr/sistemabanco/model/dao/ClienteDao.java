@@ -32,6 +32,9 @@ public class ClienteDao {
     private final String stmtExcluir = "DELETE FROM cliente WHERE id=?";
     private final String stmtAtualizar = "UPDATE cliente SET nome=?, sobrenome=?, rg=?, cpf=?, endereco=?, salario=? WHERE id=?";
     private final String stmtListarComConta = "SELECT c.id, c.nome, c.sobrenome, c.rg, c.cpf, c.endereco, c.salario, co.idConta FROM cliente as c LEFT OUTER JOIN conta as co ON c.id = co.idCliente";
+    private final String stmtListarComContaPorCpf = "SELECT c.id, c.nome, c.sobrenome, c.rg, c.cpf, c.endereco, c.salario, co.idConta FROM cliente as c LEFT OUTER JOIN conta as co ON c.id = co.idCliente WHERE c.cpf LIKE ?";
+    private final String stmtListarComContaPorNome = "SELECT c.id, c.nome, c.sobrenome, c.rg, c.cpf, c.endereco, c.salario, co.idConta FROM cliente as c LEFT OUTER JOIN conta as co ON c.id = co.idCliente WHERE c.nome LIKE ?";
+    private final String stmtListarComContaPorSobrenome = "SELECT c.id, c.nome, c.sobrenome, c.rg, c.cpf, c.endereco, c.salario, co.idConta FROM cliente as c LEFT OUTER JOIN conta as co ON c.id = co.idCliente WHERE c.sobrenome LIKE ?";
     
     public void insere(Cliente cliente) {
         Connection conn = null;
@@ -115,6 +118,65 @@ public class ClienteDao {
             conn = ConnectionFactory.getConnection();
             stmt = conn.prepareStatement(stmtListarComConta);
 
+            rs = stmt.executeQuery();
+            
+            List<Cliente> clientes = new ArrayList();
+            
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setSobrenome(rs.getString("sobrenome"));
+                c.setRg(rs.getString("rg"));
+                c.setCpf(rs.getString("cpf"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setSalario(rs.getDouble("salario"));
+                Integer idConta = rs.getInt("idConta");
+                if (idConta==0) {
+                    c.setPossuiConta(false);
+                }else{
+                    c.setPossuiConta(true);
+                }
+                clientes.add(c);
+            }
+            
+            return clientes;
+        }catch(SQLException e){
+            throw new RuntimeException(e.getMessage());
+        }finally{
+            try{
+                ConnectionFactory.close(conn, stmt, rs);
+            }catch(SQLException e){
+                throw new RuntimeException("Houve um erro ao fechar os atributos da conexão.");
+            }
+        }
+    }
+    
+    
+    public List<Cliente> listaClientesComConta(String busca, int opcao) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = ConnectionFactory.getConnection();
+
+            switch(opcao) {
+                case 0:
+                    stmt = conn.prepareStatement(stmtListarComContaPorNome);
+                    break;
+                case 1:
+                    stmt = conn.prepareStatement(stmtListarComContaPorSobrenome);
+                    break;
+                case 3:
+                    stmt = conn.prepareStatement(stmtListarComContaPorCpf);
+                    break;
+            }
+            
+            int x = 0;
+
+            stmt.setString(++x, "%"+busca+"%");
+            
             rs = stmt.executeQuery();
             
             List<Cliente> clientes = new ArrayList();

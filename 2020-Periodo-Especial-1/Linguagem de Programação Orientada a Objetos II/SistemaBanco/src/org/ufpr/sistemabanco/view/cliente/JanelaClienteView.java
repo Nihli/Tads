@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableRowSorter;
 import org.ufpr.sistemabanco.controller.ClienteController;
 import org.ufpr.sistemabanco.model.Cliente;
+import org.ufpr.sistemabanco.view.menuinicial.JanelaMenuView;
 
 /**
  *
@@ -43,10 +44,18 @@ public class JanelaClienteView extends javax.swing.JFrame {
         tabelaClienteView = new org.ufpr.sistemabanco.view.cliente.TabelaClienteView();
         formularioClienteView = new org.ufpr.sistemabanco.view.cliente.FormularioClienteView();
         buscaClienteView = new org.ufpr.sistemabanco.view.cliente.BuscaClienteView();
+        btnVoltar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnVoltar.setText("< Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,6 +72,10 @@ public class JanelaClienteView extends javax.swing.JFrame {
                             .addComponent(formularioClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,14 +88,24 @@ public class JanelaClienteView extends javax.swing.JFrame {
                 .addComponent(botoesClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(formularioClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        JanelaMenuView menuView = new JanelaMenuView();
+        
+        menuView.show();
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.ufpr.sistemabanco.view.cliente.botoesClienteView botoesClienteView;
+    private javax.swing.JButton btnVoltar;
     private org.ufpr.sistemabanco.view.cliente.BuscaClienteView buscaClienteView;
     private org.ufpr.sistemabanco.view.cliente.FormularioClienteView formularioClienteView;
     private javax.swing.JButton jButton1;
@@ -186,5 +209,14 @@ public class JanelaClienteView extends javax.swing.JFrame {
 
     public String getBusca() {
         return buscaClienteView.getBuscaCampo().getText();
+    }
+    
+    public void limpaCampos() {
+        formularioClienteView.getNomeCampo().setText("");
+        formularioClienteView.getSobrenomeCampo().setText("");
+        formularioClienteView.getRgCampo().setText("");
+        formularioClienteView.getCpfCampo().setText("");
+        formularioClienteView.getEnderecoCampo().setText("");
+        formularioClienteView.getSalarioCampo().setText("");
     }
 }

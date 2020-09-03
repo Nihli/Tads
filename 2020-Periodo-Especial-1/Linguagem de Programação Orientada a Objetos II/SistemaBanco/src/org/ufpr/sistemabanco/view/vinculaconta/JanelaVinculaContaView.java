@@ -84,8 +84,7 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(botaoNumeroConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(botaoNumeroConta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,7 +97,7 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelConta, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoNumeroConta, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(botaoNumeroConta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -139,6 +138,8 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
         panelConta.repaint();
         panelConta.revalidate();
         panelAtivo = "corrente";
+        limpaCampos();
+        
     }
     
     public void mudarPanelInvestimento(){
@@ -150,7 +151,8 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
         panelConta.add(panelContaInvestimento);
         panelConta.repaint();
         panelConta.revalidate();
-         panelAtivo = "investimento";
+        panelAtivo = "investimento";
+        limpaCampos();
     }
     
     public Cliente getClienteParaVincular(){
@@ -197,15 +199,15 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
             ContaCorrente contaCorrente = new ContaCorrente(limite, cliente, depositoInicial, 0);
 
             return contaCorrente;
-        }catch(Exception e){
-            if (e.getMessage().contains("empty String")){
-                apresentaErro("Erro ao criar a conta. Preencha os campos da conta com valores numéricos.");
-            }else{
+        }catch(NumberFormatException e){
+            apresentaErro("Erro ao criar a conta. Preencha os campos da conta com valores numéricos.");
+            return null;
+        }catch(Exception ex){
                 apresentaErro("Erro ao criar a conta.");
-                e.printStackTrace();
-            }
+                ex.printStackTrace();
             return null;
         }
+         
     }
 
     public ContaInvestimento ContaInvestimento(Cliente cliente) {
@@ -217,18 +219,25 @@ public class JanelaVinculaContaView extends javax.swing.JFrame {
             ContaInvestimento contaInvestimento = new ContaInvestimento(montanteMin, depositoMin, cliente, depositoInicial, 0);
 
             return contaInvestimento;
-        }catch(Exception e){
-            if (e.getMessage().contains("empty String")){
-                apresentaErro("Erro ao criar a conta. Preencha os campos da conta com valores numéricos.");
-            }else{
+        }catch(NumberFormatException e){
+            apresentaErro("Erro ao criar a conta. Preencha os campos da conta com valores numéricos.");
+            return null;
+        }catch(Exception ex){
                 apresentaErro("Erro ao criar a conta.");
-                e.printStackTrace();
-            }
+                ex.printStackTrace();
             return null;
         }
     }
 
     public void mostraNumeroConta(int numero) {
         botaoNumeroConta.getNumContaLabel().setText(String.format("Numero: %d",numero));
+    }
+    
+    public void limpaCampos() {
+        panelContaCorrente.getDepositoCampo().setText("");
+        panelContaCorrente.getLimiteCampo().setText("");
+        panelContaInvestimento.getDepositoInicialCampo().setText("");
+        panelContaInvestimento.getMontanteMinCampo().setText("");
+        panelContaInvestimento.getDepositoMinCampo().setText("");
     }
 }

@@ -26,15 +26,23 @@
                           <Component id="btnDepositar" alignment="0" max="32767" attributes="0"/>
                           <Component id="btnSacar" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="valorDepositarLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="valorSacarLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="valorSacarCampo" pref="168" max="32767" attributes="0"/>
-                          <Component id="valorDepositarCampo" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="valorSacarLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="valorDepositarLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="valorDepositarCampo" pref="132" max="32767" attributes="0"/>
+                                  <Component id="valorSacarCampo" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -60,7 +68,10 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSaldo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnRemunerar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnRemunerar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVoltar" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -89,17 +100,25 @@
     </Component>
     <Component class="javax.swing.JLabel" name="valorSacarLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="valor a sacar:"/>
+        <Property name="text" type="java.lang.String" value="valor a sacar (R$):"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="valorSacarCampo">
     </Component>
     <Component class="javax.swing.JLabel" name="valorDepositarLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="valor a depositar:"/>
+        <Property name="text" type="java.lang.String" value="valor a depositar (R$):"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="valorDepositarCampo">
+    </Component>
+    <Component class="javax.swing.JButton" name="btnVoltar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt; Voltar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -37,8 +37,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="botaoNumeroConta" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Component id="botaoNumeroConta" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -53,7 +52,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelConta" min="-2" pref="118" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="botaoNumeroConta" min="-2" pref="51" max="-2" attributes="0"/>
+              <Component id="botaoNumeroConta" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

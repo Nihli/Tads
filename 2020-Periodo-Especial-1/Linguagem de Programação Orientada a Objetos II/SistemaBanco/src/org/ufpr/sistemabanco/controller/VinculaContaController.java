@@ -40,7 +40,7 @@ public class VinculaContaController {
         try{
             String busca = view.getBusca();
             
-            List<Cliente> lista = clienteDao.buscaClientes(busca.trim(), atributo);
+            List<Cliente> lista = clienteDao.listaClientesComConta(busca.trim(), atributo);
 
             view.mostrarListaClientes(lista);
         }catch(Exception e) {
@@ -77,6 +77,8 @@ public class VinculaContaController {
                 contaDao.insere(conta);
 
                 view.mostraNumeroConta(conta.getNumero());
+                
+                view.limpaCampos();
             }
             
         }catch(Exception e){
@@ -104,6 +106,8 @@ public class VinculaContaController {
                 contaDao.insere(conta);
 
                 view.mostraNumeroConta(conta.getNumero());
+                
+                view.limpaCampos();
             }
         }catch(Exception e){
             if (e.getMessage().contains("Duplicate entry")){

@@ -54,10 +54,9 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
                         .addComponent(buscaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(9, 9, 9)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botoesOperacaoContaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(botoesOperacaoContaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -65,9 +64,9 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
                 .addComponent(buscaClienteView, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabelaContaView, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botoesOperacaoContaView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -118,12 +117,30 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
         return linhaClicada;
     }
 
-    public double getValorSacar() {
-        return Double.parseDouble(botoesOperacaoContaView.getValorSacarCampo().getText().replace(",", "."));
+    public Double getValorSacar() {
+        try{
+            return Double.parseDouble(botoesOperacaoContaView.getValorSacarCampo().getText().replace(",", "."));
+        }catch(NumberFormatException e){
+            apresentaErro("Erro ao sacar. Preencha o campo valor com valores numéricos.");
+            return null;
+        }catch(Exception ex){
+                apresentaErro("Erro ao criar a conta.");
+                ex.printStackTrace();
+            return null;
+        }
     }
     
-    public double getValorDepositar() {
-        return Double.parseDouble(botoesOperacaoContaView.getValorDepositarCampo().getText().replace(",", "."));
+    public Double getValorDepositar() {
+        try{
+            return Double.parseDouble(botoesOperacaoContaView.getValorDepositarCampo().getText().replace(",", "."));
+        }catch(NumberFormatException e){
+            apresentaErro("Erro ao depositar. Preencha o campo valor com valores numéricos.");
+            return null;
+        }catch(Exception ex){
+                apresentaErro("Erro ao criar a conta.");
+                ex.printStackTrace();
+            return null;
+        }
     }
     
     public void apresentaInfo(String info) {
@@ -132,6 +149,11 @@ public class JanelaManipulaContaView extends javax.swing.JFrame {
 
     public void apresentaErro(String erro) {
         JOptionPane.showMessageDialog(null, erro + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void limpaCampos() {
+        botoesOperacaoContaView.getValorDepositarCampo().setText("");
+        botoesOperacaoContaView.getValorSacarCampo().setText("");
     }
 
 }

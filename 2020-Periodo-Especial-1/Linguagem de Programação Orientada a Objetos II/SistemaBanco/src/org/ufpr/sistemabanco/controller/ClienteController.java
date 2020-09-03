@@ -36,6 +36,7 @@ public class ClienteController {
             dao.insere(cliente);
 
             view.inserirClienteView(cliente);
+            view.limpaCampos();
         }catch(Exception e) {
             view.apresentaErro("Erro ao criar cliente.");
             e.printStackTrace();
@@ -66,6 +67,7 @@ public class ClienteController {
             dao.excluirLista(listaParaExcluir);
 
             view.excluirClienteView(listaParaExcluir);
+            view.limpaCampos();
         }catch(Exception e) {
             view.apresentaErro("Erro ao excluir o cliente.");
             e.printStackTrace();

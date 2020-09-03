@@ -38,41 +38,44 @@ public class ContaController {
     public void sacar() {
         try{
             ContaI conta = view.getContaParaManipular();
-            double valor = view.getValorSacar();
+            Double valor = view.getValorSacar();
+            if (valor!=null){
+                if (conta instanceof ContaCorrente){
+                    ContaCorrente contaCorrente = (ContaCorrente)conta;
+                    System.out.println(contaCorrente.getSaldo());
+                    boolean ok = contaCorrente.saca(valor);
 
-            if (conta instanceof ContaCorrente){
-                ContaCorrente contaCorrente = (ContaCorrente)conta;
-                System.out.println(contaCorrente.getSaldo());
-                boolean ok = contaCorrente.saca(valor);
-                
 
-                if(ok){
-                    System.out.println(contaCorrente.getId());
-                    contaDao.atualizaSaldo(contaCorrente.getSaldo(), contaCorrente.getId());
-                    view.apresentaInfo("Foi sacado R$" + valor + " da conta.");
-                }else{
-                    if (valor<0){
-                         view.apresentaErro("O valor a ser sacado era negativo.\nA operação foi cancelada.");
-                         return;
+                    if(ok){
+                        System.out.println(contaCorrente.getId());
+                        contaDao.atualizaSaldo(contaCorrente.getSaldo(), contaCorrente.getId());
+                        view.apresentaInfo("Foi sacado R$" + valor + " da conta.");
+                        view.limpaCampos();
+                    }else{
+                        if (valor<0){
+                             view.apresentaErro("O valor a ser sacado era negativo.\nA operação foi cancelada.");
+                             return;
+                        }
+                        view.apresentaErro("O valor a ser sacado ultrapassava o limite disponível.\nA operação foi cancelada.");
                     }
-                    view.apresentaErro("O valor a ser sacado ultrapassava o limite disponível.\nA operação foi cancelada.");
-                }
 
-            }else if (conta instanceof ContaInvestimento){
-                ContaInvestimento contaInvestimento = (ContaInvestimento)conta;
-                System.out.println(contaInvestimento.getSaldo());
-                boolean ok = contaInvestimento.saca(valor);
-                System.out.println(contaInvestimento.getSaldo());
+                }else if (conta instanceof ContaInvestimento){
+                    ContaInvestimento contaInvestimento = (ContaInvestimento)conta;
+                    System.out.println(contaInvestimento.getSaldo());
+                    boolean ok = contaInvestimento.saca(valor);
+                    System.out.println(contaInvestimento.getSaldo());
 
-                if(ok){
-                    contaDao.atualizaSaldo(contaInvestimento.getSaldo(), contaInvestimento.getId());
-                    view.apresentaInfo("Foi sacado R$" + valor + " da conta.");
-                }else{
-                    if (valor<0){
-                         view.apresentaErro("O valor a ser sacado era negativo.\nA operação foi cancelada.");
-                         return;
+                    if(ok){
+                        contaDao.atualizaSaldo(contaInvestimento.getSaldo(), contaInvestimento.getId());
+                        view.apresentaInfo("Foi sacado R$" + valor + " da conta.");
+                        view.limpaCampos();
+                    }else{
+                        if (valor<0){
+                             view.apresentaErro("O valor a ser sacado era negativo.\nA operação foi cancelada.");
+                             return;
+                        }
+                        view.apresentaErro("O valor a ser sacado deixava o saldo abaixo do montante mínimo da conta.\nA operação foi cancelada.");
                     }
-                    view.apresentaErro("O valor a ser sacado deixava o saldo abaixo do montante mínimo da conta.\nA operação foi cancelada.");
                 }
             }
         }catch(Exception e){
@@ -84,35 +87,40 @@ public class ContaController {
     public void depositar() {
         try{
             ContaI conta = view.getContaParaManipular();
-            double valor = view.getValorDepositar();
+            Double valor = view.getValorDepositar();
 
-            if (conta instanceof ContaCorrente){
-                ContaCorrente contaCorrente = (ContaCorrente)conta;
-                System.out.println(contaCorrente.getSaldo());
-                boolean ok = contaCorrente.deposita(valor);
-                System.out.println(contaCorrente.getSaldo());
+            if (valor!=null){
 
-                if(ok){
-                    contaDao.atualizaSaldo(contaCorrente.getSaldo(), contaCorrente.getId());
-                    view.apresentaInfo("Foi depositado R$" + valor + " na conta.");
-                }else{
-                    view.apresentaErro("O valor a ser depositado era negativo.\nA operação foi cancelada.");
-                }    
-            }else if (conta instanceof ContaInvestimento){
-                ContaInvestimento contaInvestimento = (ContaInvestimento)conta;
-                System.out.println(contaInvestimento.getSaldo());
-                boolean ok = contaInvestimento.deposita(valor);
-                System.out.println(contaInvestimento.getSaldo());
+                if (conta instanceof ContaCorrente){
+                    ContaCorrente contaCorrente = (ContaCorrente)conta;
+                    System.out.println(contaCorrente.getSaldo());
+                    boolean ok = contaCorrente.deposita(valor);
+                    System.out.println(contaCorrente.getSaldo());
 
-                if(ok){
-                    contaDao.atualizaSaldo(contaInvestimento.getSaldo(), contaInvestimento.getId());
-                    view.apresentaInfo("Foi depositado R$" + valor + " na conta.");
-                }else{
-                    if (valor<0){
-                         view.apresentaErro("O valor a ser depositado era negativo.\nA operação foi cancelada.");
-                         return;
+                    if(ok){
+                        contaDao.atualizaSaldo(contaCorrente.getSaldo(), contaCorrente.getId());
+                        view.apresentaInfo("Foi depositado R$" + valor + " na conta.");
+                        view.limpaCampos();
+                    }else{
+                        view.apresentaErro("O valor a ser depositado era negativo.\nA operação foi cancelada.");
+                    }    
+                }else if (conta instanceof ContaInvestimento){
+                    ContaInvestimento contaInvestimento = (ContaInvestimento)conta;
+                    System.out.println(contaInvestimento.getSaldo());
+                    boolean ok = contaInvestimento.deposita(valor);
+                    System.out.println(contaInvestimento.getSaldo());
+
+                    if(ok){
+                        contaDao.atualizaSaldo(contaInvestimento.getSaldo(), contaInvestimento.getId());
+                        view.apresentaInfo("Foi depositado R$" + valor + " na conta.");
+                        view.limpaCampos();
+                    }else{
+                        if (valor<0){
+                             view.apresentaErro("O valor a ser depositado era negativo.\nA operação foi cancelada.");
+                             return;
+                        }
+                        view.apresentaErro("O valor a ser depositado não era maior ou igual que o depósito mínimo da conta.\nA operação foi cancelada.");
                     }
-                    view.apresentaErro("O valor a ser depositado não era maior ou igual que o depósito mínimo da conta.\nA operação foi cancelada.");
                 }
             }
         }catch(Exception e){
@@ -124,6 +132,7 @@ public class ContaController {
     public void saldo() {
         ContaI conta = view.getContaParaManipular();
         view.apresentaInfo("O saldo na conta é de R$ "+conta.getSaldo());
+        view.limpaCampos();
     }
 
     public void remunerar() {
@@ -133,6 +142,7 @@ public class ContaController {
         contaDao.atualizaSaldo(conta.getSaldo(), conta instanceof ContaCorrente?((ContaCorrente)conta).getId():((ContaInvestimento)conta).getId());
         
         view.apresentaInfo("Remuneração aplicada.");
+        view.limpaCampos();
     }
 
     public void buscarConta(int selectedIndex) {
