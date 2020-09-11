@@ -36,7 +36,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
                   <Component id="btnReinicia" min="-2" pref="46" max="-2" attributes="0"/>
-                  <EmptySpace pref="177" max="32767" attributes="0"/>
+                  <EmptySpace pref="165" max="32767" attributes="0"/>
+                  <Component id="qtdMarcadores" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -44,8 +46,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnReinicia" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="qtdMarcadores" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnReinicia" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -55,6 +60,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReiniciaActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="qtdMarcadores">
         </Component>
       </SubComponents>
     </Container>
@@ -66,8 +73,8 @@
       </Constraints>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-        <Property name="columns" type="int" value="9"/>
-        <Property name="rows" type="int" value="9"/>
+        <Property name="columns" type="int" value="1"/>
+        <Property name="rows" type="int" value="1"/>
       </Layout>
     </Container>
   </SubComponents>

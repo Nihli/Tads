@@ -2,9 +2,17 @@
 import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,17 +33,19 @@ import javax.swing.border.Border;
  */
 public class CampoMinadoView extends javax.swing.JFrame implements ActionListener{
 
+   private int[] bombas;
+   private int marcadores = 0;
+    
     /**
      * Creates new form CampoMinadoView
      */
     public CampoMinadoView() {
         initComponents();
         
-        setLocationRelativeTo(null);
         setSize(400,400);
+        setLocationRelativeTo(null);
         
-        ImageIcon i = new ImageIcon("happypqn.png");
-        btnReinicia.setIcon(i);
+        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/happypqn.png")));
         
     }
 
@@ -50,6 +60,7 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
 
         menuPanel = new javax.swing.JPanel();
         btnReinicia = new javax.swing.JButton();
+        qtdMarcadores = new javax.swing.JLabel();
         jogoPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,52 +78,78 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addGap(177, 177, 177)
                 .addComponent(btnReinicia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                .addComponent(qtdMarcadores)
+                .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnReinicia)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(qtdMarcadores)
+                    .addComponent(btnReinicia))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(menuPanel, java.awt.BorderLayout.PAGE_START);
 
-        jogoPanel.setLayout(new java.awt.GridLayout(9, 9));
+        jogoPanel.setLayout(new java.awt.GridLayout(1, 1));
         getContentPane().add(jogoPanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReiniciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciaActionPerformed
-        ImageIcon i = new ImageIcon("deadpqn.png");
-        btnReinicia.setIcon(i);
         
-        for (int j=0;j<81;j++){
-            ImageIcon icon = new ImageIcon("squarepqn3.png");
-            
-            JButton button = new JButton();
-            button.setName("btn"+j);
-            button.setActionCommand("btnCampoMinado");
-            button.addActionListener(this);
-//            button.setBorderPainted(false); 
-            button.setContentAreaFilled(false);
-//            button.setFocusPainted(false); 
-//            button.setOpaque(false);
-            button.setIcon(icon);
-            
-            
-           
-//            y.setIcon(x);
-//            y.setBorder(null);
-//            y.setFocusPainted(false);
-//            y.setContentAreaFilled(false);
-            Component x = jogoPanel.add(button, j);
-        }
-        setSize(450,450);
-        setSize(400,400);
+        Object[] options = {"Nível fácil", "Nível médio", "Nível avançado"};
+        int option = JOptionPane.showOptionDialog(this, "Escolha um dos três níveis disponíveis para jogar:\n"
+                + "Nível fácil: 9x9 com 10 minas\n"
+                + "Nível médio: 16x16 com 40 minas\n"
+                + "Nível avançado: 30x16 com 99 minas ", "Nível",
+                JOptionPane.YES_NO_CANCEL_OPTION,   JOptionPane.QUESTION_MESSAGE, null,options, options[0]);
+                
+        switch(option){
+            case 0:
+                removeComponentesJogoPanel();
 
+                adicionaComponentesJogoPanel(81,9);
+                
+                setaMarcadores(10);
+                
+                setaBombas(81,10);
+               
+                repintaComponentesJogoPanel();
+                
+                observaEventos();
+                
+                setSize(450,450);
+                setSize(400,400);
+                setLocationRelativeTo(null);
+
+                break;
+//            case 1:
+//                removeComponentesJogoPanel();
+//
+//                adicionaComponentesJogoPanel(256,16);
+//                
+//                setaMarcadores(40);
+//                
+//                setaBombas(256,40);
+//               
+//                repintaComponentesJogoPanel();
+//                
+//                observaEventos();
+//                
+//                setSize(650,650);
+//                setLocationRelativeTo(null);
+//                break;
+            default:
+                removeComponentesJogoPanel();
+        }
+        
+//        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deadpqn.png")));
+        
     }//GEN-LAST:event_btnReiniciaActionPerformed
 
     /**
@@ -156,41 +193,177 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
     private javax.swing.JButton btnReinicia;
     private javax.swing.JPanel jogoPanel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JLabel qtdMarcadores;
     // End of variables declaration//GEN-END:variables
 
+    public void observaEventos(){
+        for (Component c : jogoPanel.getComponents()){
+            c.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (JButton.class==e.getComponent().getClass()){
+                    JButton button = (JButton) e.getComponent();
+                    ImageIcon icon = (ImageIcon)button.getIcon();
+                    
+                    //verifica se clicou com o botão direito
+                    if(MouseEvent.BUTTON3 == e.getButton()) {
+                        trataCliqueBotaoDireito(icon, button);
+                    }else{
+
+                        //se clicou em botão que tinha marcador, libera um marcador para uso
+                        if (icon.getDescription().contains("marcador")){
+                            marcador(1);
+                        }
+                        
+                        System.out.println(button.getName().substring(3));
+                        JOptionPane.showMessageDialog(jogoPanel.getParent(), "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
+                        JLabel label =new JLabel();
+                        label.setName("lbl"+button.getName().substring(3).trim());
+                        label.setSize(button.getSize());
+                        Component x = jogoPanel.getComponent(Integer.parseInt(button.getName().substring(3).trim()));
+
+                        System.out.println(x.getName());
+
+                        Component[] componentes = jogoPanel.getComponents();
+
+                        jogoPanel.removeAll();
+
+                        jogoPanel.repaint();
+                        jogoPanel.revalidate();
+
+                        for (Component componente : componentes){
+                            if (componente.getName().equals(button.getName())){
+                                jogoPanel.add(label);
+                            }else{
+                                jogoPanel.add(componente);
+                            }
+                        }
+
+                        jogoPanel.repaint();
+                        jogoPanel.revalidate();
+                    }
+                }
+            }
+        });
+        }
+    }
+    
+    private boolean marcador(int aumenta){
+        if (aumenta==0){
+            if (marcadores>0){
+                marcadores--;
+                setQtdMarcadores(marcadores);
+                return true;
+            }
+            JOptionPane.showMessageDialog(jogoPanel.getParent(), "Não é possível adicionar mais marcadores.\nSe quiser marcar este espaço, remova um marcador.", "Aviso", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else{
+            marcadores++;
+            setQtdMarcadores(marcadores);
+            return true;
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         
-        if (cmd.equals("btnCampoMinado")){
-            javax.swing.JButton button = (javax.swing.JButton) e.getSource();
-            
-            System.out.println(button.getName().substring(3));
-            JOptionPane.showMessageDialog(this, "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
-            JLabel label =new JLabel();
-            label.setName("lbl"+button.getName().substring(3).trim());
-            label.setSize(button.getSize());
-            Component x = jogoPanel.getComponent(Integer.parseInt(button.getName().substring(3).trim()));
+//        if (cmd.equals("btnCampoMinado")){
+//            javax.swing.JButton button = (javax.swing.JButton) e.getSource();
+//            
+//            System.out.println(button.getName().substring(3));
+//            JOptionPane.showMessageDialog(this, "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
+//            JLabel label =new JLabel();
+//            label.setName("lbl"+button.getName().substring(3).trim());
+//            label.setSize(button.getSize());
+//            Component x = jogoPanel.getComponent(Integer.parseInt(button.getName().substring(3).trim()));
+//
+//            System.out.println(x.getName());
+//            
+//            Component[] componentes = jogoPanel.getComponents();
+//            
+//            jogoPanel.removeAll();
+//            
+//            jogoPanel.repaint();
+//            jogoPanel.revalidate();
+//            
+//            for (Component componente : componentes){
+//                if (componente.getName().equals(button.getName())){
+//                    jogoPanel.add(label);
+//                }else{
+//                    jogoPanel.add(componente);
+//                }
+//            }
+//            
+//            jogoPanel.repaint();
+//            jogoPanel.revalidate();
+//        }
+    }
 
-            System.out.println(x.getName());
-            
-            Component[] componentes = jogoPanel.getComponents();
-            
-            jogoPanel.removeAll();
-            
-            jogoPanel.repaint();
-            jogoPanel.revalidate();
-            
-            for (Component componente : componentes){
-                if (componente.getName().equals(button.getName())){
-                    jogoPanel.add(label);
-                }else{
-                    jogoPanel.add(componente);
-                }
+    private void trataCliqueBotaoDireito(ImageIcon icon, JButton button){
+        //verifica se deve colocar marcador de bomba ou retirar ele
+        if (icon.getDescription().contains("marcador")){
+            marcador(1);
+            button.setIcon(new ImageIcon(getClass().getResource("/squarepqn3.png")));
+        }else{
+            if (marcador(0)){
+                button.setIcon(new ImageIcon(getClass().getResource("/marcadorpqn.png")));
             }
-            
-            jogoPanel.repaint();
-            jogoPanel.revalidate();
         }
+    }
+    
+    public void setQtdMarcadores(int qtd) {
+        qtdMarcadores.setText(String.valueOf(qtd));
+    }
+    
+    private void removeComponentesJogoPanel(){
+        jogoPanel.removeAll();
+        jogoPanel.repaint();
+        jogoPanel.revalidate();
+    }
+    
+    private void repintaComponentesJogoPanel(){
+        jogoPanel.repaint();
+        jogoPanel.revalidate();
+    }
+    
+    private void adicionaComponentesJogoPanel(int totalComponentes, int matriz){
+        GridLayout grid = (GridLayout) jogoPanel.getLayout();
+        grid.setColumns(matriz);
+        grid.setRows(matriz);
+        jogoPanel.setLayout(grid);
+        
+        for (int j=0;j<totalComponentes;j++){
+            JButton button = new JButton();
+            button.setName("btn"+j);
+            button.setActionCommand("btnCampoMinado");
+            button.addActionListener(this);
+            button.setContentAreaFilled(false);
+            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/squarepqn3.png")));
+
+            jogoPanel.add(button, j);
+        }
+    }
+
+    private void setaBombas(int totalComponentes, int qtdBombas){
+        List<Integer> numeros = new ArrayList();
+        
+        for (int i = 0; i < totalComponentes; i++) {
+            numeros.add(i);
+        }
+                
+        Collections.shuffle(numeros);
+                
+        bombas = new int[qtdBombas];
+                
+        for (int i = 0; i < qtdBombas; i++) {
+             System.out.println("g"+numeros.get(i));
+            bombas[i] = numeros.get(i);
+        }
+    }
+    
+    private void setaMarcadores(int qtdMarcadores){
+        marcadores = qtdMarcadores;
+        setQtdMarcadores(qtdMarcadores);
     }
 }
