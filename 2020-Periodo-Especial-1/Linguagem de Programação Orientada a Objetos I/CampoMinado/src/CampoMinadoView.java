@@ -33,7 +33,7 @@ import javax.swing.border.Border;
  */
 public class CampoMinadoView extends javax.swing.JFrame implements ActionListener{
 
-   private int[] bombas;
+   private List<Integer> bombas;
    private int marcadores = 0;
     
     /**
@@ -45,8 +45,7 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
         setSize(400,400);
         setLocationRelativeTo(null);
         
-        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/happypqn.png")));
-        
+        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/happypqn.png")));   
     }
 
     /**
@@ -146,10 +145,7 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
 //                break;
             default:
                 removeComponentesJogoPanel();
-        }
-        
-//        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deadpqn.png")));
-        
+        }      
     }//GEN-LAST:event_btnReiniciaActionPerformed
 
     /**
@@ -211,15 +207,22 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
                     }else{
                         verificaSeTinhaMarcador(icon);
                         
-//                        Component componente = jogoPanel.getComponent(Integer.parseInt(button.getName().substring(3).trim()));
-
                         Component[] componentes = jogoPanel.getComponents();
                   
                         removeComponentesJogoPanel();
                         
-                       criaLabelReadicionaComponentes(button, componentes);
+                        criaLabelReadicionaComponentes(button, componentes);
 
                         repintaComponentesJogoPanel();
+                        
+                        int numButton = Integer.parseInt(button.getName().substring(3).trim());
+                        
+                        if (bombas.contains(numButton)){
+                            revelaBombaClicada(numButton);
+                            
+                            revelaOutrasBombas(numButton);
+                        }
+                        
                     }
                 }
             }
@@ -254,7 +257,8 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
         System.out.println(button.getName().substring(3));
         System.out.println("Você clicou no botão " + button.getName());
 //        JOptionPane.showMessageDialog(jogoPanel.getParent(), "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
-        JLabel label =new JLabel();
+        JLabel label = new JLabel();
+        
         label.setName("lbl"+button.getName().substring(3).trim());
         label.setSize(button.getSize());
                         
@@ -263,6 +267,31 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
                 jogoPanel.add(label);
             }else{
                 jogoPanel.add(componente);
+            }
+        }
+    }
+    
+    private void revelaBombaClicada(int numButton){
+        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deadpqn.png")));
+
+        Component componente = jogoPanel.getComponent(numButton);
+        JLabel label = (JLabel) componente;
+        label.setIcon(new ImageIcon(getClass().getResource("/bombaexplodida.png")));
+    }
+    
+    private void revelaOutrasBombas(int numButton){
+        for (int i=0;i<10;i++){
+            if (!bombas.get(i).equals(numButton)){
+                Component componente = jogoPanel.getComponent(bombas.get(i));
+                JButton btn = (JButton) componente;
+                Component[] componentes = jogoPanel.getComponents();
+                
+                removeComponentesJogoPanel();
+                
+                criaLabelReadicionaComponentes(btn, componentes);
+                componente = jogoPanel.getComponent(bombas.get(i));
+                JLabel label = (JLabel) componente;
+                label.setIcon(new ImageIcon(getClass().getResource("/bomba.png")));
             }
         }
     }
@@ -357,11 +386,11 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
                 
         Collections.shuffle(numeros);
                 
-        bombas = new int[qtdBombas];
+        bombas = new ArrayList();
                 
         for (int i = 0; i < qtdBombas; i++) {
-             System.out.println("g"+numeros.get(i));
-            bombas[i] = numeros.get(i);
+            System.out.println("g"+numeros.get(i));
+            bombas.add(numeros.get(i));
         }
     }
     
