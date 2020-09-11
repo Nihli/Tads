@@ -209,38 +209,17 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
                     if(MouseEvent.BUTTON3 == e.getButton()) {
                         trataCliqueBotaoDireito(icon, button);
                     }else{
-
-                        //se clicou em botão que tinha marcador, libera um marcador para uso
-                        if (icon.getDescription().contains("marcador")){
-                            marcador(1);
-                        }
+                        verificaSeTinhaMarcador(icon);
                         
-                        System.out.println(button.getName().substring(3));
-                        JOptionPane.showMessageDialog(jogoPanel.getParent(), "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
-                        JLabel label =new JLabel();
-                        label.setName("lbl"+button.getName().substring(3).trim());
-                        label.setSize(button.getSize());
-                        Component x = jogoPanel.getComponent(Integer.parseInt(button.getName().substring(3).trim()));
-
-                        System.out.println(x.getName());
+//                        Component componente = jogoPanel.getComponent(Integer.parseInt(button.getName().substring(3).trim()));
 
                         Component[] componentes = jogoPanel.getComponents();
+                  
+                        removeComponentesJogoPanel();
+                        
+                       criaLabelReadicionaComponentes(button, componentes);
 
-                        jogoPanel.removeAll();
-
-                        jogoPanel.repaint();
-                        jogoPanel.revalidate();
-
-                        for (Component componente : componentes){
-                            if (componente.getName().equals(button.getName())){
-                                jogoPanel.add(label);
-                            }else{
-                                jogoPanel.add(componente);
-                            }
-                        }
-
-                        jogoPanel.repaint();
-                        jogoPanel.revalidate();
+                        repintaComponentesJogoPanel();
                     }
                 }
             }
@@ -261,6 +240,30 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
             marcadores++;
             setQtdMarcadores(marcadores);
             return true;
+        }
+    }
+    
+    private void verificaSeTinhaMarcador(ImageIcon icon){
+        //se clicou em botão que tinha marcador, libera um marcador para uso
+        if (icon.getDescription().contains("marcador")){
+             marcador(1);
+        }
+    }
+    
+    private void criaLabelReadicionaComponentes(JButton button, Component[] componentes){
+        System.out.println(button.getName().substring(3));
+        System.out.println("Você clicou no botão " + button.getName());
+//        JOptionPane.showMessageDialog(jogoPanel.getParent(), "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
+        JLabel label =new JLabel();
+        label.setName("lbl"+button.getName().substring(3).trim());
+        label.setSize(button.getSize());
+                        
+        for (Component componente : componentes){
+            if (componente.getName().equals(button.getName())){
+                jogoPanel.add(label);
+            }else{
+                jogoPanel.add(componente);
+            }
         }
     }
     
