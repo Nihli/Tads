@@ -45,7 +45,7 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
         setSize(400,400);
         setLocationRelativeTo(null);
         
-        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/happypqn.png")));   
+        btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
     }
 
     /**
@@ -221,6 +221,37 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
                             revelaBombaClicada(numButton);
                             
                             revelaOutrasBombas(numButton);
+                        }else{
+                          
+                            int[] posicoesAdjascentes = {numButton+1, numButton-1, numButton+9, numButton-9, numButton-8, numButton-10, numButton+8, numButton+10};
+
+                            int qtdBombasAdjascentes = 0;
+                            
+                            for (int i=0;i<posicoesAdjascentes.length;i++){
+                                if (bombas.contains(posicoesAdjascentes[i])){
+                                    qtdBombasAdjascentes++;
+                                }
+                            }
+                            
+                            Component componente = jogoPanel.getComponent(numButton);
+                            JLabel label = (JLabel) componente;
+                            
+                            switch (qtdBombasAdjascentes) {
+                                case 1:
+                                    label.setIcon(new ImageIcon(getClass().getResource("/1labelpqn4.png")));
+                                    break;
+                                case 2:
+                                    label.setIcon(new ImageIcon(getClass().getResource("/2labelpqn4.png")));
+                                    break;
+                                case 3:
+                                    label.setIcon(new ImageIcon(getClass().getResource("/3labelpqn4.png")));
+                                    break;
+                                case 4:
+                                    label.setIcon(new ImageIcon(getClass().getResource("/4labelpqn4.png")));
+                                    break;
+                                default:
+                                    label.setIcon(new ImageIcon(getClass().getResource("/labelvaziopqn4.png")));
+                            }
                         }
                         
                     }
@@ -254,7 +285,7 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
     }
     
     private void criaLabelReadicionaComponentes(JButton button, Component[] componentes){
-        System.out.println(button.getName().substring(3));
+//        System.out.println(button.getName().substring(3));
         System.out.println("Você clicou no botão " + button.getName());
 //        JOptionPane.showMessageDialog(jogoPanel.getParent(), "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
         JLabel label = new JLabel();
