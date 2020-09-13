@@ -222,36 +222,9 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
                             
                             revelaOutrasBombas(numButton);
                         }else{
-                          
-                            int[] posicoesAdjascentes = {numButton+1, numButton-1, numButton+9, numButton-9, numButton-8, numButton-10, numButton+8, numButton+10};
-
-                            int qtdBombasAdjascentes = 0;
+                            int qtdBombasAdjascentes = contarBombasAdjascentes(numButton);                            
                             
-                            for (int i=0;i<posicoesAdjascentes.length;i++){
-                                if (bombas.contains(posicoesAdjascentes[i])){
-                                    qtdBombasAdjascentes++;
-                                }
-                            }
-                            
-                            Component componente = jogoPanel.getComponent(numButton);
-                            JLabel label = (JLabel) componente;
-                            
-                            switch (qtdBombasAdjascentes) {
-                                case 1:
-                                    label.setIcon(new ImageIcon(getClass().getResource("/1labelpqn4.png")));
-                                    break;
-                                case 2:
-                                    label.setIcon(new ImageIcon(getClass().getResource("/2labelpqn4.png")));
-                                    break;
-                                case 3:
-                                    label.setIcon(new ImageIcon(getClass().getResource("/3labelpqn4.png")));
-                                    break;
-                                case 4:
-                                    label.setIcon(new ImageIcon(getClass().getResource("/4labelpqn4.png")));
-                                    break;
-                                default:
-                                    label.setIcon(new ImageIcon(getClass().getResource("/labelvaziopqn4.png")));
-                            }
+                            mudaIconeLabel(numButton, qtdBombasAdjascentes);
                         }
                         
                     }
@@ -259,6 +232,105 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
             }
         });
         }
+    }
+    
+    private void mudaIconeLabel(int numButton, int qtdBombasAdjascentes){
+    Component componente = jogoPanel.getComponent(numButton);
+    JLabel label = (JLabel) componente;
+                            
+    switch (qtdBombasAdjascentes) {
+        case 1:
+            label.setIcon(new ImageIcon(getClass().getResource("/1labelpqn4.png")));
+            break;
+        case 2:
+            label.setIcon(new ImageIcon(getClass().getResource("/2labelpqn4.png")));
+            break;
+        case 3:
+            label.setIcon(new ImageIcon(getClass().getResource("/3labelpqn4.png")));
+            break;
+        case 4:
+            label.setIcon(new ImageIcon(getClass().getResource("/4labelpqn4.png")));
+            break;
+        default:
+            label.setIcon(new ImageIcon(getClass().getResource("/labelvaziopqn4.png")));
+    }
+    }
+    
+    private int contarBombasAdjascentes(int numButton){
+        GridLayout grid = (GridLayout) jogoPanel.getLayout();
+        int matriz = grid.getColumns();
+        int num =0;
+        int[][] panel = new int[matriz][matriz];
+                     
+        //constroi matriz do jogoPanel
+        for (int i=0;i<matriz;i++){
+            for (int j=0;j<matriz;j++){
+                panel[i][j] = num++;
+            } 
+        }
+                            
+        int qtdBombasAdjascentes=0;
+        boolean foiContadoBombas = false;
+
+        //verifica se o botao clicado não estava em uma das laterais da matriz
+        for(int i=0;i<8;i++){
+            if (panel[0][i]==numButton){
+                if (i==0){
+                    int[] posicoesAdjascentes = {numButton+1, numButton+9, numButton+10};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
+                }else if (i==8){
+                    int[] posicoesAdjascentes = {numButton-1, numButton+9, numButton+8};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
+                }else {
+                    int[] posicoesAdjascentes = {numButton-1, numButton+1, numButton+9, numButton+10, numButton+8};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
+                }
+            } else if (panel[8][i]==numButton){
+                if (i==0){
+                    int[] posicoesAdjascentes = {numButton+1, numButton-9, numButton-8};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
+                }else if (i==8){
+                    int[] posicoesAdjascentes = {numButton-1, numButton-9, numButton-10};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
+                }else {
+                    int[] posicoesAdjascentes = {numButton-1, numButton+1, numButton-9, numButton-10, numButton-8};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
+                }
+            } else if (panel[i][0]==numButton){
+                int[] posicoesAdjascentes = {numButton-9, numButton+9, numButton+1, numButton+10, numButton-8};
+                qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                foiContadoBombas = true;
+            } else if (panel[i][8]==numButton){
+                    int[] posicoesAdjascentes = {numButton-9, numButton+9, numButton-1, numButton+8, numButton-10};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
+            }
+        }
+                            
+        if (!foiContadoBombas){
+            int[] posicoesAdjascentes = {numButton+1, numButton-1, numButton+9, numButton-9, numButton-8, numButton-10, numButton+8, numButton+10};
+            qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+        }
+        
+        return qtdBombasAdjascentes;
+    }
+    
+    private int contaBombasAdjascentes(int[] posicoesAdjascentes){
+        int qtdBombasAdjascentes = 0;
+
+        for (int i=0;i<posicoesAdjascentes.length;i++){
+            if (bombas.contains(posicoesAdjascentes[i])){
+                qtdBombasAdjascentes++;
+            }
+        }
+        
+        return qtdBombasAdjascentes;
     }
     
     private boolean marcador(int aumenta){
