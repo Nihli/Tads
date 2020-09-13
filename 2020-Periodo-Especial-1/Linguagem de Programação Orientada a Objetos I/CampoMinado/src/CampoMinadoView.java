@@ -1,8 +1,6 @@
 
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,7 +22,7 @@ import javax.swing.JOptionPane;
  *
  * @author Lia
  */
-public class CampoMinadoView extends javax.swing.JFrame implements ActionListener{
+public class CampoMinadoView extends javax.swing.JFrame{
 
    private List<Integer> bombas;
    private int marcadores = 0;
@@ -201,6 +199,12 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
                     //verifica se clicou com o botão direito
                     if(MouseEvent.BUTTON3 == e.getButton()) {
                         trataCliqueBotaoDireito(icon, button);
+                        
+                        if (verificaSeBombasEstaoMarcadas()){
+                            JOptionPane.showMessageDialog(jogoPanel.getParent(), "Você ganhou!!", "Vitória", JOptionPane.INFORMATION_MESSAGE);
+                            
+                            removeListeners();
+                        }
                     }else{
                         verificaSeTinhaMarcador(icon);
                         
@@ -356,6 +360,29 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
         }
     }
     
+    private boolean verificaSeBombasEstaoMarcadas(){
+        int qtdBombasMarcadas=0;
+        
+        for (Component componente : jogoPanel.getComponents()){
+            if (componente instanceof JButton){
+                JButton button = (JButton) componente;
+                ImageIcon icon = (ImageIcon) button.getIcon();
+                
+                int numButton = Integer.parseInt(button.getName().substring(3).trim());
+                
+                if (bombas.contains(numButton)&&icon.getDescription().contains("marcador")){
+                    qtdBombasMarcadas++;
+                    
+                    if (qtdBombasMarcadas==bombas.size()){
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+    
     private void verificaSeTinhaMarcador(ImageIcon icon){
         //se clicou em botão que tinha marcador, libera um marcador para uso
         if (icon.getDescription().contains("marcador")){
@@ -406,42 +433,6 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
             }
         }
     }
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String cmd = e.getActionCommand();
-        
-//        if (cmd.equals("btnCampoMinado")){
-//            javax.swing.JButton button = (javax.swing.JButton) e.getSource();
-//            
-//            System.out.println(button.getName().substring(3));
-//            JOptionPane.showMessageDialog(this, "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
-//            JLabel label =new JLabel();
-//            label.setName("lbl"+button.getName().substring(3).trim());
-//            label.setSize(button.getSize());
-//            Component x = jogoPanel.getComponent(Integer.parseInt(button.getName().substring(3).trim()));
-//
-//            System.out.println(x.getName());
-//            
-//            Component[] componentes = jogoPanel.getComponents();
-//            
-//            jogoPanel.removeAll();
-//            
-//            jogoPanel.repaint();
-//            jogoPanel.revalidate();
-//            
-//            for (Component componente : componentes){
-//                if (componente.getName().equals(button.getName())){
-//                    jogoPanel.add(label);
-//                }else{
-//                    jogoPanel.add(componente);
-//                }
-//            }
-//            
-//            jogoPanel.repaint();
-//            jogoPanel.revalidate();
-//        }
-    }
 
     private void trataCliqueBotaoDireito(ImageIcon icon, JButton button){
         //verifica se deve colocar marcador de bomba ou retirar ele
@@ -479,8 +470,8 @@ public class CampoMinadoView extends javax.swing.JFrame implements ActionListene
         for (int j=0;j<totalComponentes;j++){
             JButton button = new JButton();
             button.setName("btn"+j);
-            button.setActionCommand("btnCampoMinado");
-            button.addActionListener(this);
+//            button.setActionCommand("btnCampoMinado");
+//            button.addActionListener(this);
             button.setContentAreaFilled(false);
             button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/squarepqn3.png")));
 
