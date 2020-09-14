@@ -1,6 +1,7 @@
 
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -108,7 +109,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
             case 0:
                 removeComponentesJogoPanel();
 
-                adicionaComponentesJogoPanel(81,9);
+                adicionaComponentesJogoPanel(81,9,9);
                 
                 setaMarcadores(10);
                 
@@ -127,7 +128,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
             case 1:
                 removeComponentesJogoPanel();
 
-                adicionaComponentesJogoPanel(256,16);
+                adicionaComponentesJogoPanel(256,16,16);
                 
                 setaMarcadores(40);
                 
@@ -138,6 +139,25 @@ public class CampoMinadoView extends javax.swing.JFrame{
                 observaEventos();
                 
                 setSize(650,650);
+                setLocationRelativeTo(null);
+                
+                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
+
+                break;
+            case 2:
+                removeComponentesJogoPanel();
+
+                adicionaComponentesJogoPanel(480,30,16);
+                
+                setaMarcadores(99);
+                
+                setaBombas(480,99);
+               
+                repintaComponentesJogoPanel();
+                
+                observaEventos();
+                
+                setSize(1150,700);
                 setLocationRelativeTo(null);
                 
                 btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
@@ -229,7 +249,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
                             
                             revelaOutrasBombas(numButton);
                             
-                            removeListeners();
+//                            removeListeners();
                         }else{
                             int qtdBombasAdjascentes = contarBombasAdjascentes(numButton);                            
                             
@@ -286,13 +306,14 @@ public class CampoMinadoView extends javax.swing.JFrame{
     
     private int contarBombasAdjascentes(int numButton){
         GridLayout grid = (GridLayout) jogoPanel.getLayout();
-        int matriz = grid.getColumns();
+        int colunas = grid.getColumns();
+        int linhas = grid.getRows();
         int num =0;
-        int[][] panel = new int[matriz][matriz];
+        int[][] panel = new int[linhas][colunas];
                      
         //constroi matriz do jogoPanel
-        for (int i=0;i<matriz;i++){
-            for (int j=0;j<matriz;j++){
+        for (int i=0;i<linhas;i++){
+            for (int j=0;j<colunas;j++){
                 panel[i][j] = num++;
             } 
         }
@@ -301,48 +322,65 @@ public class CampoMinadoView extends javax.swing.JFrame{
         boolean foiContadoBombas = false;
 
         //verifica se o botao clicado não estava em uma das laterais da matriz
-        for(int i=0;i<matriz-1;i++){
+//        for(int i=0;i<matriz-1;i++){
+        for(int i=0;i<colunas-1;i++){
+            //se estiver na primeira linha
             if (panel[0][i]==numButton){
+                //se estiver primeira linha primeira coluna
                 if (i==0){
-                    int[] posicoesAdjascentes = {numButton+1, numButton+matriz, numButton+(matriz+1)};
+                    int[] posicoesAdjascentes = {numButton+1, numButton+colunas, numButton+(colunas+1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
-                }else if (i==(matriz-1)){
-                    int[] posicoesAdjascentes = {numButton-1, numButton+matriz, numButton+(matriz-1)};
+                //se estiver primeira linha última coluna
+                }else if (i==(colunas-1)){
+                    int[] posicoesAdjascentes = {numButton-1, numButton+colunas, numButton+(colunas-1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
+                //se estiver no meio da primeira linha
                 }else {
-                    int[] posicoesAdjascentes = {numButton-1, numButton+1, numButton+matriz, numButton+(matriz+1), numButton+(matriz-1)};
+                    int[] posicoesAdjascentes = {numButton-1, numButton+1, numButton+colunas, numButton+(colunas+1), numButton+(colunas-1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
                 }
-            } else if (panel[matriz-1][i]==numButton){
+            ///se estiver na ultima linha
+            } else if (panel[linhas-1][i]==numButton){
+                //se estiver na ultima linha primeira coluna
                 if (i==0){
-                    int[] posicoesAdjascentes = {numButton+1, numButton-matriz, numButton-(matriz-1)};
+                    int[] posicoesAdjascentes = {numButton+1, numButton-colunas, numButton-(colunas-1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
-                }else if (i==(matriz-1)){
-                    int[] posicoesAdjascentes = {numButton-1, numButton-matriz, numButton-(matriz+1)};
+                //se estiver na ultima linha ultima coluna    
+                }else if (i==(colunas-1)){
+                    int[] posicoesAdjascentes = {numButton-1, numButton-colunas, numButton-(colunas+1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
+                 // se estiver no meio da ultima linha
                 }else {
-                    int[] posicoesAdjascentes = {numButton-1, numButton+1, numButton-matriz, numButton-(matriz+1), numButton-(matriz-1)};
+                    int[] posicoesAdjascentes = {numButton-1, numButton+1, numButton-colunas, numButton-(colunas+1), numButton-(colunas-1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
                 }
-            } else if (panel[i][0]==numButton){
-                int[] posicoesAdjascentes = {numButton-matriz, numButton+matriz, numButton+1, numButton+(matriz+1), numButton-(matriz-1)};
-                qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
-                foiContadoBombas = true;
-            } else if (panel[i][matriz-1]==numButton){
-                    int[] posicoesAdjascentes = {numButton-matriz, numButton+matriz, numButton-1, numButton+(matriz-1), numButton-(matriz+1)};
+                //se estiver na primeira coluna
+            }
+        }
+        
+        if (!foiContadoBombas) {
+            for(int i=0;i<linhas-1;i++){
+                if (panel[i][0]==numButton){
+                    int[] posicoesAdjascentes = {numButton-colunas, numButton+colunas, numButton+1, numButton+(colunas+1), numButton-(colunas-1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
+                    //se estiver na última coluna
+                } else if (panel[i][colunas-1]==numButton){
+                        int[] posicoesAdjascentes = {numButton-colunas, numButton+colunas, numButton-1, numButton+(colunas-1), numButton-(colunas+1)};
+                        qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                        foiContadoBombas = true;
+                }
             }
         }
                             
         if (!foiContadoBombas){
-            int[] posicoesAdjascentes = {numButton+1, numButton-1, numButton+matriz, numButton-matriz, numButton-(matriz-1), numButton-(matriz+1), numButton+(matriz-1), numButton+(matriz+1)};
+            int[] posicoesAdjascentes = {numButton+1, numButton-1, numButton+colunas, numButton-colunas, numButton-(colunas-1), numButton-(colunas+1), numButton+(colunas-1), numButton+(colunas+1)};
             qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
         }
         
@@ -517,10 +555,10 @@ public class CampoMinadoView extends javax.swing.JFrame{
         jogoPanel.revalidate();
     }
     
-    private void adicionaComponentesJogoPanel(int totalComponentes, int matriz){
+    private void adicionaComponentesJogoPanel(int totalComponentes, int colunas, int linhas){
         GridLayout grid = (GridLayout) jogoPanel.getLayout();
-        grid.setColumns(matriz);
-        grid.setRows(matriz);
+        grid.setColumns(colunas);
+        grid.setRows(linhas);
         jogoPanel.setLayout(grid);
         
         for (int j=0;j<totalComponentes;j++){
