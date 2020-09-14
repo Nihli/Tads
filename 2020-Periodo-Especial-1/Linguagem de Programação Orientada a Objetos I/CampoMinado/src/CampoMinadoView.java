@@ -50,7 +50,8 @@ public class CampoMinadoView extends javax.swing.JFrame{
 
         menuPanel = new javax.swing.JPanel();
         btnReinicia = new javax.swing.JButton();
-        qtdMarcadores = new javax.swing.JLabel();
+        qtd1Marcador = new javax.swing.JLabel();
+        qtd2Marcador = new javax.swing.JLabel();
         jogoPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,7 +70,9 @@ public class CampoMinadoView extends javax.swing.JFrame{
                 .addGap(177, 177, 177)
                 .addComponent(btnReinicia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
-                .addComponent(qtdMarcadores)
+                .addComponent(qtd1Marcador)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(qtd2Marcador)
                 .addContainerGap())
         );
         menuPanelLayout.setVerticalGroup(
@@ -77,7 +80,9 @@ public class CampoMinadoView extends javax.swing.JFrame{
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(qtdMarcadores)
+                    .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(qtd1Marcador)
+                        .addComponent(qtd2Marcador))
                     .addComponent(btnReinicia))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -119,25 +124,25 @@ public class CampoMinadoView extends javax.swing.JFrame{
                 btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
 
                 break;
-//            case 1:
-//                removeComponentesJogoPanel();
-//
-//                adicionaComponentesJogoPanel(256,16);
-//                
-//                setaMarcadores(40);
-//                
-//                setaBombas(256,40);
-//               
-//                repintaComponentesJogoPanel();
-//                
-//                observaEventos();
-//                
-//                setSize(650,650);
-//                setLocationRelativeTo(null);
-//                
-//                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
-//
-//                break;
+            case 1:
+                removeComponentesJogoPanel();
+
+                adicionaComponentesJogoPanel(256,16);
+                
+                setaMarcadores(40);
+                
+                setaBombas(256,40);
+               
+                repintaComponentesJogoPanel();
+                
+                observaEventos();
+                
+                setSize(650,650);
+                setLocationRelativeTo(null);
+                
+                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
+
+                break;
             default:
                 removeComponentesJogoPanel();
         }      
@@ -184,7 +189,8 @@ public class CampoMinadoView extends javax.swing.JFrame{
     private javax.swing.JButton btnReinicia;
     private javax.swing.JPanel jogoPanel;
     private javax.swing.JPanel menuPanel;
-    private javax.swing.JLabel qtdMarcadores;
+    private javax.swing.JLabel qtd1Marcador;
+    private javax.swing.JLabel qtd2Marcador;
     // End of variables declaration//GEN-END:variables
 
     public void observaEventos(){
@@ -261,6 +267,17 @@ public class CampoMinadoView extends javax.swing.JFrame{
             break;
         case 4:
             label.setIcon(new ImageIcon(getClass().getResource("/4labelpqn4.png")));
+            break;
+        case 5:
+            label.setIcon(new ImageIcon(getClass().getResource("/5label.png")));
+            break;
+        case 6:
+            label.setIcon(new ImageIcon(getClass().getResource("/6label.png")));
+            break;
+        case 7:
+            label.setIcon(new ImageIcon(getClass().getResource("/7label.png")));
+        case 8:
+            label.setIcon(new ImageIcon(getClass().getResource("/8label.png")));
             break;
         default:
             label.setIcon(new ImageIcon(getClass().getResource("/labelvaziopqn4.png")));
@@ -447,7 +464,46 @@ public class CampoMinadoView extends javax.swing.JFrame{
     }
     
     public void setQtdMarcadores(int qtd) {
-        qtdMarcadores.setText(String.valueOf(qtd));
+        String strQtd = String.valueOf(qtd);
+        char digito = strQtd.charAt(0);
+        String icone = selecionaImagemReferenteAoDigito(digito);
+
+        if (strQtd.length()>1){
+            qtd1Marcador.setIcon(new ImageIcon(getClass().getResource(icone)));
+            
+            char segundoDigito = strQtd.charAt(1);
+            icone = selecionaImagemReferenteAoDigito(segundoDigito);
+            qtd2Marcador.setIcon(new ImageIcon(getClass().getResource(icone)));
+        }else{
+            qtd1Marcador.setIcon(new ImageIcon(getClass().getResource("/0contador.png")));
+            qtd2Marcador.setIcon(new ImageIcon(getClass().getResource(icone)));
+        }
+        
+    }
+    
+    private String selecionaImagemReferenteAoDigito(char digito){
+        switch(digito){
+            case '1':
+                return "/1contador.png";
+            case '2':
+                return "/2contador.png";
+            case '3':
+                return "/3contador.png";
+            case '4':
+                return "/4contador.png";
+            case '5':
+                return "/5contador.png";
+            case '6':
+                return "/6contador.png";
+            case '7':
+                return "/7contador.png";
+            case '8':
+                return "/8contador.png";
+            case '9':
+                return "/9contador.png";
+            default:
+                return "/0contador.png";
+        }
     }
     
     private void removeComponentesJogoPanel(){
