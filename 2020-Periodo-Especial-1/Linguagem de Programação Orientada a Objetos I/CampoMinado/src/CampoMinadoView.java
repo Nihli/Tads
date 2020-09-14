@@ -37,7 +37,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
         setSize(400,400);
         setLocationRelativeTo(null);
         
-        btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
+        btnReinicia.setIcon(new ImageIcon(getClass().getResource("/sprites/happypqn.png")));   
     }
 
     /**
@@ -122,7 +122,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
                 setSize(450,450);
                 setSize(400,400);
                 setLocationRelativeTo(null);
-                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
+                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/sprites/happypqn.png")));   
 
                 break;
             case 1:
@@ -141,7 +141,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
                 setSize(650,650);
                 setLocationRelativeTo(null);
                 
-                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
+                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/sprites/happypqn.png")));   
 
                 break;
             case 2:
@@ -160,7 +160,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
                 setSize(1150,700);
                 setLocationRelativeTo(null);
                 
-                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/happypqn.png")));   
+                btnReinicia.setIcon(new ImageIcon(getClass().getResource("/sprites/happypqn.png")));   
 
                 break;
             default:
@@ -249,7 +249,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
                             
                             revelaOutrasBombas(numButton);
                             
-//                            removeListeners();
+                            removeListeners();
                         }else{
                             int qtdBombasAdjascentes = contarBombasAdjascentes(numButton);                            
                             
@@ -277,30 +277,30 @@ public class CampoMinadoView extends javax.swing.JFrame{
                             
     switch (qtdBombasAdjascentes) {
         case 1:
-            label.setIcon(new ImageIcon(getClass().getResource("/1labelpqn4.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/1labelpqn4.png")));
             break;
         case 2:
-            label.setIcon(new ImageIcon(getClass().getResource("/2labelpqn4.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/2labelpqn4.png")));
             break;
         case 3:
-            label.setIcon(new ImageIcon(getClass().getResource("/3labelpqn4.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/3labelpqn4.png")));
             break;
         case 4:
-            label.setIcon(new ImageIcon(getClass().getResource("/4labelpqn4.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/4labelpqn4.png")));
             break;
         case 5:
-            label.setIcon(new ImageIcon(getClass().getResource("/5label.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/5label.png")));
             break;
         case 6:
-            label.setIcon(new ImageIcon(getClass().getResource("/6label.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/6label.png")));
             break;
         case 7:
-            label.setIcon(new ImageIcon(getClass().getResource("/7label.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/7label.png")));
         case 8:
-            label.setIcon(new ImageIcon(getClass().getResource("/8label.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/8label.png")));
             break;
         default:
-            label.setIcon(new ImageIcon(getClass().getResource("/labelvaziopqn4.png")));
+            label.setIcon(new ImageIcon(getClass().getResource("/sprites/labelvaziopqn4.png")));
     }
     }
     
@@ -322,7 +322,6 @@ public class CampoMinadoView extends javax.swing.JFrame{
         boolean foiContadoBombas = false;
 
         //verifica se o botao clicado não estava em uma das laterais da matriz
-//        for(int i=0;i<matriz-1;i++){
         for(int i=0;i<colunas-1;i++){
             //se estiver na primeira linha
             if (panel[0][i]==numButton){
@@ -360,21 +359,21 @@ public class CampoMinadoView extends javax.swing.JFrame{
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
                 }
-                //se estiver na primeira coluna
             }
         }
         
         if (!foiContadoBombas) {
             for(int i=0;i<linhas-1;i++){
+                 //se estiver na primeira coluna
                 if (panel[i][0]==numButton){
                     int[] posicoesAdjascentes = {numButton-colunas, numButton+colunas, numButton+1, numButton+(colunas+1), numButton-(colunas-1)};
                     qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
                     foiContadoBombas = true;
                     //se estiver na última coluna
                 } else if (panel[i][colunas-1]==numButton){
-                        int[] posicoesAdjascentes = {numButton-colunas, numButton+colunas, numButton-1, numButton+(colunas-1), numButton-(colunas+1)};
-                        qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
-                        foiContadoBombas = true;
+                    int[] posicoesAdjascentes = {numButton-colunas, numButton+colunas, numButton-1, numButton+(colunas-1), numButton-(colunas+1)};
+                    qtdBombasAdjascentes = contaBombasAdjascentes(posicoesAdjascentes);
+                    foiContadoBombas = true;
                 }
             }
         }
@@ -464,11 +463,11 @@ public class CampoMinadoView extends javax.swing.JFrame{
     }
     
     private void revelaBombaClicada(int numButton){
-        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deadpqn.png")));
+        btnReinicia.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sprites/deadpqn.png")));
 
         Component componente = jogoPanel.getComponent(numButton);
         JLabel label = (JLabel) componente;
-        label.setIcon(new ImageIcon(getClass().getResource("/bombaexplodida.png")));
+        label.setIcon(new ImageIcon(getClass().getResource("/sprites/bombaexplodida.png")));
     }
     
     private void revelaOutrasBombas(int numButton){
@@ -484,7 +483,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
                 criaLabelReadicionaComponentes(btn, componentes);
                 componente = jogoPanel.getComponent(bombas.get(i));
                 JLabel label = (JLabel) componente;
-                label.setIcon(new ImageIcon(getClass().getResource("/bomba.png")));
+                label.setIcon(new ImageIcon(getClass().getResource("/sprites/bomba.png")));
             }
         }
     }
@@ -493,10 +492,10 @@ public class CampoMinadoView extends javax.swing.JFrame{
         //verifica se deve colocar marcador de bomba ou retirar ele
         if (icon.getDescription().contains("marcador")){
             marcador(1);
-            button.setIcon(new ImageIcon(getClass().getResource("/squarepqn3.png")));
+            button.setIcon(new ImageIcon(getClass().getResource("/sprites/squarepqn3.png")));
         }else{
             if (marcador(0)){
-                button.setIcon(new ImageIcon(getClass().getResource("/marcadorpqn.png")));
+                button.setIcon(new ImageIcon(getClass().getResource("/sprites/marcadorpqn.png")));
             }
         }
     }
@@ -513,7 +512,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
             icone = selecionaImagemReferenteAoDigito(segundoDigito);
             qtd2Marcador.setIcon(new ImageIcon(getClass().getResource(icone)));
         }else{
-            qtd1Marcador.setIcon(new ImageIcon(getClass().getResource("/0contador.png")));
+            qtd1Marcador.setIcon(new ImageIcon(getClass().getResource("/sprites/0contador.png")));
             qtd2Marcador.setIcon(new ImageIcon(getClass().getResource(icone)));
         }
         
@@ -522,25 +521,25 @@ public class CampoMinadoView extends javax.swing.JFrame{
     private String selecionaImagemReferenteAoDigito(char digito){
         switch(digito){
             case '1':
-                return "/1contador.png";
+                return "/sprites/1contador.png";
             case '2':
-                return "/2contador.png";
+                return "/sprites/2contador.png";
             case '3':
-                return "/3contador.png";
+                return "/sprites/3contador.png";
             case '4':
-                return "/4contador.png";
+                return "/sprites/4contador.png";
             case '5':
-                return "/5contador.png";
+                return "/sprites/5contador.png";
             case '6':
-                return "/6contador.png";
+                return "/sprites/6contador.png";
             case '7':
-                return "/7contador.png";
+                return "/sprites/7contador.png";
             case '8':
-                return "/8contador.png";
+                return "/sprites/8contador.png";
             case '9':
-                return "/9contador.png";
+                return "/sprites/9contador.png";
             default:
-                return "/0contador.png";
+                return "/sprites/0contador.png";
         }
     }
     
@@ -567,7 +566,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
 //            button.setActionCommand("btnCampoMinado");
 //            button.addActionListener(this);
             button.setContentAreaFilled(false);
-            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/squarepqn3.png")));
+            button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sprites/squarepqn3.png")));
 
             jogoPanel.add(button, j);
         }
