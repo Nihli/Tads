@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Lia
+ * @author Lia Alflen
  */
 public class CampoMinadoView extends javax.swing.JFrame{
 
@@ -170,6 +170,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
 
     /**
      * @param args the command line arguments
+     * @author Lia Alflen
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -446,7 +447,7 @@ public class CampoMinadoView extends javax.swing.JFrame{
     
     private void criaLabelReadicionaComponentes(JButton button, Component[] componentes){
 //        System.out.println(button.getName().substring(3));
-        System.out.println("Você clicou no botão " + button.getName());
+//        System.out.println("Você clicou no botão " + button.getName());
 //        JOptionPane.showMessageDialog(jogoPanel.getParent(), "Você clicou no botão " + button.getName(), "Informação", JOptionPane.INFORMATION_MESSAGE);
         JLabel label = new JLabel();
         
@@ -584,7 +585,6 @@ public class CampoMinadoView extends javax.swing.JFrame{
         bombas = new ArrayList();
                 
         for (int i = 0; i < qtdBombas; i++) {
-            System.out.println("g"+numeros.get(i));
             bombas.add(numeros.get(i));
         }
     }
