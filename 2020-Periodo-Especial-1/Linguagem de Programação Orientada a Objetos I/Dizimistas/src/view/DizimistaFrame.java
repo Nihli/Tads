@@ -42,6 +42,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         btnListar.addActionListener(this);
         btnExcluir.addActionListener(this);
         btnAtualizar.addActionListener(this);
+        btnDizimo.addActionListener(this);
         
         tabelaDizimista.addMouseListener(new MouseAdapter() {
             @Override
@@ -68,11 +69,6 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelBotoes = new javax.swing.JPanel();
-        btnAtualizar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnListar = new javax.swing.JButton();
-        btnCriar = new javax.swing.JButton();
         panelFormulario = new javax.swing.JPanel();
         labelNome = new javax.swing.JLabel();
         nomeText = new javax.swing.JTextField();
@@ -82,10 +78,27 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         labelEntregador = new javax.swing.JLabel();
         comboEntregador = new javax.swing.JComboBox<>();
         cpfText = new javax.swing.JTextField();
+        panelBotoes = new javax.swing.JPanel();
+        btnAtualizar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnListar = new javax.swing.JButton();
+        btnCriar = new javax.swing.JButton();
         scrollPanel = new javax.swing.JScrollPane();
         tabelaDizimista = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        btnDizimo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        labelNome.setText("Nome:");
+
+        labelEndereco.setText("Endereço:");
+
+        labelCpf.setText("CPF:");
+
+        labelEntregador.setText("Entregador do dízimo:");
+
+        comboEntregador.setModel(new DizimistaComboBoxModel(entregadorList));
 
         btnAtualizar.setText("Atualizar");
         btnAtualizar.setActionCommand("atualizarDizimista");
@@ -106,11 +119,11 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
             .addGroup(panelBotoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(78, 78, 78)
                 .addComponent(btnAtualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(76, 76, 76)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -126,16 +139,6 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        labelNome.setText("Nome:");
-
-        labelEndereco.setText("Endereço:");
-
-        labelCpf.setText("CPF:");
-
-        labelEntregador.setText("Entregador do dízimo:");
-
-        comboEntregador.setModel(new DizimistaComboBoxModel(entregadorList));
-
         javax.swing.GroupLayout panelFormularioLayout = new javax.swing.GroupLayout(panelFormulario);
         panelFormulario.setLayout(panelFormularioLayout);
         panelFormularioLayout.setHorizontalGroup(
@@ -145,7 +148,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                     .addGroup(panelFormularioLayout.createSequentialGroup()
                         .addComponent(labelEntregador)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboEntregador, 0, 302, Short.MAX_VALUE))
+                        .addComponent(comboEntregador, 0, 567, Short.MAX_VALUE))
                     .addGroup(panelFormularioLayout.createSequentialGroup()
                         .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelEndereco)
@@ -155,13 +158,16 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                         .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cpfText)
                             .addComponent(nomeText)
-                            .addComponent(enderecoText))))
+                            .addComponent(enderecoText)))
+                    .addComponent(panelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelFormularioLayout.setVerticalGroup(
             panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelFormularioLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(panelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelNome)
                     .addComponent(nomeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -192,24 +198,46 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         ));
         scrollPanel.setViewportView(tabelaDizimista);
 
+        btnDizimo.setText("Dízimo");
+        btnDizimo.setActionCommand("abrirDizimo");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(67, Short.MAX_VALUE)
+                .addComponent(btnDizimo)
+                .addGap(36, 36, 36))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnDizimo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(panelFormulario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -260,11 +288,15 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCriar;
+    private javax.swing.JButton btnDizimo;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<Dizimista> comboEntregador;
     private javax.swing.JTextField cpfText;
     private javax.swing.JTextField enderecoText;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelCpf;
     private javax.swing.JLabel labelEndereco;
     private javax.swing.JLabel labelEntregador;
@@ -314,6 +346,13 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                 atualizarDizimista();
                 
                 limparFormulario();
+                break;
+            case "abrirDizimo":
+                DizimoFrame frame = new DizimoFrame();
+                frame.setIgreja(igreja);
+                frame.setDizimista(getDizimistaFormulario());
+                frame.setVisible(true);
+                this.dispose();
                 break;
         }
     }
