@@ -10,8 +10,10 @@ import entity.Dizimista;
 import entity.Igreja;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import util.DizimistaComboBoxModel;
 import util.DizimistaTableModel;
 
@@ -24,6 +26,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     private List<Dizimista> entregadorList = new ArrayList();
     private Igreja igreja = null;
     private DizimistaTableModel dizimistaTableModel = new DizimistaTableModel();
+    private int linhaClicadoParaAtualizacao = -1;
 
     /**
      * Creates new form DizimistaFrame
@@ -38,6 +41,21 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         btnCriar.addActionListener(this);
         btnListar.addActionListener(this);
         btnExcluir.addActionListener(this);
+        btnAtualizar.addActionListener(this);
+        
+        tabelaDizimista.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                limparFormulario();
+                
+                linhaClicadoParaAtualizacao =  tabelaDizimista.rowAtPoint(evt.getPoint());
+               
+              Dizimista dizimista = dizimistaTableModel.getDizimista(linhaClicadoParaAtualizacao);
+              
+              setDizimistaNoFormulario(dizimista);
+              
+            }
+      }); 
 
     }
 
@@ -271,6 +289,8 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
 
                 atualizaComboEntregador(dizimista);
                 dizimistaTableModel.adicionaDizimista(dizimista);
+                
+                limparFormulario();
                 break;
             case "listarDizimista":
                 dizimistaTableModel.setListaDizimista(igreja.getDizimistas());
@@ -281,6 +301,19 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                 bd.removeDizimistaIgreja(dizimistas, igreja);
                 
                 dizimistaTableModel.removeDizimistas(dizimistas);
+                break;
+            case "atualizarDizimista":
+                if (linhaClicadoParaAtualizacao==-1){
+                    JOptionPane.showMessageDialog(null, "Escolha um dizimista para atualizar." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                Dizimista dizimistaAtt = getDizimistaFormulario();
+                
+                bd.atualizaDizimista(dizimistaAtt, igreja);
+                
+                atualizarDizimista();
+                
+                limparFormulario();
                 break;
         }
     }
@@ -311,6 +344,27 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         GerenciadorDados bd = GerenciadorDados.getInstance();
         int index = bd.getIgrejaList().indexOf(igreja);
         entregadorList = bd.getIgrejaList().get(index).getDizimistas();
+        comboEntregador.setModel(new DizimistaComboBoxModel(entregadorList));
+    }
+    
+    private void setDizimistaNoFormulario(Dizimista dizimista){
+        nomeText.setText(dizimista.getNome());
+        enderecoText.setText(dizimista.getEndereco());
+        cpfText.setText(dizimista.getCPF());
+        
+        int index = entregadorList.indexOf(dizimista.getEntregadorDizimo());
+        
+        comboEntregador.setSelectedIndex(index);
+    }
+    
+    private void atualizarDizimista(){
+        dizimistaTableModel.fireTableRowsUpdated(linhaClicadoParaAtualizacao, linhaClicadoParaAtualizacao);
+    }
+
+    private void limparFormulario() {
+        nomeText.setText("");
+        enderecoText.setText("");
+        cpfText.setText("");
         comboEntregador.setModel(new DizimistaComboBoxModel(entregadorList));
     }
 }

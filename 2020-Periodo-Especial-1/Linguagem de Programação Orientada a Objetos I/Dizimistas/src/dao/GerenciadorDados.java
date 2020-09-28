@@ -50,7 +50,6 @@ public class GerenciadorDados {
 
     public void removeDizimistaIgreja(List<Dizimista> dizimistas, Igreja igreja) {
         int index = igrejaList.indexOf(igreja);
-        igrejaList.get(index).getDizimistas();
 
         for (Dizimista d : dizimistas) {
             Iterator<Dizimista> iterator = igrejaList.get(index).getDizimistas().iterator();
@@ -60,6 +59,23 @@ public class GerenciadorDados {
                 }
             }
         }
+    }
+
+    public void atualizaDizimista(Dizimista dizimista, Igreja igreja) {
+        int index = igrejaList.indexOf(igreja);
+
+        for (Dizimista d :igrejaList.get(index).getDizimistas()) {
+            if (d.equals(dizimista)){
+                d.setNome(dizimista.getNome());
+                d.setEndereco(dizimista.getEndereco());
+                d.setCPF(dizimista.getCPF());
+                d.setEntregadorDizimo(dizimista.getEntregadorDizimo());
+                d.setDizimos(dizimista.getDizimos());
+                break;
+            }
+        }
+        
+        
     }
 
 
