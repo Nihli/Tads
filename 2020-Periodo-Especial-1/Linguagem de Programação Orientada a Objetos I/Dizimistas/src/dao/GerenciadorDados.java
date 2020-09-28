@@ -8,6 +8,7 @@ package dao;
 import entity.Dizimista;
 import entity.Igreja;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,32 +16,51 @@ import java.util.List;
  * @author Lia
  */
 public class GerenciadorDados {
+
     private static GerenciadorDados INSTANCE = null;
-    private GerenciadorDados() {}
+
+    private GerenciadorDados() {
+    }
+
     public static GerenciadorDados getInstance() {
-        if( INSTANCE == null ) {
-            synchronized(GerenciadorDados.class) {
-                if( INSTANCE == null ) {
+        if (INSTANCE == null) {
+            synchronized (GerenciadorDados.class) {
+                if (INSTANCE == null) {
                     INSTANCE = new GerenciadorDados();
                 }
             }
         }
         return INSTANCE;
     }
-    
+
     private List<Igreja> igrejaList = null;
-    
+
     public List<Igreja> getIgrejaList() {
-        if( igrejaList == null ) {
+        if (igrejaList == null) {
             igrejaList = new ArrayList();
         }
         return igrejaList;
     }
-    
-    public void setDizimistaIgreja(Igreja igreja, Dizimista dizimista){
+
+    public void setDizimistaIgreja(Igreja igreja, Dizimista dizimista) {
         int index = igrejaList.indexOf(igreja);
         igrejaList.get(index).getDizimistas().add(dizimista);
         System.out.println(igreja);
     }
-    
+
+    public void removeDizimistaIgreja(List<Dizimista> dizimistas, Igreja igreja) {
+        int index = igrejaList.indexOf(igreja);
+        igrejaList.get(index).getDizimistas();
+
+        for (Dizimista d : dizimistas) {
+            Iterator<Dizimista> iterator = igrejaList.get(index).getDizimistas().iterator();
+            while (iterator.hasNext()) {
+                if (iterator.next().equals(d)) {
+                    iterator.remove();
+                }
+            }
+        }
+    }
+
+
 }

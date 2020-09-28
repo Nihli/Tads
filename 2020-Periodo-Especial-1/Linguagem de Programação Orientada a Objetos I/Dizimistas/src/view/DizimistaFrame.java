@@ -19,25 +19,26 @@ import util.DizimistaTableModel;
  *
  * @author Lia
  */
-public class DizimistaFrame extends javax.swing.JFrame implements ActionListener{
+public class DizimistaFrame extends javax.swing.JFrame implements ActionListener {
 
     private List<Dizimista> entregadorList = new ArrayList();
-    private Igreja igreja=null;
-    private DizimistaTableModel dizimistaTableModel = new DizimistaTableModel(); 
-    
+    private Igreja igreja = null;
+    private DizimistaTableModel dizimistaTableModel = new DizimistaTableModel();
+
     /**
      * Creates new form DizimistaFrame
      */
     public DizimistaFrame() {
         initComponents();
-        
+
         setLocationRelativeTo(null);
-        
+
         tabelaDizimista.setModel(dizimistaTableModel);
-        
+
         btnCriar.addActionListener(this);
         btnListar.addActionListener(this);
-        
+        btnExcluir.addActionListener(this);
+
     }
 
     /**
@@ -260,40 +261,56 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        
-        switch(cmd){
+        GerenciadorDados bd = GerenciadorDados.getInstance();
+
+        switch (cmd) {
             case "criarDizimista":
                 Dizimista dizimista = getDizimistaFormulario();
-                System.out.println(dizimista.getNome());
-                
-                GerenciadorDados bd = GerenciadorDados.getInstance();
+
                 bd.setDizimistaIgreja(igreja, dizimista);
-                
-//                igreja.getDizimistas().add(dizimista);
+
                 atualizaComboEntregador(dizimista);
                 dizimistaTableModel.adicionaDizimista(dizimista);
                 break;
-            case "listarDizimista":                
+            case "listarDizimista":
                 dizimistaTableModel.setListaDizimista(igreja.getDizimistas());
+                break;
+            case "excluirDizimista":
+                List<Dizimista> dizimistas = getDizimistasParaExcluir();
+                
+                bd.removeDizimistaIgreja(dizimistas, igreja);
+                
+                dizimistaTableModel.removeDizimistas(dizimistas);
                 break;
         }
     }
-    
-    public Dizimista getDizimistaFormulario() {
-//      String matricula = formularioClienteView.getNomeCampo().getText();
-      String nome = nomeText.getText();
-      String endereco = enderecoText.getText();
-      String cpf = cpfText.getText();
-      Dizimista entregador = (Dizimista)comboEntregador.getSelectedItem();
-      
-      return new Dizimista(nome, endereco, cpf, entregador);
+
+    private List<Dizimista> getDizimistasParaExcluir() {
+        int[] linhasSelecionadas = this.tabelaDizimista.getSelectedRows();
+        List<Dizimista> listaExcluir = new ArrayList();
+
+        for (int i = 0; i < linhasSelecionadas.length; i++) {
+            Dizimista dizimista = dizimistaTableModel.getDizimista(linhasSelecionadas[i]);
+            listaExcluir.add(dizimista);
+        }
+
+        return listaExcluir;
     }
-    
-    private void atualizaComboEntregador(Dizimista dizimista){
+
+    private Dizimista getDizimistaFormulario() {
+//      String matricula = formularioClienteView.getNomeCampo().getText();
+        String nome = nomeText.getText();
+        String endereco = enderecoText.getText();
+        String cpf = cpfText.getText();
+        Dizimista entregador = (Dizimista) comboEntregador.getSelectedItem();
+
+        return new Dizimista(nome, endereco, cpf, entregador);
+    }
+
+    private void atualizaComboEntregador(Dizimista dizimista) {
         GerenciadorDados bd = GerenciadorDados.getInstance();
         int index = bd.getIgrejaList().indexOf(igreja);
         entregadorList = bd.getIgrejaList().get(index).getDizimistas();
         comboEntregador.setModel(new DizimistaComboBoxModel(entregadorList));
-
     }
 }

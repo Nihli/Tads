@@ -118,7 +118,7 @@ public class DizimistaTableModel extends AbstractTableModel{
         return lista.get(linha);
     }
 
-    void removeDizimistas(List<Dizimista> listaParaExcluir) {
+    public void removeDizimistas(List<Dizimista> listaParaExcluir) {
         listaParaExcluir.forEach((cliente) -> {
             removeDizimista(cliente);
         });
