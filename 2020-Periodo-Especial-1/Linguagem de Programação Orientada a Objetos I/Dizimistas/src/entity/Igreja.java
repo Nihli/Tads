@@ -27,7 +27,13 @@ public class Igreja {
         return nome;
     }
 
-    
+    public List<Dizimista> getDizimistas() {
+        return dizimistas;
+    }
+
+    public void setDizimistas(List<Dizimista> dizimistas) {
+        this.dizimistas = dizimistas;
+    }
     
     @Override
     public String toString() {

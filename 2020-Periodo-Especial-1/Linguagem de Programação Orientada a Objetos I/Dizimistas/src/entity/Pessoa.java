@@ -14,6 +14,12 @@ public class Pessoa {
     private String endereco;
     private String CPF;
 
+    public Pessoa(String nome, String endereco, String CPF) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.CPF = CPF;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -37,6 +43,5 @@ public class Pessoa {
     public void setCPF(String CPF) {
         this.CPF = CPF;
     }
-    
     
 }

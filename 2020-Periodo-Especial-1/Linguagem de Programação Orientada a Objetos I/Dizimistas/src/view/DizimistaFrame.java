@@ -5,8 +5,11 @@
  */
 package view;
 
+import dao.GerenciadorDados;
 import entity.Dizimista;
 import entity.Igreja;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import util.DizimistaComboBoxModel;
@@ -16,7 +19,7 @@ import util.DizimistaTableModel;
  *
  * @author Lia
  */
-public class DizimistaFrame extends javax.swing.JFrame {
+public class DizimistaFrame extends javax.swing.JFrame implements ActionListener{
 
     private List<Dizimista> entregadorList = new ArrayList();
     private Igreja igreja=null;
@@ -31,6 +34,10 @@ public class DizimistaFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         tabelaDizimista.setModel(dizimistaTableModel);
+        
+        btnCriar.addActionListener(this);
+        btnListar.addActionListener(this);
+        
     }
 
     /**
@@ -62,12 +69,16 @@ public class DizimistaFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnAtualizar.setText("Atualizar");
+        btnAtualizar.setActionCommand("atualizarDizimista");
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setActionCommand("excluirDizimista");
 
         btnListar.setText("Listar");
+        btnListar.setActionCommand("listarDizimista");
 
         btnCriar.setText("Criar");
+        btnCriar.setActionCommand("criarDizimista");
 
         javax.swing.GroupLayout panelBotoesLayout = new javax.swing.GroupLayout(panelBotoes);
         panelBotoes.setLayout(panelBotoesLayout);
@@ -245,4 +256,44 @@ public class DizimistaFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JTable tabelaDizimista;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String cmd = e.getActionCommand();
+        
+        switch(cmd){
+            case "criarDizimista":
+                Dizimista dizimista = getDizimistaFormulario();
+                System.out.println(dizimista.getNome());
+                
+                GerenciadorDados bd = GerenciadorDados.getInstance();
+                bd.setDizimistaIgreja(igreja, dizimista);
+                
+//                igreja.getDizimistas().add(dizimista);
+                atualizaComboEntregador(dizimista);
+                dizimistaTableModel.adicionaDizimista(dizimista);
+                break;
+            case "listarDizimista":                
+                dizimistaTableModel.setListaDizimista(igreja.getDizimistas());
+                break;
+        }
+    }
+    
+    public Dizimista getDizimistaFormulario() {
+//      String matricula = formularioClienteView.getNomeCampo().getText();
+      String nome = nomeText.getText();
+      String endereco = enderecoText.getText();
+      String cpf = cpfText.getText();
+      Dizimista entregador = (Dizimista)comboEntregador.getSelectedItem();
+      
+      return new Dizimista(nome, endereco, cpf, entregador);
+    }
+    
+    private void atualizaComboEntregador(Dizimista dizimista){
+        GerenciadorDados bd = GerenciadorDados.getInstance();
+        int index = bd.getIgrejaList().indexOf(igreja);
+        entregadorList = bd.getIgrejaList().get(index).getDizimistas();
+        comboEntregador.setModel(new DizimistaComboBoxModel(entregadorList));
+
+    }
 }

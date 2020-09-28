@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entity.Dizimista;
 import entity.Igreja;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +27,7 @@ public class GerenciadorDados {
         }
         return INSTANCE;
     }
-    //
-    //
+    
     private List<Igreja> igrejaList = null;
     
     public List<Igreja> getIgrejaList() {
@@ -36,4 +36,11 @@ public class GerenciadorDados {
         }
         return igrejaList;
     }
+    
+    public void setDizimistaIgreja(Igreja igreja, Dizimista dizimista){
+        int index = igrejaList.indexOf(igreja);
+        igrejaList.get(index).getDizimistas().add(dizimista);
+        System.out.println(igreja);
+    }
+    
 }

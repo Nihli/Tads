@@ -85,21 +85,25 @@
         <Component class="javax.swing.JButton" name="btnAtualizar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Atualizar"/>
+            <Property name="actionCommand" type="java.lang.String" value="atualizarDizimista"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluir">
           <Properties>
             <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="actionCommand" type="java.lang.String" value="excluirDizimista"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnListar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Listar"/>
+            <Property name="actionCommand" type="java.lang.String" value="listarDizimista"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCriar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Criar"/>
+            <Property name="actionCommand" type="java.lang.String" value="criarDizimista"/>
           </Properties>
         </Component>
       </SubComponents>

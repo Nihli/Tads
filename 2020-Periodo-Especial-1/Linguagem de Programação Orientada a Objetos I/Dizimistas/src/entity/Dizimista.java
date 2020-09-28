@@ -17,9 +17,14 @@ public class Dizimista extends Pessoa{
     List<Dizimo> dizimos;
     List<Igreja> igrejas;
 
+    public Dizimista(String nome, String endereco, String cpf, Dizimista entregadorDizimo) {
+        super(nome, endereco, cpf);
+        this.entregadorDizimo = entregadorDizimo;
+    }
+    
     @Override
     public String toString() {
-        return entregadorDizimo.getNome();
+        return super.getNome();
     }
 
     public int getMatricula() {
