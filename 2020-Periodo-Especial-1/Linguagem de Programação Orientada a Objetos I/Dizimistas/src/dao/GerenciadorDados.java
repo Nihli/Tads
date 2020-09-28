@@ -5,7 +5,7 @@
  */
 package dao;
 
-import dizimistas.entity.Igreja;
+import entity.Igreja;
 import java.util.ArrayList;
 import java.util.List;
 

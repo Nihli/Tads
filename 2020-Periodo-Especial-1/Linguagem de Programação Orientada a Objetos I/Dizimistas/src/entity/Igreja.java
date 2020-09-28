@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dizimistas.entity;
+package entity;
 
+import entity.Dizimista;
 import java.util.List;
 
 /**

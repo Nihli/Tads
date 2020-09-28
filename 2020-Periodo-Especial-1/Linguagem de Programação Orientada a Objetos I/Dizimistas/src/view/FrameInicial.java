@@ -6,7 +6,7 @@
 package view;
 
 import dao.GerenciadorDados;
-import dizimistas.entity.Igreja;
+import entity.Igreja;
 import java.util.List;
 import javax.swing.JOptionPane;
 import util.IgrejaComboBoxModel;

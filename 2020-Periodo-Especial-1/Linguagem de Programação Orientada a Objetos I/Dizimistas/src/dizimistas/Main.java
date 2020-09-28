@@ -6,7 +6,7 @@
 package dizimistas;
 
 import dao.GerenciadorDados;
-import dizimistas.entity.Igreja;
+import entity.Igreja;
 import java.util.ArrayList;
 import view.FrameInicial;
 

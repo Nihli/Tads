@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dizimistas.entity;
-
-import java.util.List;
+package entity;
 
 /**
  *
  * @author Lia
  */
-public class Dizimista extends Pessoa{
-    private int matricula;
-    private Dizimista entregadorDizimo;
-    List<Dizimo> dizimos;
-    List<Igreja> igrejas;
+public class Dizimo {
+   private int id;
+   private double valor;
+   private double valorMinimo;
+   private String mes;
+   private String ano;
 }

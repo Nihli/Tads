@@ -5,7 +5,7 @@
  */
 package util;
 
-import entity.Igreja;
+import entity.Dizimista;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.event.ListDataListener;
@@ -14,18 +14,18 @@ import javax.swing.event.ListDataListener;
  *
  * @author Lia
  */
-public class IgrejaComboBoxModel implements ComboBoxModel<Igreja> {
-    private List<Igreja> lista;
-    private Igreja selecionado;
+public class DizimistaComboBoxModel implements ComboBoxModel<Dizimista> {
+    private List<Dizimista> lista;
+    private Dizimista selecionado;
 
-    public IgrejaComboBoxModel(List<Igreja> lista) {
+    public DizimistaComboBoxModel(List<Dizimista> lista) {
         this.lista = lista;
     }
 
     @Override
     public void setSelectedItem(Object anItem) {
-        if( anItem instanceof Igreja ) {
-            selecionado = (Igreja)anItem;
+        if( anItem instanceof Dizimista ) {
+            selecionado = (Dizimista)anItem;
         }
     }
 
@@ -40,7 +40,7 @@ public class IgrejaComboBoxModel implements ComboBoxModel<Igreja> {
     }
 
     @Override
-    public Igreja getElementAt(int index) {
+    public Dizimista getElementAt(int index) {
         return lista.get(index);
     }
 
