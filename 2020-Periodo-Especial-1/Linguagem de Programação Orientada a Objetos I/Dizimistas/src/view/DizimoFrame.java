@@ -21,30 +21,29 @@ import util.DizimoTableModel;
  *
  * @author Lia
  */
-public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
+public class DizimoFrame extends javax.swing.JFrame implements ActionListener {
 
     private Igreja igreja;
     private Dizimista dizimista;
     private DizimoTableModel dizimoTableModel = new DizimoTableModel();
-    
+
     /**
      * Creates new form DizimoFrame
      */
     public DizimoFrame(Igreja igreja, Dizimista dizimista) {
         this.igreja = igreja;
-        this.dizimista=dizimista;
-        
+        this.dizimista = dizimista;
+
 //        dizimistaText.setText(this.dizimista.getNome());
-        
         GerenciadorDados bd = GerenciadorDados.getInstance();
         dizimoTableModel.setListaDizimo(bd.getDizimos(igreja, dizimista));
-        
+
         initComponents();
-        
+
         setLocationRelativeTo(null);
-        
+
         tabelaDizimo.setModel(dizimoTableModel);
-        
+
         btnCriar.addActionListener(this);
 //        btnListar.addActionListener(this);
         btnExcluir.addActionListener(this);
@@ -290,33 +289,36 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
 //    void setDizimista(Dizimista dizimistaFormulario) {
 //        this.dizimista=dizimistaFormulario;
 //    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        
+
         GerenciadorDados bd = GerenciadorDados.getInstance();
-        
-        switch(cmd){
+
+        switch (cmd) {
             case "criarDizimo":
-                Dizimo dizimo = getDizimoFormulario();
-                
-                if (dizimo==null){
-                    JOptionPane.showMessageDialog(null, "Valor pago deve ser maior do que o valor mínimo a ser pago." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
-                }else{
-                
-                boolean inserido = bd.setDizimoNoDizimista(igreja, dizimista, dizimo);
-                
-                if (!inserido){
-                    JOptionPane.showMessageDialog(null, "Já existe um dízimo referente a esse mês e ano." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
-                
-                IODadosXML.salvar("./dados.xml", bd);
-                            
-                dizimoTableModel.atualizaTable();
-                
-                limparFormulario();
+                try {
+                    Dizimo dizimo = getDizimoFormulario();
+
+                    if (dizimo == null) {
+                        JOptionPane.showMessageDialog(null, "Valor pago deve ser maior do que o valor mínimo a ser pago." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
+
+                        boolean inserido = bd.setDizimoNoDizimista(igreja, dizimista, dizimo);
+
+                        if (!inserido) {
+                            JOptionPane.showMessageDialog(null, "Já existe um dízimo referente a esse mês e ano." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        IODadosXML.salvar("./dados.xml", bd);
+
+                        dizimoTableModel.atualizaTable();
+
+                        limparFormulario();
+                    }
 //                dizimoTableModel.adicionaDizimo(dizimo);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage() + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
 //            case "listarDizimo":
@@ -325,7 +327,7 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
 //                break;
             case "excluirDizimo":
                 List<Dizimo> listaParaExcluir = getDizimosParaExcluir();
-                
+
                 bd.removeDizimo(igreja, dizimista, listaParaExcluir);
                 IODadosXML.salvar("./dados.xml", bd);
 
@@ -340,18 +342,22 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
     }
 
     private Dizimo getDizimoFormulario() {
-         double valor = Double.parseDouble(valorText.getText().replace(",", "."));
-         double valorMin = Double.parseDouble(valorMinText.getText().replace(",", "."));
-         String mes = (String)comboMes.getSelectedItem();
-         String ano = anoText.getText();
-         
-         if (valor<valorMin){
-             return null;
-         }
-         
-         return new Dizimo(valor, valorMin, mes, ano);
+        try {
+            double valor = Double.parseDouble(valorText.getText().replace(",", "."));
+            double valorMin = Double.parseDouble(valorMinText.getText().replace(",", "."));
+            String mes = (String) comboMes.getSelectedItem();
+            String ano = anoText.getText();
+
+            if (valor < valorMin) {
+                return null;
+            }
+
+            return new Dizimo(valor, valorMin, mes, ano);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Entre apenas com valores numéricos no campo valor e valor mínimo.");
+        }
     }
-    
+
     private List<Dizimo> getDizimosParaExcluir() {
         int[] linhasSelecionadas = this.tabelaDizimo.getSelectedRows();
         List<Dizimo> listaExcluir = new ArrayList();
@@ -363,7 +369,7 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
 
         return listaExcluir;
     }
-    
+
     private void limparFormulario() {
         valorText.setText("");
         valorMinText.setText("");

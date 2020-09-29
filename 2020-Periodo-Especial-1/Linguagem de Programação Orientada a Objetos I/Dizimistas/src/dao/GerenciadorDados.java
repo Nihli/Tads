@@ -43,10 +43,15 @@ public class GerenciadorDados {
         return igrejaList;
     }
 
-    public void setDizimistaIgreja(Igreja igreja, Dizimista dizimista) {
+    public boolean setDizimistaIgreja(Igreja igreja, Dizimista dizimista) {
         int index = igrejaList.indexOf(igreja);
+        
+        if (igrejaList.get(index).getDizimistas().contains(dizimista)){
+            return false;
+        }
+        
         igrejaList.get(index).getDizimistas().add(dizimista);
-        System.out.println(igreja);
+        return true;
     }
 
     public void removeDizimistaIgreja(List<Dizimista> dizimistas, Igreja igreja) {

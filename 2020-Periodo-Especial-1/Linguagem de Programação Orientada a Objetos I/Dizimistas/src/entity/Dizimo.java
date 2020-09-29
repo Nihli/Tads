@@ -12,7 +12,6 @@ import java.util.Objects;
  * @author Lia
  */
 public class Dizimo {
-   private int id;
    private double valor;
    private double valorMinimo;
    private String mes;
@@ -23,14 +22,6 @@ public class Dizimo {
         this.valorMinimo = valorMinimo;
         this.mes = mes;
         this.ano = ano;
-    }
-   
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public double getValor() {

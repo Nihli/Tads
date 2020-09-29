@@ -28,19 +28,21 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     private Igreja igreja = null;
     private DizimistaTableModel dizimistaTableModel = new DizimistaTableModel();
     private int linhaClicadoParaAtualizacao = -1;
+    private Dizimista dizimistaSelecionadoParaAtualizacao;
+
 
     /**
      * Creates new form DizimistaFrame
      */
     public DizimistaFrame(Igreja igreja) {
         this.igreja = igreja;
-        
+
         dizimistaTableModel.setListaDizimista(igreja.getDizimistas());
-        
+
         GerenciadorDados bd = GerenciadorDados.getInstance();
         int index = bd.getIgrejaList().indexOf(igreja);
         entregadorList = bd.getIgrejaList().get(index).getDizimistas();
-        
+
         initComponents();
 
         setLocationRelativeTo(null);
@@ -63,6 +65,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
 
                 Dizimista dizimista = dizimistaTableModel.getDizimista(linhaClicadoParaAtualizacao);
 
+                dizimistaSelecionadoParaAtualizacao = dizimista;
                 setDizimistaNoFormulario(dizimista);
             }
         });
@@ -272,7 +275,6 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
 //            }
 //        });
 //    }
-
 //    public void setIgreja(Igreja igreja) {
 //        this.igreja = igreja;
 //        
@@ -311,16 +313,27 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
 
         switch (cmd) {
             case "criarDizimista":
-                Dizimista dizimista = getDizimistaFormulario();
+                try {
+                    Dizimista dizimista = getDizimistaFormulario();
 
-                bd.setDizimistaIgreja(igreja, dizimista);
-                IODadosXML.salvar("./dados.xml", bd);
+                    boolean inserido = bd.setDizimistaIgreja(igreja, dizimista);
 
-                atualizaComboEntregador(dizimista);
-//                dizimistaTableModel.adicionaDizimista(dizimista);
-                dizimistaTableModel.atualizaTable();
+                    if (!inserido) {
+                        JOptionPane.showMessageDialog(null, "Já existe um dizimista com esse CPF cadastrado." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                    } else {
 
-                limparFormulario();
+                        IODadosXML.salvar("./dados.xml", bd);
+
+                        atualizaComboEntregador(dizimista);
+                        //                dizimistaTableModel.adicionaDizimista(dizimista);
+                        dizimistaTableModel.atualizaTable();
+
+                        limparFormulario();
+
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage() + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
 //            case "listarDizimista":
 //                dizimistaTableModel.setListaDizimista(igreja.getDizimistas());
@@ -332,7 +345,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                 IODadosXML.salvar("./dados.xml", bd);
 
                 dizimistaTableModel.removeDizimistas(dizimistas);
-                
+
                 limparFormulario();
 
                 break;
@@ -355,7 +368,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                 if (linhaClicadoParaAtualizacao == -1) {
                     JOptionPane.showMessageDialog(null, "Escolha um dizimista para acessar o dízimo." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    DizimoFrame frame = new DizimoFrame(igreja, getDizimistaFormulario());
+                    DizimoFrame frame = new DizimoFrame(igreja, dizimistaSelecionadoParaAtualizacao);
                     frame.setVisible(true);
                     this.dispose();
                 }
@@ -381,11 +394,18 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     }
 
     private Dizimista getDizimistaFormulario() {
-//      String matricula = formularioClienteView.getNomeCampo().getText();
         String nome = nomeText.getText();
         String endereco = enderecoText.getText();
         String cpf = cpfText.getText();
         Dizimista entregador = (Dizimista) comboEntregador.getSelectedItem();
+
+        if (nome.isEmpty()||endereco.isEmpty()){
+            throw new RuntimeException("Nome e endereço devem ser preenchidos antes de criar o dizimista.");
+        }
+        
+        if (cpf.length() != 11) {
+            throw new RuntimeException("CPF deve possuir 11 caracteres, somente numéricos.");
+        }
 
         return new Dizimista(nome, endereco, cpf, entregador);
     }

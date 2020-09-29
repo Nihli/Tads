@@ -13,7 +13,6 @@ import java.util.List;
  * @author Lia
  */
 public class Dizimista extends Pessoa{
-    private int matricula;
     private Dizimista entregadorDizimo;
     List<Dizimo> dizimos;
     List<Igreja> igrejas;
@@ -26,14 +25,6 @@ public class Dizimista extends Pessoa{
     @Override
     public String toString() {
         return super.getNome();
-    }
-
-    public int getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
     }
 
     public Dizimista getEntregadorDizimo() {

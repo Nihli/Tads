@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Lia
  */
 public class DizimistaTableModel extends AbstractTableModel{
- private String[] colunas=new String[]{"Matricula","Nome", "Endereço", "CPF","Entregador"};
+ private String[] colunas=new String[]{"Nome", "Endereço", "CPF","Entregador"};
 
     private List<Dizimista> lista=new ArrayList();
 
@@ -54,11 +54,10 @@ public class DizimistaTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         Dizimista dizimista = lista.get(rowIndex);
         switch (columnIndex) {
-            case 0: return dizimista.getMatricula();//if column 0 (code)
-            case 1: return dizimista.getNome();//if column 1 (name)
-            case 2: return dizimista.getEndereco();//if column 2 (birthday)
-            case 3: return dizimista.getCPF();
-            case 4: return dizimista.getEntregadorDizimo();
+            case 0: return dizimista.getNome();//if column 0 (code)
+            case 1: return dizimista.getEndereco();//if column 1 (name)
+            case 2: return dizimista.getCPF();//if column 2 (birthday)
+            case 3: return dizimista.getEntregadorDizimo();
             default : return null;
         }
     }
@@ -68,18 +67,15 @@ public class DizimistaTableModel extends AbstractTableModel{
         Dizimista dizimista = lista.get(row);
         switch (col) {
             case 0:
-                dizimista.setMatricula((int) value); //if column 0 (code)
+                dizimista.setNome((String) value); //if column 0 (code)
                 break;
             case 1:
-                dizimista.setNome((String) value);
-                break;
-            case 2:
                 dizimista.setEndereco((String) value);
                 break;
-            case 3:
+            case 2:
                 dizimista.setCPF((String) value);
                 break;
-            case 4:
+            case 3:
                 dizimista.setEntregadorDizimo((Dizimista) value);
                 break;
             default:
