@@ -77,12 +77,17 @@ public class GerenciadorDados {
         }
     }
 
-    public void setDizimoNoDizimista(Igreja igreja, Dizimista dizimista, Dizimo dizimo) {
+    public boolean setDizimoNoDizimista(Igreja igreja, Dizimista dizimista, Dizimo dizimo) {
         int indexIgreja = igrejaList.indexOf(igreja);
         
         int indexDizimista = igrejaList.get(indexIgreja).getDizimistas().indexOf(dizimista);
         
+        if (igrejaList.get(indexIgreja).getDizimistas().get(indexDizimista).getDizimos().contains(dizimo)){
+            return false;
+        }
+        
         igrejaList.get(indexIgreja).getDizimistas().get(indexDizimista).getDizimos().add(dizimo);
+        return true;
         
     }
 

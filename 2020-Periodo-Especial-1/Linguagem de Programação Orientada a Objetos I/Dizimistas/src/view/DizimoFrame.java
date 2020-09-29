@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import util.DizimoTableModel;
 
 /**
@@ -47,6 +48,7 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
         btnCriar.addActionListener(this);
 //        btnListar.addActionListener(this);
         btnExcluir.addActionListener(this);
+        btnVoltar.addActionListener(this);
     }
 
     /**
@@ -75,6 +77,7 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
         anoText = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         dizimistaText = new javax.swing.JTextField();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,9 +149,9 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
                     .addComponent(valorMinText)
                     .addGroup(panelFormularioLayout.createSequentialGroup()
                         .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(labelAno)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(112, 112, 112)
                         .addComponent(anoText, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -169,7 +172,7 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
                     .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelAno)
                     .addComponent(anoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -178,6 +181,9 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
         dizimistaText.setEditable(false);
         dizimistaText.setText(this.dizimista.getNome());
 
+        btnVoltar.setText("< Voltar");
+        btnVoltar.setActionCommand("voltar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,16 +191,19 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(panelFormulario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(41, 41, 41)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(dizimistaText, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dizimistaText, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,8 +216,11 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(panelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(panelFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(btnVoltar)
+                .addContainerGap())
         );
 
         pack();
@@ -253,10 +265,12 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
     private javax.swing.JTextField anoText;
     private javax.swing.JButton btnCriar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JTextField dizimistaText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelAno;
@@ -287,11 +301,23 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
             case "criarDizimo":
                 Dizimo dizimo = getDizimoFormulario();
                 
-                bd.setDizimoNoDizimista(igreja, dizimista, dizimo);
+                if (dizimo==null){
+                    JOptionPane.showMessageDialog(null, "Valor pago deve ser maior do que o valor mínimo a ser pago." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                }else{
+                
+                boolean inserido = bd.setDizimoNoDizimista(igreja, dizimista, dizimo);
+                
+                if (!inserido){
+                    JOptionPane.showMessageDialog(null, "Já existe um dízimo referente a esse mês e ano." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+                
                 IODadosXML.salvar("./dados.xml", bd);
                             
                 dizimoTableModel.atualizaTable();
+                
+                limparFormulario();
 //                dizimoTableModel.adicionaDizimo(dizimo);
+                }
                 break;
 //            case "listarDizimo":
 //                List<Dizimo> lista = bd.getDizimos(igreja, dizimista);
@@ -306,6 +332,10 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
                 dizimoTableModel.removeDizimo(listaParaExcluir);
 
                 break;
+            case "voltar":
+                DizimistaFrame frame = new DizimistaFrame(igreja);
+                frame.setVisible(true);
+                this.dispose();
         }
     }
 
@@ -314,6 +344,10 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
          double valorMin = Double.parseDouble(valorMinText.getText().replace(",", "."));
          String mes = (String)comboMes.getSelectedItem();
          String ano = anoText.getText();
+         
+         if (valor<valorMin){
+             return null;
+         }
          
          return new Dizimo(valor, valorMin, mes, ano);
     }
@@ -328,5 +362,11 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
         }
 
         return listaExcluir;
+    }
+    
+    private void limparFormulario() {
+        valorText.setText("");
+        valorMinText.setText("");
+        comboMes.setSelectedIndex(0);
     }
 }

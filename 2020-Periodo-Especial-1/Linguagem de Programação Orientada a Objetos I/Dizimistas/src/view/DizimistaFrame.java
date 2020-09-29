@@ -52,6 +52,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         btnExcluir.addActionListener(this);
         btnAtualizar.addActionListener(this);
         btnDizimo.addActionListener(this);
+        btnVoltar.addActionListener(this);
 
         tabelaDizimista.addMouseListener(new MouseAdapter() {
             @Override
@@ -93,6 +94,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         btnExcluir = new javax.swing.JButton();
         btnCriar = new javax.swing.JButton();
         btnDizimo = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -201,6 +203,9 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnVoltar.setText("< Voltar");
+        btnVoltar.setActionCommand("voltar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,16 +217,22 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                     .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(panelBotoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnVoltar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,6 +289,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     private javax.swing.JButton btnCriar;
     private javax.swing.JButton btnDizimo;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<Dizimista> comboEntregador;
     private javax.swing.JTextField cpfText;
     private javax.swing.JTextField enderecoText;
@@ -347,6 +359,11 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                     frame.setVisible(true);
                     this.dispose();
                 }
+                break;
+            case "voltar":
+                FrameInicial frame = new FrameInicial();
+                frame.setVisible(true);
+                this.dispose();
                 break;
         }
     }
