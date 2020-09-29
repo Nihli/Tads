@@ -34,7 +34,6 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener {
         this.igreja = igreja;
         this.dizimista = dizimista;
 
-//        dizimistaText.setText(this.dizimista.getNome());
         GerenciadorDados bd = GerenciadorDados.getInstance();
         dizimoTableModel.setListaDizimo(bd.getDizimos(igreja, dizimista));
 
@@ -225,40 +224,6 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(DizimoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(DizimoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(DizimoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(DizimoFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new DizimoFrame().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField anoText;
@@ -282,13 +247,6 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JTextField valorText;
     // End of variables declaration//GEN-END:variables
 
-//    void setIgreja(Igreja igreja) {
-//        this.igreja = igreja;
-//    }
-//
-//    void setDizimista(Dizimista dizimistaFormulario) {
-//        this.dizimista=dizimistaFormulario;
-//    }
     @Override
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
@@ -316,15 +274,10 @@ public class DizimoFrame extends javax.swing.JFrame implements ActionListener {
 
                         limparFormulario();
                     }
-//                dizimoTableModel.adicionaDizimo(dizimo);
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage() + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
-//            case "listarDizimo":
-//                List<Dizimo> lista = bd.getDizimos(igreja, dizimista);
-//                dizimoTableModel.setListaDizimo(lista);
-//                break;
             case "excluirDizimo":
                 List<Dizimo> listaParaExcluir = getDizimosParaExcluir();
 

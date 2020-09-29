@@ -94,12 +94,6 @@ public class DizimistaTableModel extends AbstractTableModel{
         this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
     }
 
-    public void adicionaDizimista(Dizimista dizimista) {
-        this.lista.add(dizimista);
-        //this.fireTableDataChanged();
-        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
-    }
-
     public void setListaDizimista(List<Dizimista> dizimistas) {
         this.lista = dizimistas;
         this.fireTableDataChanged();
@@ -119,8 +113,8 @@ public class DizimistaTableModel extends AbstractTableModel{
     }
 
     public void removeDizimistas(List<Dizimista> listaParaExcluir) {
-        listaParaExcluir.forEach((cliente) -> {
-            removeDizimista(cliente);
+        listaParaExcluir.forEach((dizimista) -> {
+            removeDizimista(dizimista);
         });
     }
 }

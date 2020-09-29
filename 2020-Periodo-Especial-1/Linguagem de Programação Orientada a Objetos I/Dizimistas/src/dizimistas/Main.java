@@ -8,17 +8,17 @@ package dizimistas;
 import dao.GerenciadorDados;
 import dao.IODadosXML;
 import entity.Igreja;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import view.FrameInicial;
 
 /**
  *
- * @author Lia
+ * @author Lia Alflen
  */
 public class Main {
 
     /**
+     * @author Lia Alflen
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -27,15 +27,11 @@ public class Main {
             IODadosXML.carregar("./dados.xml", bd);
         } catch (Exception e) {
             criaIgrejas();
-            
+
             IODadosXML.salvar("./dados.xml", bd);
         }
-        
-        for (Igreja i : bd.getIgrejaList()) {
-                System.out.println(i);
-            }
 
-            FrameInicial view = new FrameInicial();
+        FrameInicial view = new FrameInicial();
 
         view.show();
     }

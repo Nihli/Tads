@@ -23,7 +23,6 @@ public class DizimoTableModel extends AbstractTableModel{
        return lista;
     }
 
-    
     public DizimoTableModel(List<Dizimo> lista){
         this.lista=lista;
     }
@@ -49,9 +48,6 @@ public class DizimoTableModel extends AbstractTableModel{
     @Override
     public boolean isCellEditable(int row, int column) {
         return false;
-        //if(column==0)
-        //    return false;
-        //return true;
     }
 
     @Override
@@ -95,12 +91,6 @@ public class DizimoTableModel extends AbstractTableModel{
     }
     
     public void atualizaTable(){
-        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
-    }
-
-    public void adicionaDizimo(Dizimo dizimo) {
-        this.lista.add(dizimo);
-        //this.fireTableDataChanged();
         this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
     }
 

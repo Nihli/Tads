@@ -241,50 +241,6 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(DizimistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(DizimistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(DizimistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(DizimistaFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new DizimistaFrame().setVisible(true);
-//            }
-//        });
-//    }
-//    public void setIgreja(Igreja igreja) {
-//        this.igreja = igreja;
-//        
-//        dizimistaTableModel.setListaDizimista(igreja.getDizimistas());
-//        
-//        GerenciadorDados bd = GerenciadorDados.getInstance();
-//        int index = bd.getIgrejaList().indexOf(igreja);
-//        entregadorList = bd.getIgrejaList().get(index).getDizimistas();
-//
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
@@ -325,7 +281,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                         IODadosXML.salvar("./dados.xml", bd);
 
                         atualizaComboEntregador(dizimista);
-                        //                dizimistaTableModel.adicionaDizimista(dizimista);
+
                         dizimistaTableModel.atualizaTable();
 
                         limparFormulario();
@@ -335,19 +291,20 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                     JOptionPane.showMessageDialog(null, ex.getMessage() + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
                 break;
-//            case "listarDizimista":
-//                dizimistaTableModel.setListaDizimista(igreja.getDizimistas());
-//                break;
             case "excluirDizimista":
                 List<Dizimista> dizimistas = getDizimistasParaExcluir();
 
-                bd.removeDizimistaIgreja(dizimistas, igreja);
-                IODadosXML.salvar("./dados.xml", bd);
+                if (dizimistas == null) {
+                    JOptionPane.showMessageDialog(null, "Escolha um dizimista para remover." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else {
+                
+                    bd.removeDizimistaIgreja(dizimistas, igreja);
+                    IODadosXML.salvar("./dados.xml", bd);
 
-                dizimistaTableModel.removeDizimistas(dizimistas);
+                    dizimistaTableModel.removeDizimistas(dizimistas);
 
-                limparFormulario();
-
+                    limparFormulario();
+                }
                 break;
             case "atualizarDizimista":
                 if (linhaClicadoParaAtualizacao == -1) {
@@ -362,7 +319,6 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
 
                     limparFormulario();
                 }
-
                 break;
             case "abrirDizimo":
                 if (linhaClicadoParaAtualizacao == -1) {
@@ -384,6 +340,10 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
     private List<Dizimista> getDizimistasParaExcluir() {
         int[] linhasSelecionadas = this.tabelaDizimista.getSelectedRows();
         List<Dizimista> listaExcluir = new ArrayList();
+        
+        if (linhasSelecionadas.length==0){
+            return null;
+        }
 
         for (int i = 0; i < linhasSelecionadas.length; i++) {
             Dizimista dizimista = dizimistaTableModel.getDizimista(linhasSelecionadas[i]);

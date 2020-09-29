@@ -44,11 +44,25 @@ public class GerenciadorDados {
     }
 
     public boolean setDizimistaIgreja(Igreja igreja, Dizimista dizimista) {
+        List<Igreja> igrejas = new ArrayList();
+        
+//        for (Igreja i: igrejaList){
+//            if (i.getDizimistas().contains(dizimista)){
+//                if (i.equals(igreja)){     
+//                    return false;
+//                }else{
+//                   igrejas.add(i);
+////                   int indexDiz = i.getDizimistas().indexOf(dizimista);
+////                   i.getDizimistas().get(indexDiz).getIgrejas().add(igreja);
+//                }
+//            }
+//        }
+//        
         int index = igrejaList.indexOf(igreja);
         
-        if (igrejaList.get(index).getDizimistas().contains(dizimista)){
-            return false;
-        }
+        igrejas.add(igreja);
+        
+        dizimista.setIgrejas(igrejas);
         
         igrejaList.get(index).getDizimistas().add(dizimista);
         return true;
@@ -57,13 +71,31 @@ public class GerenciadorDados {
     public void removeDizimistaIgreja(List<Dizimista> dizimistas, Igreja igreja) {
         int index = igrejaList.indexOf(igreja);
 
-        for (Dizimista d : dizimistas) {
+        for (Dizimista dizimistaExcluir : dizimistas) {
             Iterator<Dizimista> iterator = igrejaList.get(index).getDizimistas().iterator();
             while (iterator.hasNext()) {
-                if (iterator.next().equals(d)) {
+                if (iterator.next().equals(dizimistaExcluir)) {
+                    dizimistaExcluir.setDizimos(null);
                     iterator.remove();
                 }
             }
+            
+            for(Dizimista dizimistaListagem : igrejaList.get(index).getDizimistas()){
+                if (dizimistaListagem.getEntregadorDizimo()!=null&&dizimistaListagem.getEntregadorDizimo().equals(dizimistaExcluir)){
+                    dizimistaListagem.setEntregadorDizimo(null);
+                }
+            }
+         
+//            if (dizimistaExcluir.getIgrejas().size()>1){
+//                for (Igreja i: igrejaList){
+//                    if (i.getDizimistas().contains(dizimistaExcluir)){
+//                   
+//                   int indexDiz = i.getDizimistas().indexOf(dizimistaExcluir);
+//                   int indexIgr = i.getDizimistas().get(indexDiz).getIgrejas().indexOf(igreja);
+//                   i.getDizimistas().get(indexDiz).getIgrejas().remove(indexIgr);
+//                    }
+//                }
+//            }
         }
     }
 
