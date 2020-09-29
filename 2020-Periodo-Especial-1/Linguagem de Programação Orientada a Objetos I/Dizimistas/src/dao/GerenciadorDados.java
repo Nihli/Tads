@@ -83,6 +83,31 @@ public class GerenciadorDados {
         int indexDizimista = igrejaList.get(indexIgreja).getDizimistas().indexOf(dizimista);
         
         igrejaList.get(indexIgreja).getDizimistas().get(indexDizimista).getDizimos().add(dizimo);
+        
+    }
+
+    public void removeDizimo(Igreja igreja, Dizimista dizimista, List<Dizimo> listaParaExcluir) {
+        int indexIgreja = igrejaList.indexOf(igreja);
+        
+        int indexDizimista = igrejaList.get(indexIgreja).getDizimistas().indexOf(dizimista);
+        
+        for (Dizimo d : listaParaExcluir) {
+            Iterator<Dizimo> iterator = igrejaList.get(indexIgreja).getDizimistas().get(indexDizimista).getDizimos().iterator();
+            while (iterator.hasNext()) {
+                if (iterator.next().equals(d)) {
+                    iterator.remove();
+                }
+            }
+        }
+        
+    }
+
+    public List<Dizimo> getDizimos(Igreja igreja, Dizimista dizimista) {
+        int indexIgreja = igrejaList.indexOf(igreja);
+        
+        int indexDizimista = igrejaList.get(indexIgreja).getDizimistas().indexOf(dizimista);
+        
+        return igrejaList.get(indexIgreja).getDizimistas().get(indexDizimista).getDizimos();
     }
 
 

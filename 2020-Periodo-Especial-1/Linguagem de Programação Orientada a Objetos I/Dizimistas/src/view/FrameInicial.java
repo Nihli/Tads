@@ -138,8 +138,8 @@ public class FrameInicial extends javax.swing.JFrame {
 
             for (Igreja i : bd.getIgrejaList()) {
                 if (i.getNome().equals(nome)) {
-                    DizimistaFrame frame = new DizimistaFrame();
-                    frame.setIgreja(item);
+                    DizimistaFrame frame = new DizimistaFrame(item);
+//                    frame.setIgreja(item);
                     frame.setVisible(true);
                     this.dispose();
                     break;

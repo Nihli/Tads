@@ -93,6 +93,10 @@ public class DizimistaTableModel extends AbstractTableModel{
         this.fireTableRowsDeleted(linha,linha);//update JTable
         return result;
     }
+    
+    public void atualizaTable(){
+        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
+    }
 
     public void adicionaDizimista(Dizimista dizimista) {
         this.lista.add(dizimista);

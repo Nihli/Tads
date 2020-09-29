@@ -18,6 +18,10 @@ public class DizimoTableModel extends AbstractTableModel{
  private String[] colunas=new String[]{"Valor mínimo","Valor", "Mês", "Ano"};
 
     private List<Dizimo> lista=new ArrayList();
+    
+    public List<Dizimo> getLista(){
+       return lista;
+    }
 
     
     public DizimoTableModel(List<Dizimo> lista){
@@ -88,6 +92,10 @@ public class DizimoTableModel extends AbstractTableModel{
         boolean result = this.lista.remove(dizimo);
         this.fireTableRowsDeleted(linha,linha);//update JTable
         return result;
+    }
+    
+    public void atualizaTable(){
+        this.fireTableRowsInserted(lista.size()-1,lista.size()-1);//update JTable
     }
 
     public void adicionaDizimo(Dizimo dizimo) {
