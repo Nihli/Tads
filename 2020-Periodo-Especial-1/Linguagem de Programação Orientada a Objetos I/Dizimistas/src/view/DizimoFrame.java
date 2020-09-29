@@ -5,17 +5,23 @@
  */
 package view;
 
+import dao.GerenciadorDados;
 import entity.Dizimista;
+import entity.Dizimo;
 import entity.Igreja;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import util.DizimoTableModel;
 
 /**
  *
  * @author Lia
  */
-public class DizimoFrame extends javax.swing.JFrame {
+public class DizimoFrame extends javax.swing.JFrame implements ActionListener{
 
     private Igreja igreja;
     private Dizimista dizimista;
+    private DizimoTableModel dizimoTableModel = new DizimoTableModel();
     
     /**
      * Creates new form DizimoFrame
@@ -24,6 +30,10 @@ public class DizimoFrame extends javax.swing.JFrame {
         initComponents();
         
         setLocationRelativeTo(null);
+        
+        tabelaDizimo.setModel(dizimoTableModel);
+        
+        btnCriar.addActionListener(this);
     }
 
     /**
@@ -39,22 +49,23 @@ public class DizimoFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnListar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaCliente = new javax.swing.JTable();
+        tabelaDizimo = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
         btnCriar = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        panelFormulario = new javax.swing.JPanel();
+        labelValor = new javax.swing.JLabel();
+        valorText = new javax.swing.JTextField();
+        labelValorMin = new javax.swing.JLabel();
+        valorMinText = new javax.swing.JTextField();
+        labelMes = new javax.swing.JLabel();
+        comboMes = new javax.swing.JComboBox<>();
+        labelAno = new javax.swing.JLabel();
+        anoText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnListar.setText("Listar");
+        btnListar.setActionCommand("listarDizimo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,7 +84,7 @@ public class DizimoFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaDizimo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -84,64 +95,66 @@ public class DizimoFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tabelaCliente);
+        jScrollPane2.setViewportView(tabelaDizimo);
 
         btnExcluir.setText("Excluir");
+        btnExcluir.setActionCommand("excluirDizimo");
 
         btnCriar.setText("Criar");
+        btnCriar.setActionCommand("criarDizimo");
 
-        jLabel1.setText("Valor:");
+        labelValor.setText("Valor:");
 
-        jLabel2.setText("Valor mínimo:");
+        labelValorMin.setText("Valor mínimo:");
 
-        jLabel3.setText("Mês:");
+        labelMes.setText("Mês:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        comboMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
-        jLabel4.setText("Ano:");
+        labelAno.setText("Ano:");
 
-        jTextField3.setEditable(false);
-        jTextField3.setText("2020");
+        anoText.setEditable(false);
+        anoText.setText("2020");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelFormularioLayout = new javax.swing.GroupLayout(panelFormulario);
+        panelFormulario.setLayout(panelFormularioLayout);
+        panelFormularioLayout.setHorizontalGroup(
+            panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormularioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelValorMin)
+                    .addComponent(labelValor)
+                    .addComponent(labelMes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(valorText)
+                    .addComponent(valorMinText)
+                    .addGroup(panelFormularioLayout.createSequentialGroup()
+                        .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
+                        .addComponent(labelAno)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(anoText, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelFormularioLayout.setVerticalGroup(
+            panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFormularioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelValor)
+                    .addComponent(valorText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelValorMin)
+                    .addComponent(valorMinText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelMes)
+                    .addComponent(comboMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAno)
+                    .addComponent(anoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -155,7 +168,7 @@ public class DizimoFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,7 +188,7 @@ public class DizimoFrame extends javax.swing.JFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnCriar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -218,22 +231,22 @@ public class DizimoFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField anoText;
     private javax.swing.JButton btnCriar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnListar;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> comboMes;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTable tabelaCliente;
+    private javax.swing.JLabel labelAno;
+    private javax.swing.JLabel labelMes;
+    private javax.swing.JLabel labelValor;
+    private javax.swing.JLabel labelValorMin;
+    private javax.swing.JPanel panelFormulario;
+    private javax.swing.JTable tabelaDizimo;
+    private javax.swing.JTextField valorMinText;
+    private javax.swing.JTextField valorText;
     // End of variables declaration//GEN-END:variables
 
     void setIgreja(Igreja igreja) {
@@ -241,6 +254,36 @@ public class DizimoFrame extends javax.swing.JFrame {
     }
 
     void setDizimista(Dizimista dizimistaFormulario) {
-        this.dizimista=dizimista;
+        System.out.println(dizimistaFormulario);
+        this.dizimista=dizimistaFormulario;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String cmd = e.getActionCommand();
+        
+        GerenciadorDados bd = GerenciadorDados.getInstance();
+        
+        switch(cmd){
+            case "criarDizimo":
+                Dizimo dizimo = getDizimoFormulario();
+                
+                bd.setDizimoNoDizimista(igreja, dizimista, dizimo);
+                
+                dizimoTableModel.adicionaDizimo(dizimo);
+                break;
+            case "listarDizimo":
+                dizimoTableModel.setListaDizimo(dizimista.getDizimos());
+                break;
+        }
+    }
+
+    private Dizimo getDizimoFormulario() {
+         double valor = Double.parseDouble(valorText.getText().replace(",", "."));
+         double valorMin = Double.parseDouble(valorMinText.getText().replace(",", "."));
+         String mes = (String)comboMes.getSelectedItem();
+         String ano = anoText.getText();
+         
+         return new Dizimo(valor, valorMin, mes, ano);
     }
 }

@@ -43,20 +43,20 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         btnExcluir.addActionListener(this);
         btnAtualizar.addActionListener(this);
         btnDizimo.addActionListener(this);
-        
+
         tabelaDizimista.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 limparFormulario();
-                
-                linhaClicadoParaAtualizacao =  tabelaDizimista.rowAtPoint(evt.getPoint());
-               
-              Dizimista dizimista = dizimistaTableModel.getDizimista(linhaClicadoParaAtualizacao);
-              
-              setDizimistaNoFormulario(dizimista);
-              
+
+                linhaClicadoParaAtualizacao = tabelaDizimista.rowAtPoint(evt.getPoint());
+
+                Dizimista dizimista = dizimistaTableModel.getDizimista(linhaClicadoParaAtualizacao);
+
+                setDizimistaNoFormulario(dizimista);
+
             }
-      }); 
+        });
 
     }
 
@@ -321,7 +321,7 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
 
                 atualizaComboEntregador(dizimista);
                 dizimistaTableModel.adicionaDizimista(dizimista);
-                
+
                 limparFormulario();
                 break;
             case "listarDizimista":
@@ -329,30 +329,35 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
                 break;
             case "excluirDizimista":
                 List<Dizimista> dizimistas = getDizimistasParaExcluir();
-                
+
                 bd.removeDizimistaIgreja(dizimistas, igreja);
-                
+
                 dizimistaTableModel.removeDizimistas(dizimistas);
                 break;
             case "atualizarDizimista":
-                if (linhaClicadoParaAtualizacao==-1){
+                if (linhaClicadoParaAtualizacao == -1) {
                     JOptionPane.showMessageDialog(null, "Escolha um dizimista para atualizar." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Dizimista dizimistaAtt = getDizimistaFormulario();
+
+                    bd.atualizaDizimista(dizimistaAtt, igreja);
+
+                    atualizarDizimista();
+
+                    limparFormulario();
                 }
-                
-                Dizimista dizimistaAtt = getDizimistaFormulario();
-                
-                bd.atualizaDizimista(dizimistaAtt, igreja);
-                
-                atualizarDizimista();
-                
-                limparFormulario();
+
                 break;
             case "abrirDizimo":
-                DizimoFrame frame = new DizimoFrame();
-                frame.setIgreja(igreja);
-                frame.setDizimista(getDizimistaFormulario());
-                frame.setVisible(true);
-                this.dispose();
+                if (linhaClicadoParaAtualizacao == -1) {
+                    JOptionPane.showMessageDialog(null, "Escolha um dizimista para acessar o dízimo." + "\n", "Erro", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    DizimoFrame frame = new DizimoFrame();
+                    frame.setIgreja(igreja);
+                    frame.setDizimista(getDizimistaFormulario());
+                    frame.setVisible(true);
+                    this.dispose();
+                }
                 break;
         }
     }
@@ -385,18 +390,18 @@ public class DizimistaFrame extends javax.swing.JFrame implements ActionListener
         entregadorList = bd.getIgrejaList().get(index).getDizimistas();
         comboEntregador.setModel(new DizimistaComboBoxModel(entregadorList));
     }
-    
-    private void setDizimistaNoFormulario(Dizimista dizimista){
+
+    private void setDizimistaNoFormulario(Dizimista dizimista) {
         nomeText.setText(dizimista.getNome());
         enderecoText.setText(dizimista.getEndereco());
         cpfText.setText(dizimista.getCPF());
-        
+
         int index = entregadorList.indexOf(dizimista.getEntregadorDizimo());
-        
+
         comboEntregador.setSelectedIndex(index);
     }
-    
-    private void atualizarDizimista(){
+
+    private void atualizarDizimista() {
         dizimistaTableModel.fireTableRowsUpdated(linhaClicadoParaAtualizacao, linhaClicadoParaAtualizacao);
     }
 

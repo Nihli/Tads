@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,6 +45,10 @@ public class Dizimista extends Pessoa{
     }
 
     public List<Dizimo> getDizimos() {
+        if (dizimos==null) {
+            dizimos = new ArrayList();
+        }
+        
         return dizimos;
     }
 

@@ -6,6 +6,7 @@
 package dao;
 
 import entity.Dizimista;
+import entity.Dizimo;
 import entity.Igreja;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -74,8 +75,14 @@ public class GerenciadorDados {
                 break;
             }
         }
+    }
+
+    public void setDizimoNoDizimista(Igreja igreja, Dizimista dizimista, Dizimo dizimo) {
+        int indexIgreja = igrejaList.indexOf(igreja);
         
+        int indexDizimista = igrejaList.get(indexIgreja).getDizimistas().indexOf(dizimista);
         
+        igrejaList.get(indexIgreja).getDizimistas().get(indexDizimista).getDizimos().add(dizimo);
     }
 
 
